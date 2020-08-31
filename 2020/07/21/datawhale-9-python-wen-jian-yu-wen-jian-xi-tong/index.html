@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.whocareslearning.org.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true,"onmobile":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="[TOC] 练习题： 1、打开中文字符的文档时，会出现乱码，Python自带的打开文件是否可以指定文字编码？还是只能用相关函数？ f &#x3D; open(‘将进酒.txt’, ‘r+’, encoding&#x3D;’UTF-8’) 2、编写程序查找最长的单词 输入文档: res&#x2F;test.txt 题目说明: 123456789101112&quot;&quot;&quot;   Input file   test.txt   Output">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python-9-文件与文件系统">
+<meta property="og:url" content="https://www.whocareslearning.org.cn/2020/07/21/datawhale-9-python-wen-jian-yu-wen-jian-xi-tong/index.html">
+<meta property="og:site_name" content="codemk">
+<meta property="og:description" content="[TOC] 练习题： 1、打开中文字符的文档时，会出现乱码，Python自带的打开文件是否可以指定文字编码？还是只能用相关函数？ f &#x3D; open(‘将进酒.txt’, ‘r+’, encoding&#x3D;’UTF-8’) 2、编写程序查找最长的单词 输入文档: res&#x2F;test.txt 题目说明: 123456789101112&quot;&quot;&quot;   Input file   test.txt   Output">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-07-21T02:02:17.000Z">
+<meta property="article:modified_time" content="2020-08-31T15:55:21.973Z">
+<meta property="article:author" content="zhouzhm">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.whocareslearning.org.cn/2020/07/21/datawhale-9-python-wen-jian-yu-wen-jian-xi-tong/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>python-9-文件与文件系统 | codemk</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">codemk</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">学习笔记，人生感悟</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+
+  <a href="https://github.com/sarizzm" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.whocareslearning.org.cn/2020/07/21/datawhale-9-python-wen-jian-yu-wen-jian-xi-tong/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ava1.png">
+      <meta itemprop="name" content="zhouzhm">
+      <meta itemprop="description" content="吾生也有涯，知也无涯">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="codemk">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          python-9-文件与文件系统
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-21 10:02:17" itemprop="dateCreated datePublished" datetime="2020-07-21T10:02:17+08:00">2020-07-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-31 23:55:21" itemprop="dateModified" datetime="2020-08-31T23:55:21+08:00">2020-08-31</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/07/21/datawhale-9-python-wen-jian-yu-wen-jian-xi-tong/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/07/21/datawhale-9-python-wen-jian-yu-wen-jian-xi-tong/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>13k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>12 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <a id="more"></a>
+<p>[TOC]</p>
+<p><strong>练习题</strong>：</p>
+<p>1、打开中文字符的文档时，会出现乱码，Python自带的打开文件是否可以指定文字编码？还是只能用相关函数？</p>
+<p>f = open(‘将进酒.txt’, ‘r+’, encoding=’UTF-8’)</p>
+<p>2、编写程序查找最长的单词</p>
+<p>输入文档: res/test.txt</p>
+<p>题目说明:</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">   </span></span><br><span class="line"><span class="string">Input file</span></span><br><span class="line"><span class="string">   test.txt</span></span><br><span class="line"><span class="string">   </span></span><br><span class="line"><span class="string">Output file</span></span><br><span class="line"><span class="string">   ['general-purpose,', 'object-oriented,']</span></span><br><span class="line"><span class="string">   </span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">longest_word</span><span class="params">(filename)</span>:</span></span><br><span class="line">    <span class="comment"># your code here</span></span><br><span class="line">        <span class="keyword">pass</span></span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">   </span></span><br><span class="line"><span class="string">Input file</span></span><br><span class="line"><span class="string">   test.txt</span></span><br><span class="line"><span class="string">   </span></span><br><span class="line"><span class="string">Output file</span></span><br><span class="line"><span class="string">   ['general-purpose,', 'object-oriented,']</span></span><br><span class="line"><span class="string">   </span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="keyword">import</span> os,collections</span><br><span class="line">path = <span class="string">r'./test.txt'</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">longest_word</span><span class="params">(filename)</span>:</span></span><br><span class="line">    <span class="comment"># your code here</span></span><br><span class="line">    f = open(filename, mode=<span class="string">'r'</span>)</span><br><span class="line">    wordlist = []</span><br><span class="line">    maxlength = <span class="number">0</span></span><br><span class="line">    ret = []</span><br><span class="line">    lines = f.readlines()</span><br><span class="line">    <span class="comment"># 对每行利用split空格分割单词，strip去除标点符号，获得一个wordlist</span></span><br><span class="line">    <span class="keyword">for</span> each <span class="keyword">in</span> lines:</span><br><span class="line">        line = each.strip().strip(<span class="string">'\n'</span>)</span><br><span class="line">        line = line.split(<span class="string">' '</span>)</span><br><span class="line">        <span class="keyword">for</span> index, item <span class="keyword">in</span> enumerate(line):</span><br><span class="line">            item = item.strip(<span class="string">'.'</span>).strip(<span class="string">'?'</span>).strip(<span class="string">'\''</span>).strip(<span class="string">','</span>).strip(<span class="string">'('</span>).strip(<span class="string">')'</span>)</span><br><span class="line">            line[index] = item</span><br><span class="line">        <span class="comment"># print(line)</span></span><br><span class="line">        wordlist.extend(line)</span><br><span class="line">    <span class="comment"># 在wordlist中找最长的单词</span></span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> wordlist:</span><br><span class="line">        <span class="keyword">if</span> len(item)&lt; maxlength:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        <span class="keyword">elif</span> len(item) == maxlength:</span><br><span class="line">            ret.append(item)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            maxlength = len(item)</span><br><span class="line">            ret = []</span><br><span class="line">            ret.append(item)</span><br><span class="line">    <span class="keyword">return</span> ret</span><br><span class="line">print(longest_word(path))    </span><br><span class="line"><span class="comment"># ['general-purpose', 'object-oriented']</span></span><br></pre></td></tr></tbody></table></figure>
+<pre><code>['小马的程序人生', '老马的程序人生']
+</code></pre><h1 id="1-文件与文件系统"><a href="#1-文件与文件系统" class="headerlink" title="1. 文件与文件系统"></a>1. 文件与文件系统</h1><h2 id="打开文件"><a href="#打开文件" class="headerlink" title="打开文件"></a>打开文件</h2><ul>
+<li><code>open(file, mode='r', buffering=None, encoding=None, errors=None, newline=None, closefd=True)</code> Open file and return a stream.  Raise OSError upon failure.<ul>
+<li><code>file</code>: 必需，文件路径（相对或者绝对路径）。</li>
+<li><code>mode</code>: 可选，文件打开模式</li>
+<li><code>buffering</code>: 设置缓冲</li>
+<li><code>encoding</code>: 一般使用utf8</li>
+<li><code>errors</code>: 报错级别</li>
+<li><code>newline</code>: 区分换行符</li>
+</ul>
+</li>
+</ul>
+<p>常见的<code>mode</code>如下表所示：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">打开模式</th>
+<th>执行操作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">‘r’</td>
+<td>以只读方式打开文件。文件的指针将会放在文件的开头。这是默认模式。</td>
+</tr>
+<tr>
+<td style="text-align:center">‘w’</td>
+<td>打开一个文件只用于写入。<br>如果该文件已存在则打开文件，并从开头开始编辑。<br>即原有内容会被删除。<br>如果该文件不存在，创建新文件。</td>
+</tr>
+<tr>
+<td style="text-align:center">‘x’</td>
+<td>写模式，新建一个文件，如果该文件已存在则会报错。</td>
+</tr>
+<tr>
+<td style="text-align:center">‘a’</td>
+<td>追加模式，打开一个文件用于追加。<br>如果该文件已存在，文件指针将会放在文件的结尾。<br>也就是说，新的内容将会被写入到已有内容之后。<br>如果该文件不存在，创建新文件进行写入。</td>
+</tr>
+<tr>
+<td style="text-align:center">‘b’</td>
+<td>以二进制模式打开文件。一般用于非文本文件，如：图片。</td>
+</tr>
+<tr>
+<td style="text-align:center">‘t’</td>
+<td>以文本模式打开（默认）。一般用于文本文件，如：txt。</td>
+</tr>
+<tr>
+<td style="text-align:center">‘+’</td>
+<td>可读写模式（可添加到其它模式中使用）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>【例】打开一个文件，并返回文件对象，如果该文件无法被打开，会抛出<code>OSError</code>。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">f = open(<span class="string">'将进酒.txt'</span>, encoding=<span class="string">'UTF-8'</span>)</span><br><span class="line">print(f)</span><br><span class="line"><span class="comment"># &lt;_io.TextIOWrapper name='将进酒.txt' mode='r' encoding='cp936'&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> each <span class="keyword">in</span> f:</span><br><span class="line">    print(each)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 君不见，黄河之水天上来，奔流到海不复回。</span></span><br><span class="line"><span class="comment"># 君不见，高堂明镜悲白发，朝如青丝暮成雪。</span></span><br><span class="line"><span class="comment"># 人生得意须尽欢，莫使金樽空对月。</span></span><br><span class="line"><span class="comment"># 天生我材必有用，千金散尽还复来。</span></span><br><span class="line"><span class="comment"># 烹羊宰牛且为乐，会须一饮三百杯。</span></span><br><span class="line"><span class="comment"># 岑夫子，丹丘生，将进酒，杯莫停。</span></span><br><span class="line"><span class="comment"># 与君歌一曲，请君为我倾耳听。</span></span><br><span class="line"><span class="comment"># 钟鼓馔玉不足贵，但愿长醉不复醒。</span></span><br><span class="line"><span class="comment"># 古来圣贤皆寂寞，惟有饮者留其名。</span></span><br><span class="line"><span class="comment"># 陈王昔时宴平乐，斗酒十千恣欢谑。</span></span><br><span class="line"><span class="comment"># 主人何为言少钱，径须沽取对君酌。</span></span><br><span class="line"><span class="comment"># 五花马，千金裘，呼儿将出换美酒，与尔同销万古愁。</span></span><br></pre></td></tr></tbody></table></figure>
+<pre><code>&lt;_io.TextIOWrapper name='将进酒.txt' mode='r' encoding='UTF-8'&gt;
+君不见，黄河之水天上来，奔流到海不复回。
+
+君不见，高堂明镜悲白发，朝如青丝暮成雪。
+
+人生得意须尽欢，莫使金樽空对月。
+
+天生我材必有用，千金散尽还复来。
+
+烹羊宰牛且为乐，会须一饮三百杯。
+
+岑夫子，丹丘生，将进酒，杯莫停。
+
+与君歌一曲，请君为我倾耳听。
+
+钟鼓馔玉不足贵，但愿长醉不复醒。
+
+古来圣贤皆寂寞，惟有饮者留其名。
+
+陈王昔时宴平乐，斗酒十千恣欢谑。
+
+主人何为言少钱，径须沽取对君酌。
+
+五花马，千金裘，呼儿将出换美酒，与尔同销万古愁。
+</code></pre><h2 id="文件对象方法"><a href="#文件对象方法" class="headerlink" title="文件对象方法"></a>文件对象方法</h2><ul>
+<li><code>fileObject.close()</code> 用于关闭一个已打开的文件。关闭后的文件不能再进行读写操作， 否则会触发<code>ValueError</code>错误。</li>
+</ul>
+<p>【例】</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">f = open(<span class="string">"将进酒.txt"</span>)</span><br><span class="line">print(<span class="string">'FileName:'</span>, f.name)  <span class="comment"># FileName: 将进酒.txt</span></span><br><span class="line">f.close()</span><br></pre></td></tr></tbody></table></figure>
+<pre><code>FileName: 将进酒.txt
+</code></pre><ul>
+<li><code>fileObject.read([size])</code> 用于从文件读取指定的<u>字符数</u>，如果未给定或为负则读取所有。</li>
+</ul>
+<p>【例】</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">f = open(<span class="string">'将进酒.txt'</span>, <span class="string">'r'</span>, encoding=<span class="string">'UTF-8'</span>)</span><br><span class="line">line = f.read(<span class="number">20</span>)</span><br><span class="line">print(<span class="string">"读取的字符串: %s"</span> % line)</span><br><span class="line"><span class="comment"># 读取的字符串: 君不见，黄河之水天上来，奔流到海不复回。</span></span><br><span class="line"></span><br><span class="line">f.close()</span><br></pre></td></tr></tbody></table></figure>
+<pre><code>读取的字符串: 君不见，黄河之水天上来，奔流到海不复回。
+</code></pre><ul>
+<li><code>fileObject.readline()</code>读取整行，包括 “\n” 字符。</li>
+</ul>
+<p>【例】</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">f = open(<span class="string">'将进酒.txt'</span>, <span class="string">'r'</span>, encoding=<span class="string">'UTF-8'</span>)</span><br><span class="line">line = f.readline()</span><br><span class="line">print(<span class="string">"读取的字符串: %s"</span> % line)</span><br><span class="line"><span class="comment"># 读取的字符串: 君不见，黄河之水天上来，奔流到海不复回。</span></span><br><span class="line">f.close()</span><br></pre></td></tr></tbody></table></figure>
+<pre><code>读取的字符串: 君不见，黄河之水天上来，奔流到海不复回。
+</code></pre><p>​    </p>
+<ul>
+<li><code>fileObject.readlines()</code>用于读取所有行(直到结束符 EOF)并返回列表，该列表可以由 Python 的 <code>for... in ...</code> 结构进行处理。</li>
+</ul>
+<p>【例】</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">f = open(<span class="string">'将进酒.txt'</span>, <span class="string">'r'</span>, encoding=<span class="string">'UTF-8'</span>)</span><br><span class="line">lines = f.readlines()</span><br><span class="line">print(lines)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> each <span class="keyword">in</span> lines:</span><br><span class="line">    each.strip()</span><br><span class="line">    print(each)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 君不见，黄河之水天上来，奔流到海不复回。</span></span><br><span class="line"><span class="comment"># 君不见，高堂明镜悲白发，朝如青丝暮成雪。</span></span><br><span class="line"><span class="comment"># 人生得意须尽欢，莫使金樽空对月。</span></span><br><span class="line"><span class="comment"># 天生我材必有用，千金散尽还复来。</span></span><br><span class="line"><span class="comment"># 烹羊宰牛且为乐，会须一饮三百杯。</span></span><br><span class="line"><span class="comment"># 岑夫子，丹丘生，将进酒，杯莫停。</span></span><br><span class="line"><span class="comment"># 与君歌一曲，请君为我倾耳听。</span></span><br><span class="line"><span class="comment"># 钟鼓馔玉不足贵，但愿长醉不复醒。</span></span><br><span class="line"><span class="comment"># 古来圣贤皆寂寞，惟有饮者留其名。</span></span><br><span class="line"><span class="comment"># 陈王昔时宴平乐，斗酒十千恣欢谑。</span></span><br><span class="line"><span class="comment"># 主人何为言少钱，径须沽取对君酌。</span></span><br><span class="line"><span class="comment"># 五花马，千金裘，呼儿将出换美酒，与尔同销万古愁。</span></span><br><span class="line"></span><br><span class="line">f.close()</span><br></pre></td></tr></tbody></table></figure>
+<pre><code>['君不见，黄河之水天上来，奔流到海不复回。\n', '君不见，高堂明镜悲白发，朝如青丝暮成雪。\n', '人生得意须尽欢，莫使金樽空对月。\n', '天生我材必有用，千金散尽还复来。\n', '烹羊宰牛且为乐，会须一饮三百杯。\n', '岑夫子，丹丘生，将进酒，杯莫停。\n', '与君歌一曲，请君为我倾耳听。\n', '钟鼓馔玉不足贵，但愿长醉不复醒。\n', '古来圣贤皆寂寞，惟有饮者留其名。\n', '陈王昔时宴平乐，斗酒十千恣欢谑。\n', '主人何为言少钱，径须沽取对君酌。\n', '五花马，千金裘，呼儿将出换美酒，与尔同销万古愁。']
+君不见，黄河之水天上来，奔流到海不复回。
+
+君不见，高堂明镜悲白发，朝如青丝暮成雪。
+
+人生得意须尽欢，莫使金樽空对月。
+
+天生我材必有用，千金散尽还复来。
+
+烹羊宰牛且为乐，会须一饮三百杯。
+
+岑夫子，丹丘生，将进酒，杯莫停。
+
+与君歌一曲，请君为我倾耳听。
+
+钟鼓馔玉不足贵，但愿长醉不复醒。
+
+古来圣贤皆寂寞，惟有饮者留其名。
+
+陈王昔时宴平乐，斗酒十千恣欢谑。
+
+主人何为言少钱，径须沽取对君酌。
+
+五花马，千金裘，呼儿将出换美酒，与尔同销万古愁。
+</code></pre><ul>
+<li><code>fileObject.tell()</code>返回文件的当前位置，即文件指针当前位置。</li>
+</ul>
+<p>【例】</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">f = open(<span class="string">'将进酒.txt'</span>, <span class="string">'r'</span>, encoding=<span class="string">'UTF-8'</span>)</span><br><span class="line">line = f.readline()</span><br><span class="line">print(line)</span><br><span class="line"><span class="comment"># 君不见，黄河之水天上来，奔流到海不复回。</span></span><br><span class="line">pos = f.tell()</span><br><span class="line">print(pos)  <span class="comment"># 42</span></span><br><span class="line">f.close()</span><br></pre></td></tr></tbody></table></figure>
+<pre><code>君不见，黄河之水天上来，奔流到海不复回。
+
+62
+</code></pre><ul>
+<li><code>fileObject.seek(offset[, whence])</code>用于移动文件读取指针到指定位置。<ul>
+<li><code>offset</code>：开始的偏移量，也就是代表需要移动偏移的字节数，如果是负数表示从倒数第几位开始。</li>
+<li><code>whence</code>：可选，默认值为 0。给 <code>offset</code> 定义一个参数，表示要从哪个位置开始偏移；0 代表从文件开头开始算起，1 代表从当前位置开始算起，2 代表从文件末尾算起。</li>
+</ul>
+</li>
+</ul>
+<p>【例】</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">f = open(<span class="string">'将进酒.txt'</span>, <span class="string">'r'</span>, encoding=<span class="string">'UTF-8'</span>)</span><br><span class="line">line = f.readline()</span><br><span class="line">print(line)</span><br><span class="line"><span class="comment"># 君不见，黄河之水天上来，奔流到海不复回。</span></span><br><span class="line">line = f.readline()</span><br><span class="line">print(line)</span><br><span class="line"><span class="comment"># 君不见，高堂明镜悲白发，朝如青丝暮成雪。</span></span><br><span class="line">f.seek(<span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">line = f.readline()</span><br><span class="line">print(line)</span><br><span class="line"><span class="comment"># 君不见，黄河之水天上来，奔流到海不复回。</span></span><br><span class="line">f.close()</span><br></pre></td></tr></tbody></table></figure>
+<pre><code>君不见，黄河之水天上来，奔流到海不复回。
+
+君不见，高堂明镜悲白发，朝如青丝暮成雪。
+
+君不见，黄河之水天上来，奔流到海不复回。
+</code></pre><p>​    </p>
+<ul>
+<li><code>fileObject.write(str)</code>用于向文件中写入指定字符串，返回的是写入的字符长度。</li>
+</ul>
+<p>【例】</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">f = open(<span class="string">'workfile.txt'</span>, <span class="string">'wb+'</span>)</span><br><span class="line">print(f.write(<span class="string">b'0123456789abcdef'</span>))  <span class="comment"># 16</span></span><br><span class="line">print(f.seek(<span class="number">5</span>))  <span class="comment"># 5</span></span><br><span class="line">print(f.read(<span class="number">1</span>))  <span class="comment"># b'5'</span></span><br><span class="line">print(f.seek(<span class="number">-3</span>, <span class="number">2</span>))  <span class="comment"># 13</span></span><br><span class="line">print(f.read(<span class="number">1</span>))  <span class="comment"># b'd'</span></span><br></pre></td></tr></tbody></table></figure>
+<pre><code>16
+5
+b'5'
+13
+b'd'
+</code></pre><p>在文件关闭前或缓冲区刷新前，字符串内容存储在缓冲区中，这时你在文件中是看不到写入的内容的。</p>
+<p>如果文件打开模式带<code>b</code>，那写入文件内容时，<code>str</code>（参数）要用<code>encode</code>方法转为<code>bytes</code>形式，否则报错：<code>TypeError: a bytes-like object is required, not 'str'</code>。</p>
+<p>【例】</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">str = <span class="string">'...'</span></span><br><span class="line"><span class="comment"># 文本 = Unicode字符序列</span></span><br><span class="line"><span class="comment"># 相当于 string 类型</span></span><br><span class="line"></span><br><span class="line">str = <span class="string">b'...'</span></span><br><span class="line"><span class="comment"># 文本 = 八位序列(0到255之间的整数)</span></span><br><span class="line"><span class="comment"># 字节文字总是以‘b’或‘B’作为前缀；它们产生一个字节类型的实例，而不是str类型。</span></span><br><span class="line"><span class="comment"># 相当于 byte[]</span></span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">f = open(<span class="string">'将进酒.txt'</span>, <span class="string">'r+'</span>, encoding=<span class="string">'UTF-8'</span>)</span><br><span class="line">str = <span class="string">'\n作者：李白'</span></span><br><span class="line">f.seek(<span class="number">0</span>, <span class="number">2</span>)</span><br><span class="line">line = f.write(str)</span><br><span class="line">f.seek(<span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line"><span class="keyword">for</span> each <span class="keyword">in</span> f:</span><br><span class="line">    print(each)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 君不见，黄河之水天上来，奔流到海不复回。</span></span><br><span class="line"><span class="comment"># 君不见，高堂明镜悲白发，朝如青丝暮成雪。</span></span><br><span class="line"><span class="comment"># 人生得意须尽欢，莫使金樽空对月。</span></span><br><span class="line"><span class="comment"># 天生我材必有用，千金散尽还复来。</span></span><br><span class="line"><span class="comment"># 烹羊宰牛且为乐，会须一饮三百杯。</span></span><br><span class="line"><span class="comment"># 岑夫子，丹丘生，将进酒，杯莫停。</span></span><br><span class="line"><span class="comment"># 与君歌一曲，请君为我倾耳听。</span></span><br><span class="line"><span class="comment"># 钟鼓馔玉不足贵，但愿长醉不复醒。</span></span><br><span class="line"><span class="comment"># 古来圣贤皆寂寞，惟有饮者留其名。</span></span><br><span class="line"><span class="comment"># 陈王昔时宴平乐，斗酒十千恣欢谑。</span></span><br><span class="line"><span class="comment"># 主人何为言少钱，径须沽取对君酌。</span></span><br><span class="line"><span class="comment"># 五花马，千金裘，呼儿将出换美酒，与尔同销万古愁。</span></span><br><span class="line"><span class="comment"># 作者：李白</span></span><br><span class="line"></span><br><span class="line">f.close()</span><br></pre></td></tr></tbody></table></figure>
+<pre><code>君不见，黄河之水天上来，奔流到海不复回。
+
+君不见，高堂明镜悲白发，朝如青丝暮成雪。
+
+人生得意须尽欢，莫使金樽空对月。
+
+天生我材必有用，千金散尽还复来。
+
+烹羊宰牛且为乐，会须一饮三百杯。
+
+岑夫子，丹丘生，将进酒，杯莫停。
+
+与君歌一曲，请君为我倾耳听。
+
+钟鼓馔玉不足贵，但愿长醉不复醒。
+
+古来圣贤皆寂寞，惟有饮者留其名。
+
+陈王昔时宴平乐，斗酒十千恣欢谑。
+
+主人何为言少钱，径须沽取对君酌。
+
+五花马，千金裘，呼儿将出换美酒，与尔同销万古愁。
+
+作者：李白
+</code></pre><ul>
+<li><code>fileObject.writelines(sequence)</code>向文件写入一个序列字符串列表，如果需要换行则要自己加入每行的换行符<code>\n</code>。</li>
+</ul>
+<p>【例】</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">f = open(<span class="string">'test.txt'</span>, <span class="string">'w+'</span>)</span><br><span class="line">seq = [<span class="string">'小马的程序人生\n'</span>, <span class="string">'老马的程序人生'</span>]</span><br><span class="line">f.writelines(seq)</span><br><span class="line">f.seek(<span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line"><span class="keyword">for</span> each <span class="keyword">in</span> f:</span><br><span class="line">    print(each)</span><br><span class="line">    </span><br><span class="line"><span class="comment"># 小马的程序人生</span></span><br><span class="line"><span class="comment"># 老马的程序人生</span></span><br><span class="line">f.close()</span><br></pre></td></tr></tbody></table></figure>
+<pre><code>小马的程序人生
+
+老马的程序人生
+</code></pre><h2 id="简洁的-with-语句"><a href="#简洁的-with-语句" class="headerlink" title="简洁的 with 语句"></a>简洁的 with 语句</h2><p>一些对象定义了标准的清理行为，无论系统是否成功的使用了它，一旦不需要它了，那么这个标准的清理行为就会执行。</p>
+<p>关键词 with 语句就可以保证诸如文件之类的对象在使用完之后一定会正确的执行它的清理方法。</p>
+<p>【例】</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    f = open(<span class="string">'myfile.txt'</span>, <span class="string">'w'</span>)</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> f:</span><br><span class="line">        print(line)</span><br><span class="line"><span class="keyword">except</span> OSError <span class="keyword">as</span> error:</span><br><span class="line">    print(<span class="string">'出错啦!%s'</span> % str(error))</span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    f.close()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 出错啦!not readable</span></span><br></pre></td></tr></tbody></table></figure>
+<pre><code>---------------------------------------------------------------------------
+
+UnsupportedOperation                      Traceback (most recent call last)
+
+&lt;ipython-input-58-3c3a857a5e5a&gt; in &lt;module&gt;
+      2     f = open('myfile.txt', 'w')
+----&gt; 3     for line in f:
+      4         print(line)
+
+
+UnsupportedOperation: not readable
+</code></pre><p>​<br>​    During handling of the above exception, another exception occurred:</p>
+<pre><code>TypeError                                 Traceback (most recent call last)
+
+&lt;ipython-input-58-3c3a857a5e5a&gt; in &lt;module&gt;
+      4         print(line)
+      5 except OSError as error:
+----&gt; 6     print('出错啦!%s' % str(error))
+      7 finally:
+      8     f.close()
+
+
+TypeError: 'str' object is not callable
+</code></pre><p>这段代码执行完毕后，就算在处理过程中出问题了，文件 f 总是会关闭。</p>
+<p>【例】</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">with</span> open(<span class="string">'myfile.txt'</span>, <span class="string">'w'</span>) <span class="keyword">as</span> f:</span><br><span class="line">        <span class="keyword">for</span> line <span class="keyword">in</span> f:</span><br><span class="line">            print(line)</span><br><span class="line"><span class="keyword">except</span> OSError <span class="keyword">as</span> error:</span><br><span class="line">    print(<span class="string">'出错啦!%s'</span> % str(error))</span><br></pre></td></tr></tbody></table></figure>
+<h1 id="出错啦-not-readable"><a href="#出错啦-not-readable" class="headerlink" title="出错啦!not readable"></a>出错啦!not readable</h1><h1 id="2-OS-模块中关于文件-目录常用的函数"><a href="#2-OS-模块中关于文件-目录常用的函数" class="headerlink" title="2. OS 模块中关于文件/目录常用的函数"></a>2. OS 模块中关于文件/目录常用的函数</h1><p>我们所知道常用的操作系统就有：Windows，Mac OS，Linu，Unix等，这些操作系统底层对于文件系统的访问工作原理是不一样的，因此你可能就要针对不同的系统来考虑使用哪些文件系统模块……，这样的做法是非常不友好且麻烦的，因为这样就意味着当你的程序运行环境一改变，你就要相应的去修改大量的代码来应对。</p>
+<p>有了OS（Operation System）模块，我们不需要关心什么操作系统下使用什么模块，OS模块会帮你选择正确的模块并调用。</p>
+<ul>
+<li><code>os.getcwd()</code>用于返回当前工作目录。</li>
+<li><code>os.chdir(path)</code>用于改变当前工作目录到指定的路径。</li>
+</ul>
+<p>【例】</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">path = <span class="string">'C:\\'</span></span><br><span class="line">print(<span class="string">"当前工作目录 : %s"</span> % os.getcwd())</span><br><span class="line"><span class="comment"># 当前工作目录 : C:\Users\Administrator\PycharmProjects\untitled1</span></span><br><span class="line">os.chdir(path)</span><br><span class="line">print(<span class="string">"目录修改成功 : %s"</span> % os.getcwd())</span><br><span class="line"><span class="comment"># 目录修改成功 : C:\</span></span><br></pre></td></tr></tbody></table></figure>
+<pre><code>当前工作目录 : D:\ucas_onedrive\OneDrive - mails.ucas.ac.cn\MyGitHub\mybog\datawhale\python基础
+目录修改成功 : C:\
+</code></pre><ul>
+<li><code>listdir (path='.')</code>返回<code>path</code>指定的文件夹包含的文件或文件夹的名字的列表。</li>
+</ul>
+<p>【例】</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">dirs = os.listdir()</span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> dirs:</span><br><span class="line">    print(item)</span><br></pre></td></tr></tbody></table></figure>
+<pre><code>$360Section
+$Recycle.Bin
+360SANDBOX
+AMTAG.BIN
+AppData
+bootmgr
+BOOTNXT
+Config.Msi
+Documents and Settings
+F74EA84AFE45
+hiberfil.sys
+inetpub
+Intel
+MSOCache
+OneDriveTemp
+pagefile.sys
+PerfLogs
+Program Files
+Program Files (x86)
+ProgramData
+Recovery
+SangforServiceClient.dmp
+SpoolPrintJob
+swapfile.sys
+System Volume Information
+Users
+Windows
+</code></pre><ul>
+<li><code>os.mkdir(path)</code>创建单层目录，如果该目录已存在抛出异常。</li>
+</ul>
+<p>【例】</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> os.path.isdir(<span class="string">r'.\b'</span>) <span class="keyword">is</span> <span class="literal">False</span>:</span><br><span class="line">    os.mkdir(<span class="string">r'.\B'</span>)</span><br><span class="line">    os.mkdir(<span class="string">r'.\B\A'</span>)</span><br><span class="line"></span><br><span class="line">os.mkdir(<span class="string">r'.\C\A'</span>) <span class="comment"># FileNotFoundError</span></span><br></pre></td></tr></tbody></table></figure>
+<pre><code>---------------------------------------------------------------------------
+
+FileNotFoundError                         Traceback (most recent call last)
+
+&lt;ipython-input-61-beb75dcdca7e&gt; in &lt;module&gt;
+      5     os.mkdir(r'.\B\A')
+      6 
+----&gt; 7 os.mkdir(r'.\C\A') # FileNotFoundError
+
+
+FileNotFoundError: [WinError 3] 系统找不到指定的路径。: '.\\C\\A'
+</code></pre><ul>
+<li><code>os.makedirs(path)</code>用于递归创建多层目录，如果该目录已存在抛出异常。</li>
+</ul>
+<p>【例】</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line">os.makedirs(<span class="string">r'.\E\A'</span>)</span><br></pre></td></tr></tbody></table></figure>
+<ul>
+<li><code>os.remove(path)</code>用于删除指定路径的文件。如果指定的路径是一个目录，将抛出 <code>OSError</code>。</li>
+</ul>
+<p>【例】首先创建<code>.\E\A\text.txt</code>文件，然后进行删除。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">print(<span class="string">"目录为: %s"</span> % os.listdir(<span class="string">r'.\E\A'</span>))</span><br><span class="line">os.remove(<span class="string">r'.\E\A\test.txt'</span>)</span><br><span class="line">print(<span class="string">"目录为: %s"</span> % os.listdir(<span class="string">r'.\E\A'</span>))</span><br></pre></td></tr></tbody></table></figure>
+<ul>
+<li><code>os.rmdir(path)</code>用于删除单层目录。仅当这文件夹是空的才可以, 否则, 抛出 <code>OSError</code>。</li>
+</ul>
+<p>【例】首先创建<code>.\E\A</code>目录，然后进行删除。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">print(<span class="string">"目录为: %s"</span> % os.listdir(<span class="string">r'.\E'</span>))</span><br><span class="line">os.rmdir(<span class="string">r'.\E\A'</span>)</span><br><span class="line">print(<span class="string">"目录为: %s"</span> % os.listdir(<span class="string">r'.\E'</span>))</span><br></pre></td></tr></tbody></table></figure>
+<ul>
+<li><code>os.removedirs(path)</code>递归删除目录，从子目录到父目录逐层尝试删除，遇到目录非空则抛出异常。</li>
+</ul>
+<p>【例】首先创建<code>.\E\A</code>目录，然后进行删除。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">print(<span class="string">"目录为: %s"</span> % os.listdir(os.getcwd()))</span><br><span class="line">os.removedirs(<span class="string">r'.\E\A'</span>)  <span class="comment"># 先删除A 然后删除E</span></span><br><span class="line">print(<span class="string">"目录为: %s"</span> % os.listdir(os.getcwd()))</span><br></pre></td></tr></tbody></table></figure>
+<ul>
+<li><code>os.rename(src, dst)</code>方法用于命名文件或目录，从 <code>src</code> 到 <code>dst</code>，如果 <code>dst</code> 是一个存在的目录, 将抛出 <code>OSError</code>。</li>
+</ul>
+<p>【例】把test.txt文件重命名为test2.txt。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">print(<span class="string">"目录为: %s"</span> % os.listdir(os.getcwd()))</span><br><span class="line">os.rename(<span class="string">"test.txt"</span>, <span class="string">"test2.txt"</span>)</span><br><span class="line">print(<span class="string">"重命名成功。"</span>)</span><br><span class="line">print(<span class="string">"目录为: %s"</span> % os.listdir(os.getcwd()))</span><br></pre></td></tr></tbody></table></figure>
+<ul>
+<li><code>os.system(command)</code>运行系统的shell命令（将字符串转化成命令）</li>
+</ul>
+<p>【例】先自行创建一个a.py的文件，然后由shell命令打开。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">path = os.getcwd() + <span class="string">'\\a.py'</span></span><br><span class="line">a = os.system(<span class="string">r'python %s'</span> % path)</span><br><span class="line"></span><br><span class="line">os.system(<span class="string">'calc'</span>)  <span class="comment"># 打开计算器</span></span><br></pre></td></tr></tbody></table></figure>
+<ul>
+<li><code>os.curdir</code>指代当前目录（<code>.</code>）</li>
+<li><code>os.pardir</code>指代上一级目录（<code>..</code>）</li>
+<li><code>os.sep</code>输出操作系统特定的路径分隔符（win下为<code>\\</code>，Linux下为<code>/</code>）</li>
+<li><code>os.linesep</code>当前平台使用的行终止符（win下为<code>\r\n</code>，Linux下为<code>\n</code>）</li>
+<li><code>os.name</code>指代当前使用的操作系统（包括：’mac’，’nt’）</li>
+</ul>
+<p>【例】</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">print(os.curdir)  <span class="comment"># .</span></span><br><span class="line">print(os.pardir)  <span class="comment"># ..</span></span><br><span class="line">print(os.sep)  <span class="comment"># \</span></span><br><span class="line">print(os.linesep)</span><br><span class="line">print(os.name)  <span class="comment"># nt</span></span><br></pre></td></tr></tbody></table></figure>
+<pre><code>.
+..
+\
+</code></pre><p>​       nt</p>
+<ul>
+<li><code>os.path.basename(path)</code>去掉目录路径，单独返回文件名</li>
+<li><code>os.path.dirname(path)</code>去掉文件名，单独返回目录路径</li>
+<li><code>os.path.join(path1[, path2[, ...]])</code>将 <code>path1</code>，<code>path2</code> 各部分组合成一个路径名</li>
+<li><code>os.path.split(path)</code>分割文件名与路径，返回<code>(f_path,f_name)</code>元组。如果完全使用目录，它会将最后一个目录作为文件名分离，且不会判断文件或者目录是否存在。</li>
+<li><code>os.path.splitext(path)</code>分离文件名与扩展名，返回<code>(f_path,f_name)</code>元组。</li>
+</ul>
+<p>【例】</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="comment"># 返回文件名</span></span><br><span class="line">print(os.path.basename(<span class="string">r'C:\test\lsgo.txt'</span>))  <span class="comment"># lsgo.txt</span></span><br><span class="line"><span class="comment"># 返回目录路径</span></span><br><span class="line">print(os.path.dirname(<span class="string">r'C:\test\lsgo.txt'</span>))  <span class="comment"># C:\test</span></span><br><span class="line"><span class="comment"># 将目录和文件名合成一个路径</span></span><br><span class="line">print(os.path.join(<span class="string">'C:\\'</span>, <span class="string">'test'</span>, <span class="string">'lsgo.txt'</span>))  <span class="comment"># C:\test\lsgo.txt</span></span><br><span class="line"><span class="comment"># 分割文件名与路径</span></span><br><span class="line">print(os.path.split(<span class="string">r'C:\test\lsgo.txt'</span>))  <span class="comment"># ('C:\\test', 'lsgo.txt')</span></span><br><span class="line"><span class="comment"># 分离文件名与扩展名</span></span><br><span class="line">print(os.path.splitext(<span class="string">r'C:\test\lsgo.txt'</span>))  <span class="comment"># ('C:\\test\\lsgo', '.txt')</span></span><br></pre></td></tr></tbody></table></figure>
+<ul>
+<li><code>os.path.getsize(file)</code>返回指定文件大小，单位是字节。</li>
+<li><code>os.path.getatime(file)</code>返回指定文件最近的访问时间</li>
+<li><code>os.path.getctime(file)</code>返回指定文件的创建时间</li>
+<li><code>os.path.getmtime(file)</code>返回指定文件的最新的修改时间</li>
+<li>浮点型秒数，可用time模块的<code>gmtime()</code>或<code>localtime()</code>函数换算</li>
+</ul>
+<p>【例】</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">file = <span class="string">r'将进酒.txt'</span></span><br><span class="line">print(os.path.getsize(file))  <span class="comment"># 30</span></span><br><span class="line">print(os.path.getatime(file))  <span class="comment"># 1565593737.347196</span></span><br><span class="line">print(os.path.getctime(file))  <span class="comment"># 1565593737.347196</span></span><br><span class="line">print(os.path.getmtime(file))  <span class="comment"># 1565593797.9298275</span></span><br><span class="line">print(time.gmtime(os.path.getctime(file)))</span><br><span class="line"><span class="comment"># time.struct_time(tm_year=2019, tm_mon=8, tm_mday=12, tm_hour=7, tm_min=8, tm_sec=57, tm_wday=0, tm_yday=224, tm_isdst=0)</span></span><br><span class="line">print(time.localtime(os.path.getctime(file)))</span><br><span class="line"><span class="comment"># time.struct_time(tm_year=2019, tm_mon=8, tm_mday=12, tm_hour=15, tm_min=8, tm_sec=57, tm_wday=0, tm_yday=224, tm_isdst=0)</span></span><br></pre></td></tr></tbody></table></figure>
+<pre><code>---------------------------------------------------------------------------
+
+FileNotFoundError                         Traceback (most recent call last)
+
+&lt;ipython-input-67-2ccf970d4117&gt; in &lt;module&gt;
+      3 
+      4 file = r'将进酒.txt'
+----&gt; 5 print(os.path.getsize(file))  # 30
+      6 print(os.path.getatime(file))  # 1565593737.347196
+      7 print(os.path.getctime(file))  # 1565593737.347196
+
+
+D:\ProgramData\Anaconda3\lib\genericpath.py in getsize(filename)
+     48 def getsize(filename):
+     49     """Return the size of a file, reported by os.stat()."""
+---&gt; 50     return os.stat(filename).st_size
+     51 
+     52 
+
+
+FileNotFoundError: [WinError 2] 系统找不到指定的文件。: '将进酒.txt'
+</code></pre><ul>
+<li><code>os.path.exists(path)</code>判断指定路径（目录或文件）是否存在</li>
+<li><code>os.path.isabs(path)</code>判断指定路径是否为绝对路径</li>
+<li><code>os.path.isdir(path)</code>判断指定路径是否存在且是一个目录</li>
+<li><code>os.path.isfile(path)</code>判断指定路径是否存在且是一个文件</li>
+<li><code>os.path.islink(path)</code>判断指定路径是否存在且是一个符号链接</li>
+<li><code>os.path.ismount(path)</code>判断指定路径是否存在且是一个悬挂点</li>
+<li><code>os.path.samefile(path1,path2)</code>判断path1和path2两个路径是否指向同一个文件</li>
+</ul>
+<p>【例】</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">print(os.path.ismount(<span class="string">'D:\\'</span>))  <span class="comment"># True</span></span><br><span class="line">print(os.path.ismount(<span class="string">'D:\\Test'</span>))  <span class="comment"># False</span></span><br></pre></td></tr></tbody></table></figure>
+<pre><code>True
+False
+</code></pre><h1 id="3-序列化与反序列化"><a href="#3-序列化与反序列化" class="headerlink" title="3. 序列化与反序列化"></a>3. 序列化与反序列化</h1><p>Python 的 pickle 模块实现了基本的数据序列和反序列化。</p>
+<ul>
+<li>通过 pickle 模块的序列化操作我们能够将程序中运行的对象信息保存到文件中去，永久存储。</li>
+<li>通过 pickle 模块的反序列化操作，我们能够从文件中创建上一次程序保存的对象。</li>
+</ul>
+<p>pickle模块中最常用的函数为：</p>
+<p><code>pickle.dump(obj, file, [,protocol])</code> 将<code>obj</code>对象序列化存入已经打开的<code>file</code>中。</p>
+<ul>
+<li><code>obj</code>：想要序列化的<code>obj</code>对象。</li>
+<li><code>file</code>:文件名称。</li>
+<li><code>protocol</code>：序列化使用的协议。如果该项省略，则默认为0。如果为负值或<code>HIGHEST_PROTOCOL</code>，则使用最高的协议版本。</li>
+</ul>
+<p><code>pickle.load(file)</code> 将<code>file</code>中的对象序列化读出。</p>
+<ul>
+<li><code>file</code>：文件名称。</li>
+</ul>
+<p>【例】</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"></span><br><span class="line">dataList = [[<span class="number">1</span>, <span class="number">1</span>, <span class="string">'yes'</span>],</span><br><span class="line">            [<span class="number">1</span>, <span class="number">1</span>, <span class="string">'yes'</span>],</span><br><span class="line">            [<span class="number">1</span>, <span class="number">0</span>, <span class="string">'no'</span>],</span><br><span class="line">            [<span class="number">0</span>, <span class="number">1</span>, <span class="string">'no'</span>],</span><br><span class="line">            [<span class="number">0</span>, <span class="number">1</span>, <span class="string">'no'</span>]]</span><br><span class="line">dataDic = {<span class="number">0</span>: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>],</span><br><span class="line">           <span class="number">1</span>: (<span class="string">'a'</span>, <span class="string">'b'</span>),</span><br><span class="line">           <span class="number">2</span>: {<span class="string">'c'</span>: <span class="string">'yes'</span>, <span class="string">'d'</span>: <span class="string">'no'</span>}}</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用dump()将数据序列化到文件中</span></span><br><span class="line">fw = open(<span class="string">r'.\dataFile.pkl'</span>, <span class="string">'wb'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Pickle the list using the highest protocol available.</span></span><br><span class="line">pickle.dump(dataList, fw, <span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Pickle dictionary using protocol 0.</span></span><br><span class="line">pickle.dump(dataDic, fw)</span><br><span class="line">fw.close()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用load()将数据从文件中序列化读出</span></span><br><span class="line">fr = open(<span class="string">'dataFile.pkl'</span>, <span class="string">'rb'</span>)</span><br><span class="line">data1 = pickle.load(fr)</span><br><span class="line">print(data1)</span><br><span class="line">data2 = pickle.load(fr)</span><br><span class="line">print(data2)</span><br><span class="line">fr.close()</span><br><span class="line"></span><br><span class="line"><span class="comment"># [[1, 1, 'yes'], [1, 1, 'yes'], [1, 0, 'no'], [0, 1, 'no'], [0, 1, 'no']]</span></span><br><span class="line"><span class="comment"># {0: [1, 2, 3, 4], 1: ('a', 'b'), 2: {'c': 'yes', 'd': 'no'}}</span></span><br></pre></td></tr></tbody></table></figure>
+<pre><code>[[1, 1, 'yes'], [1, 1, 'yes'], [1, 0, 'no'], [0, 1, 'no'], [0, 1, 'no']]
+{0: [1, 2, 3, 4], 1: ('a', 'b'), 2: {'c': 'yes', 'd': 'no'}}
+</code></pre><h1 id="参考文献："><a href="#参考文献：" class="headerlink" title="参考文献："></a><b>参考文献：</b></h1><ul>
+<li><a href="https://www.runoob.com/python3/python3-tutorial.html" target="_blank" rel="noopener">https://www.runoob.com/python3/python3-tutorial.html</a></li>
+<li><a href="https://www.bilibili.com/video/av4050443" target="_blank" rel="noopener">https://www.bilibili.com/video/av4050443</a></li>
+<li><p><a href="https://blog.csdn.net/u010820857/article/details/85330778" target="_blank" rel="noopener">https://blog.csdn.net/u010820857/article/details/85330778</a></p>
+</li>
+<li><p><a href="https://www.runoob.com/python3/python3-tutorial.html" target="_blank" rel="noopener">https://www.runoob.com/python3/python3-tutorial.html</a></p>
+</li>
+<li><a href="https://www.bilibili.com/video/av4050443" target="_blank" rel="noopener">https://www.bilibili.com/video/av4050443</a></li>
+</ul>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+    </div>
+
+    
+    
+    
+    <!--
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束 <i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>  -->
+        <div class="reward-container">
+  <div>Donate comment here. 坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechat.png" alt="zhouzhm 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.jpg" alt="zhouzhm 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>zhouzhm
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.whocareslearning.org.cn/2020/07/21/datawhale-9-python-wen-jian-yu-wen-jian-xi-tong/" title="python-9-文件与文件系统">https://www.whocareslearning.org.cn/2020/07/21/datawhale-9-python-wen-jian-yu-wen-jian-xi-tong/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag">
+              <i class="fa fa-tag"> python</i>
+              </a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/19/datawhale-8-python-mo-kuai-datetime-mo-kuai/" rel="prev" title="python-8-模块-datetime模块">
+      <i class="fa fa-chevron-left"></i> python-8-模块-datetime模块
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/05/shu-ju-jie-gou-yu-suan-fa-dui-lie/" rel="next" title="数据结构与算法-队列（queue）定义与实例">
+      数据结构与算法-队列（queue）定义与实例 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-文件与文件系统"><span class="nav-number">1.</span> <span class="nav-text">1. 文件与文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#打开文件"><span class="nav-number">1.1.</span> <span class="nav-text">打开文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件对象方法"><span class="nav-number">1.2.</span> <span class="nav-text">文件对象方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简洁的-with-语句"><span class="nav-number">1.3.</span> <span class="nav-text">简洁的 with 语句</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#出错啦-not-readable"><span class="nav-number">2.</span> <span class="nav-text">出错啦!not readable</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-OS-模块中关于文件-目录常用的函数"><span class="nav-number">3.</span> <span class="nav-text">2. OS 模块中关于文件&#x2F;目录常用的函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-序列化与反序列化"><span class="nav-number">4.</span> <span class="nav-text">3. 序列化与反序列化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献："><span class="nav-number">5.</span> <span class="nav-text">参考文献：</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="zhouzhm"
+      src="/images/ava1.png">
+  <p class="site-author-name" itemprop="name">zhouzhm</p>
+  <div class="site-description" itemprop="description">吾生也有涯，知也无涯</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">58</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/sarizzm" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;sarizzm" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://i.csdn.net/#/uc/profile" title="CSDN → https:&#x2F;&#x2F;i.csdn.net&#x2F;#&#x2F;uc&#x2F;profile" rel="noopener" target="_blank"><i class="fa fa-crosshairs fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+  
+      
+        <script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+        <script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+        <div class="widget-wrap">
+          <h3 class="widget-title">Tag Cloud</h3>
+          <div id="myCanvasContainer" class="widget tagcloud">
+              <canvas width="250" height="250" id="resCanvas" style="width=100%">
+                <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/awk/" rel="tag">awk</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash/" rel="tag">bash</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash-vasp/" rel="tag">bash_vasp</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog%E7%BE%8E%E5%8C%96/" rel="tag">blog美化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/excel/" rel="tag">excel</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/idpp-neb/" rel="tag">idpp_neb</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leecode/" rel="tag">leecode</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lunix/" rel="tag">lunix</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oral-english/" rel="tag">oral_english</a><span class="tag-list-count">26</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pandas/" rel="tag">pandas</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typora/" rel="tag">typora</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95/" rel="tag">哈希算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE%E7%81%B5%E6%9C%BA-turing-machine-%E6%A8%A1%E5%9E%8B/" rel="tag">图灵机(turing machine)模型</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%88-Stack/" rel="tag">栈(Stack)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%9F%E5%88%97%EF%BC%88queue%EF%BC%89/" rel="tag">队列（queue）</a><span class="tag-list-count">1</span></li></ul>
+              </canvas>
+          </div>
+        </div>
+      
+    
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhouzhm</span>
+ <!--  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>  -->
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">232k</span>
+</div>
+<!--
+  <div class="powered-by">
+  <i class="fa fa-user-md"></i>
+    <span id="busuanzi_container_site_uv">
+        本站访客量: <span id="busuanzi_value_site_uv"></span>位
+    </span>
+  </div>
+
+  <div class="powered-by">
+  <i class="fa fa-user-md"></i>
+    <span id="busuanzi_container_site_pv">
+        本站访问量: <span id="busuanzi_value_site_pv"></span>次
+    </span>
+  </div>
+     
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+-->
+<!--
+
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'ouQRqhHS28VSig7Qdha07YFS-gzGzoHsz',
+      appKey     : 'sOIyts0asrItui9JkJn2qCoH',
+      placeholder: "评论区",
+      avatar     : 'monsterid',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+
+ <!-- fireworks失败  -->
+  
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+   <script type="text/javascript" src="/js/src/fireworks.js"></script>
+  
+</body>
+</html>
+
+
+<!-- 页面点击小红心 -->
+<!-- <script type="text/javascript" src="/js/src/clicklove.js"></script> -->
