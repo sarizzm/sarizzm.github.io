@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.whocareslearning.org.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true,"onmobile":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="[TOC] 进程池Pool当需要创建的子进程数量不多时，可以直接利用multiprocessing中的Process动态成生多个进程，但如果是上百甚至上千个目标，手动的去创建进程的工作量巨大，此时就可以用到multiprocessing模块提供的Pool方法。 初始化Pool时，可以指定一个最大进程数，当有新的请求提交到Pool中时，如果池还没有满，那么就会创建一个新的进程用来执行该请求；但如果">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python-multiprocessing.pool-进程池简述">
+<meta property="og:url" content="https://www.whocareslearning.org.cn/2020/07/18/hm-python-multi-process-pool/index.html">
+<meta property="og:site_name" content="codemk">
+<meta property="og:description" content="[TOC] 进程池Pool当需要创建的子进程数量不多时，可以直接利用multiprocessing中的Process动态成生多个进程，但如果是上百甚至上千个目标，手动的去创建进程的工作量巨大，此时就可以用到multiprocessing模块提供的Pool方法。 初始化Pool时，可以指定一个最大进程数，当有新的请求提交到Pool中时，如果池还没有满，那么就会创建一个新的进程用来执行该请求；但如果">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-07-18T03:30:00.000Z">
+<meta property="article:modified_time" content="2020-09-01T15:47:32.534Z">
+<meta property="article:author" content="zhouzhm">
+<meta property="article:tag" content="multiprocessing.pool">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.whocareslearning.org.cn/2020/07/18/hm-python-multi-process-pool/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>python-multiprocessing.pool-进程池简述 | codemk</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">codemk</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">学习笔记，人生感悟</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+
+  <a href="https://github.com/sarizzm" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.whocareslearning.org.cn/2020/07/18/hm-python-multi-process-pool/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ava1.png">
+      <meta itemprop="name" content="zhouzhm">
+      <meta itemprop="description" content="吾生也有涯，知也无涯">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="codemk">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          python-multiprocessing.pool-进程池简述
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-18 11:30:00" itemprop="dateCreated datePublished" datetime="2020-07-18T11:30:00+08:00">2020-07-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-01 23:47:32" itemprop="dateModified" datetime="2020-09-01T23:47:32+08:00">2020-09-01</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/07/18/hm-python-multi-process-pool/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/07/18/hm-python-multi-process-pool/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <a id="more"></a>
+<p>[TOC]</p>
+<h2 id="进程池Pool"><a href="#进程池Pool" class="headerlink" title="进程池Pool"></a>进程池Pool</h2><p>当需要创建的子进程数量不多时，可以直接利用multiprocessing中的Process动态成生多个进程，但如果是上百甚至上千个目标，手动的去创建进程的工作量巨大，此时就可以用到multiprocessing模块提供的Pool方法。</p>
+<p>初始化Pool时，可以指定一个最大进程数，当有新的请求提交到Pool中时，如果池还没有满，那么就会创建一个新的进程用来执行该请求；但如果池中的进程数已经达到指定的最大值，那么该请求就会等待，直到池中有进程结束，才会用之前的进程来执行新的任务，请看下面的实例：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> Pool</span><br><span class="line"><span class="keyword">import</span> os, time, random</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">worker</span><span class="params">(msg)</span>:</span></span><br><span class="line">    t_start = time.time()</span><br><span class="line">    print(<span class="string">"%s开始执行,进程号为%d"</span> % (msg,os.getpid()))</span><br><span class="line">    <span class="comment"># random.random()随机生成0~1之间的浮点数</span></span><br><span class="line">    time.sleep(random.random()*<span class="number">2</span>) </span><br><span class="line">    t_stop = time.time()</span><br><span class="line">    print(msg,<span class="string">"执行完毕，耗时%0.2f"</span> % (t_stop-t_start))</span><br><span class="line"></span><br><span class="line">po = Pool(<span class="number">3</span>)  <span class="comment"># 定义一个进程池，最大进程数3</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">10</span>):</span><br><span class="line">    <span class="comment"># Pool().apply_async(要调用的目标,(传递给目标的参数元祖,))</span></span><br><span class="line">    <span class="comment"># 每次循环将会用空闲出来的子进程去调用目标</span></span><br><span class="line">    po.apply_async(worker,(i,))</span><br><span class="line"></span><br><span class="line">print(<span class="string">"----start----"</span>)</span><br><span class="line">po.close()  <span class="comment"># 关闭进程池，关闭后po不再接收新的请求</span></span><br><span class="line">po.join()  <span class="comment"># 等待po中所有子进程执行完成，必须放在close语句之后</span></span><br><span class="line">print(<span class="string">"-----end-----"</span>)</span><br></pre></td></tr></tbody></table></figure>
+<pre><code>----start----
+</code></pre><p>——start——<br></p><figure class="highlight angelscript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span>开始执行,进程号为<span class="number">21466</span></span><br><span class="line"><span class="number">1</span>开始执行,进程号为<span class="number">21468</span></span><br><span class="line"><span class="number">2</span>开始执行,进程号为<span class="number">21467</span></span><br><span class="line"><span class="number">0</span> 执行完毕，耗时<span class="number">1.01</span></span><br><span class="line"><span class="number">3</span>开始执行,进程号为<span class="number">21466</span></span><br><span class="line"><span class="number">2</span> 执行完毕，耗时<span class="number">1.24</span></span><br><span class="line"><span class="number">4</span>开始执行,进程号为<span class="number">21467</span></span><br><span class="line"><span class="number">3</span> 执行完毕，耗时<span class="number">0.56</span></span><br><span class="line"><span class="number">5</span>开始执行,进程号为<span class="number">21466</span></span><br><span class="line"><span class="number">1</span> 执行完毕，耗时<span class="number">1.68</span></span><br><span class="line"><span class="number">6</span>开始执行,进程号为<span class="number">21468</span></span><br><span class="line"><span class="number">4</span> 执行完毕，耗时<span class="number">0.67</span></span><br><span class="line"><span class="number">7</span>开始执行,进程号为<span class="number">21467</span></span><br><span class="line"><span class="number">5</span> 执行完毕，耗时<span class="number">0.83</span></span><br><span class="line"><span class="number">8</span>开始执行,进程号为<span class="number">21466</span></span><br><span class="line"><span class="number">6</span> 执行完毕，耗时<span class="number">0.75</span></span><br><span class="line"><span class="number">9</span>开始执行,进程号为<span class="number">21468</span></span><br><span class="line"><span class="number">7</span> 执行完毕，耗时<span class="number">1.03</span></span><br><span class="line"><span class="number">8</span> 执行完毕，耗时<span class="number">1.05</span></span><br><span class="line"><span class="number">9</span> 执行完毕，耗时<span class="number">1.69</span></span><br><span class="line">-----end-----</span><br></pre></td></tr></tbody></table></figure><p></p>
+<h3 id="multiprocessing-Pool常用函数解析："><a href="#multiprocessing-Pool常用函数解析：" class="headerlink" title="multiprocessing.Pool常用函数解析："></a>multiprocessing.Pool常用函数解析：</h3><p>apply_async(func[, args[, kwds]]) ：使用非阻塞方式调用func（并行执行，堵塞方式必须等待上一个进程退出才能执行下一个进程），args为传递给func的参数列表，kwds为传递给func的关键字参数列表；<br>close()：关闭Pool，使其不再接受新的任务；<br>terminate()：不管任务是否完成，立即终止；<br>join()：主进程阻塞，等待子进程的退出， 必须在close或terminate之后使用；</p>
+<h3 id="进程池中的Queue"><a href="#进程池中的Queue" class="headerlink" title="进程池中的Queue"></a>进程池中的Queue</h3><p>如果要使用Pool创建进程，就需要使用multiprocessing.Manager()中的Queue()，而不是multiprocessing.Queue()，否则会得到一条如下的错误信息：</p>
+<p>RuntimeError: Queue objects should only be shared between processes through inheritance.</p>
+<p>下面的实例演示了进程池中的进程如何通信：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改import中的Queue为Manager</span></span><br><span class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> Manager,Pool</span><br><span class="line"><span class="keyword">import</span> os,time,random</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reader</span><span class="params">(q)</span>:</span></span><br><span class="line">    print(<span class="string">"reader启动(%s),父进程为(%s)"</span> % (os.getpid(), os.getppid()))</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(q.qsize()):</span><br><span class="line">        print(<span class="string">"reader从Queue获取到消息：%s"</span> % q.get(<span class="literal">True</span>))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">writer</span><span class="params">(q)</span>:</span></span><br><span class="line">    print(<span class="string">"writer启动(%s),父进程为(%s)"</span> % (os.getpid(), os.getppid()))</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="string">"itcast"</span>:</span><br><span class="line">        q.put(i)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">"__main__"</span>:</span><br><span class="line">    print(<span class="string">"(%s) start"</span> % os.getpid())</span><br><span class="line">    q = Manager().Queue()  <span class="comment"># 使用Manager中的Queue</span></span><br><span class="line">    po = Pool()</span><br><span class="line">    po.apply_async(writer, (q,))</span><br><span class="line"></span><br><span class="line">    time.sleep(<span class="number">1</span>)  <span class="comment"># 先让上面的任务向Queue存入数据，然后再让下面的任务开始从中取数据</span></span><br><span class="line"></span><br><span class="line">    po.apply_async(reader, (q,))</span><br><span class="line">    po.close()</span><br><span class="line">    po.join()</span><br><span class="line">    print(<span class="string">"(%s) End"</span> % os.getpid())</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果:"></a>运行结果:</h3><figure class="highlight angelscript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">11095</span>) start</span><br><span class="line">writer启动(<span class="number">11097</span>),父进程为(<span class="number">11095</span>)</span><br><span class="line">reader启动(<span class="number">11098</span>),父进程为(<span class="number">11095</span>)</span><br><span class="line">reader从Queue获取到消息：i</span><br><span class="line">reader从Queue获取到消息：t</span><br><span class="line">reader从Queue获取到消息：c</span><br><span class="line">reader从Queue获取到消息：a</span><br><span class="line">reader从Queue获取到消息：s</span><br><span class="line">reader从Queue获取到消息：t</span><br><span class="line">(<span class="number">11095</span>) End</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="应用：文件夹copy器（多进程版）"><a href="#应用：文件夹copy器（多进程版）" class="headerlink" title="应用：文件夹copy器（多进程版）"></a>应用：文件夹copy器（多进程版）</h3><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> multiprocessing</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">copy_file</span><span class="params">(queue, file_name,source_folder_name,  dest_folder_name)</span>:</span></span><br><span class="line">    <span class="string">"""copy文件到指定的路径"""</span></span><br><span class="line">    f_read = open(source_folder_name + <span class="string">"/"</span> + file_name, <span class="string">"rb"</span>)</span><br><span class="line">    f_write = open(dest_folder_name + <span class="string">"/"</span> + file_name, <span class="string">"wb"</span>)</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        time.sleep(random.random())</span><br><span class="line">        content = f_read.read(<span class="number">1024</span>)</span><br><span class="line">        <span class="keyword">if</span> content:</span><br><span class="line">            f_write.write(content)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    f_read.close()</span><br><span class="line">    f_write.close()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 发送已经拷贝完毕的文件名字</span></span><br><span class="line">    queue.put(file_name)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment"># 获取要复制的文件夹</span></span><br><span class="line">    source_folder_name = input(<span class="string">"请输入要复制文件夹名字:"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 整理目标文件夹</span></span><br><span class="line">    dest_folder_name = source_folder_name + <span class="string">"[副本]"</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 创建目标文件夹</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        os.mkdir(dest_folder_name)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">pass</span>  <span class="comment"># 如果文件夹已经存在，那么创建会失败</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 获取这个文件夹中所有的普通文件名</span></span><br><span class="line">    file_names = os.listdir(source_folder_name)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 创建Queue</span></span><br><span class="line">    queue = multiprocessing.Manager().Queue()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 创建进程池</span></span><br><span class="line">    pool = multiprocessing.Pool(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> file_name <span class="keyword">in</span> file_names:</span><br><span class="line">        <span class="comment"># 向进程池中添加任务</span></span><br><span class="line">        pool.apply_async(copy_file, args=(queue, file_name, source_folder_name, dest_folder_name))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 主进程显示进度</span></span><br><span class="line">    pool.close()</span><br><span class="line"></span><br><span class="line">    all_file_num = len(file_names)</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        file_name = queue.get()</span><br><span class="line">        <span class="keyword">if</span> file_name <span class="keyword">in</span> file_names:</span><br><span class="line">            file_names.remove(file_name)</span><br><span class="line"></span><br><span class="line">        copy_rate = (all_file_num-len(file_names))*<span class="number">100</span>/all_file_num</span><br><span class="line">        print(<span class="string">"\r%.2f...(%s)"</span> % (copy_rate, file_name) + <span class="string">" "</span>*<span class="number">50</span>, end=<span class="string">""</span>)</span><br><span class="line">        <span class="keyword">if</span> copy_rate &gt;= <span class="number">100</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    print()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+    </div>
+
+    
+    
+    
+    <!--
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束 <i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>  -->
+        <div class="reward-container">
+  <div>Donate comment here. 坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechat.png" alt="zhouzhm 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.jpg" alt="zhouzhm 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>zhouzhm
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.whocareslearning.org.cn/2020/07/18/hm-python-multi-process-pool/" title="python-multiprocessing.pool-进程池简述">https://www.whocareslearning.org.cn/2020/07/18/hm-python-multi-process-pool/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/multiprocessing-pool/" rel="tag">
+              <i class="fa fa-tag"> multiprocessing.pool</i>
+              </a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/18/hm-python-multi-task/" rel="prev" title="python-multi-task-多任务">
+      <i class="fa fa-chevron-left"></i> python-multi-task-多任务
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/07/18/python-zip-map-mapping-enumerate/" rel="next" title="python-zip-map-enumerate">
+      python-zip-map-enumerate <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#进程池Pool"><span class="nav-number">1.</span> <span class="nav-text">进程池Pool</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#multiprocessing-Pool常用函数解析："><span class="nav-number">1.1.</span> <span class="nav-text">multiprocessing.Pool常用函数解析：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程池中的Queue"><span class="nav-number">1.2.</span> <span class="nav-text">进程池中的Queue</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行结果"><span class="nav-number">1.3.</span> <span class="nav-text">运行结果:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用：文件夹copy器（多进程版）"><span class="nav-number">1.4.</span> <span class="nav-text">应用：文件夹copy器（多进程版）</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="zhouzhm"
+      src="/images/ava1.png">
+  <p class="site-author-name" itemprop="name">zhouzhm</p>
+  <div class="site-description" itemprop="description">吾生也有涯，知也无涯</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">71</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/sarizzm" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;sarizzm" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://i.csdn.net/#/uc/profile" title="CSDN → https:&#x2F;&#x2F;i.csdn.net&#x2F;#&#x2F;uc&#x2F;profile" rel="noopener" target="_blank"><i class="fa fa-crosshairs fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+  
+      
+        <script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+        <script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+        <div class="widget-wrap">
+          <h3 class="widget-title">Tag Cloud</h3>
+          <div id="myCanvasContainer" class="widget tagcloud">
+              <canvas width="250" height="250" id="resCanvas" style="width=100%">
+                <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/awk/" rel="tag">awk</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash/" rel="tag">bash</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash-vasp/" rel="tag">bash_vasp</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog%E7%BE%8E%E5%8C%96/" rel="tag">blog美化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/excel/" rel="tag">excel</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/idpp-neb/" rel="tag">idpp_neb</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leecode/" rel="tag">leecode</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lunix/" rel="tag">lunix</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/multi-task/" rel="tag">multi-task</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/multiprocessing/" rel="tag">multiprocessing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/multiprocessing-pool/" rel="tag">multiprocessing.pool</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oral-english/" rel="tag">oral_english</a><span class="tag-list-count">26</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pandas/" rel="tag">pandas</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pycharm/" rel="tag">pycharm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/re/" rel="tag">re</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/threading/" rel="tag">threading</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/threading-Lock/" rel="tag">threading.Lock</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typora/" rel="tag">typora</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zip-map-enumerate/" rel="tag">zip-map-enumerate</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/" rel="tag">动态规划-背包问题</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95/" rel="tag">哈希算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE%E7%81%B5%E6%9C%BA-turing-machine-%E6%A8%A1%E5%9E%8B/" rel="tag">图灵机(turing machine)模型</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%88-Stack/" rel="tag">栈(Stack)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%92%E5%BD%92/" rel="tag">递归</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%92%E5%BD%92%E4%B8%8E%E5%88%86%E6%B2%BB%E7%AD%96%E7%95%A5/" rel="tag">递归与分治策略</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%9F%E5%88%97%EF%BC%88queue%EF%BC%89/" rel="tag">队列（queue）</a><span class="tag-list-count">1</span></li></ul>
+              </canvas>
+          </div>
+        </div>
+      
+    
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhouzhm</span>
+ <!--  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>  -->
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">278k</span>
+</div>
+<!--
+  <div class="powered-by">
+  <i class="fa fa-user-md"></i>
+    <span id="busuanzi_container_site_uv">
+        本站访客量: <span id="busuanzi_value_site_uv"></span>位
+    </span>
+  </div>
+
+  <div class="powered-by">
+  <i class="fa fa-user-md"></i>
+    <span id="busuanzi_container_site_pv">
+        本站访问量: <span id="busuanzi_value_site_pv"></span>次
+    </span>
+  </div>
+     
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+-->
+<!--
+
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'ouQRqhHS28VSig7Qdha07YFS-gzGzoHsz',
+      appKey     : 'sOIyts0asrItui9JkJn2qCoH',
+      placeholder: "评论区",
+      avatar     : 'monsterid',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+
+ <!-- fireworks失败  -->
+  
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+   <script type="text/javascript" src="/js/src/fireworks.js"></script>
+  
+</body>
+</html>
+
+
+<!-- 页面点击小红心 -->
+<!-- <script type="text/javascript" src="/js/src/clicklove.js"></script> -->
