@@ -1,254 +1,132 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>2- pandas索引 | codemk</title><meta name="description" content="第2章 索引1234import numpy as npimport pandas as pddf &#x3D; pd.read_csv(&#39;data&#x2F;table.csv&#39;,index_col&#x3D;&#39;ID&#39;)df.head()        .dataframe tbody tr th:only-of-type {         vertical-align: middle;     }      .dataf"><meta name="keywords" content="pandas"><meta name="author" content="zhouzhm"><meta name="copyright" content="zhouzhm"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.whocareslearning.org.cn/2020/04/20/2-pandas-suo-yin/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="yandex-verification" content="{&quot;theme_color&quot;:{&quot;enable&quot;:true,&quot;main&quot;:&quot;#49B1F5&quot;,&quot;paginator&quot;:&quot;#00c4b6&quot;,&quot;button_hover&quot;:&quot;#FF7242&quot;,&quot;text_selection&quot;:&quot;#00c4b6&quot;,&quot;link_color&quot;:&quot;#99a9bf&quot;,&quot;meta_color&quot;:&quot;#858585&quot;,&quot;hr_color&quot;:&quot;#A4D8FA&quot;,&quot;code_foreground&quot;:&quot;#F47466&quot;,&quot;code_background&quot;:&quot;rgba(27, 31, 35, .05)&quot;,&quot;toc_color&quot;:&quot;#00c4b6&quot;,&quot;blockquote_padding_color&quot;:&quot;#49b1f5&quot;,&quot;blockquote_background_color&quot;:&quot;#49b1f5&quot;}}"/><meta property="og:type" content="article"><meta property="og:title" content="2- pandas索引"><meta property="og:url" content="https://www.whocareslearning.org.cn/2020/04/20/2-pandas-suo-yin/"><meta property="og:site_name" content="codemk"><meta property="og:description" content="第2章 索引1234import numpy as npimport pandas as pddf &#x3D; pd.read_csv(&#39;data&#x2F;table.csv&#39;,index_col&#x3D;&#39;ID&#39;)df.head()        .dataframe tbody tr th:only-of-type {         vertical-align: middle;     }      .dataf"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg3.png"><meta property="article:published_time" content="2020-04-20T08:31:33.187Z"><meta property="article:modified_time" content="2020-04-20T10:16:38.784Z"><meta name="twitter:card" content="summary"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?dbfd5dc029096b5047ace83699a50000";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '5.1.1',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime: '',
+  date_suffix: {"one_hour":"刚刚","hours":"小时前","day":"天前"},
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
 
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.whocareslearning.org.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true,"onmobile":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
-
-  <meta name="description" content="第2章 索引1234import numpy as npimport pandas as pddf &#x3D; pd.read_csv(&#39;data&#x2F;table.csv&#39;,index_col&#x3D;&#39;ID&#39;)df.head()">
-<meta property="og:type" content="article">
-<meta property="og:title" content="2- pandas索引">
-<meta property="og:url" content="https://www.whocareslearning.org.cn/2020/04/20/2-pandas-suo-yin/index.html">
-<meta property="og:site_name" content="codemk">
-<meta property="og:description" content="第2章 索引1234import numpy as npimport pandas as pddf &#x3D; pd.read_csv(&#39;data&#x2F;table.csv&#39;,index_col&#x3D;&#39;ID&#39;)df.head()">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-04-20T08:31:33.187Z">
-<meta property="article:modified_time" content="2020-04-20T10:16:38.784Z">
-<meta property="article:author" content="zhouzhm">
-<meta property="article:tag" content="pandas">
-<meta name="twitter:card" content="summary">
-
-<link rel="canonical" href="https://www.whocareslearning.org.cn/2020/04/20/2-pandas-suo-yin/">
-
-
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
-
-  <title>2- pandas索引 | codemk</title>
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+      const now = new Date()
+      const expiryDay = ttl * 86400000
+      const item = {
+        value: value,
+        expiry: now.getTime() + expiryDay,
+      }
+      localStorage.setItem(key, JSON.stringify(item))
+    },
   
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
 
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
 
-
-
-
-
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
   }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true,
+  postUpdate: '2020-04-20 18:16:38'
+}</script><noscript><style type="text/css">
+#nav {
+  opacity: 1
+}
+.justified-gallery img {
+  opacity: 1
+}
+</style></noscript><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+  }
+}
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
+var autoChangeMode = 'false'
+var t = saveToLocal.get('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
 
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
-
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
-
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">codemk</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-      <p class="site-subtitle" itemprop="description">学习笔记，人生感悟</p>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-  </ul>
-</nav>
-
-
-
-
-</div>
-    </header>
-
-    
-
-  <a href="https://github.com/sarizzm" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
-            
-
-    
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.whocareslearning.org.cn/2020/04/20/2-pandas-suo-yin/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ava1.png">
-      <meta itemprop="name" content="zhouzhm">
-      <meta itemprop="description" content="吾生也有涯，知也无涯">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="codemk">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          2- pandas索引
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-04-20 16:31:33 / 修改时间：18:16:38" itemprop="dateCreated datePublished" datetime="2020-04-20T16:31:33+08:00">2020-04-20</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/pandas/" itemprop="url" rel="index"><span itemprop="name">pandas</span></a>
-                </span>
-            </span>
-
-          
-            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
-              <span class="post-meta-item-icon">
-                <i class="eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span id="busuanzi_value_page_pv"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/04/20/2-pandas-suo-yin/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/04/20/2-pandas-suo-yin/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>39k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>35 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-        <h1 id="第2章-索引"><a href="#第2章-索引" class="headerlink" title="第2章 索引"></a>第2章 索引</h1><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">df = pd.read_csv(<span class="string">'data/table.csv'</span>,index_col=<span class="string">'ID'</span>)</span><br><span class="line">df.head()</span><br></pre></td></tr></tbody></table></figure>
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (saveToLocal.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><meta name="generator" content="Hexo 5.1.1"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/images/ava1.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">71</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">29</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">12</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><div id="sidebar"><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC2%E7%AB%A0-%E7%B4%A2%E5%BC%95"><span class="toc-number">1.</span> <span class="toc-text">第2章 索引</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%8D%95%E7%BA%A7%E7%B4%A2%E5%BC%95"><span class="toc-number">1.1.</span> <span class="toc-text">一、单级索引</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-loc%E6%96%B9%E6%B3%95%E3%80%81iloc%E6%96%B9%E6%B3%95%E3%80%81-%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-number">1.1.1.</span> <span class="toc-text">1. loc方法、iloc方法、[]操作符</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%80%E5%B8%B8%E7%94%A8%E7%9A%84%E7%B4%A2%E5%BC%95%E6%96%B9%E6%B3%95%E5%8F%AF%E8%83%BD%E5%B0%B1%E6%98%AF%E8%BF%99%E4%B8%89%E7%B1%BB%EF%BC%8C%E5%85%B6%E4%B8%ADiloc%E8%A1%A8%E7%A4%BA%E4%BD%8D%E7%BD%AE%E7%B4%A2%E5%BC%95%EF%BC%8Cloc%E8%A1%A8%E7%A4%BA%E6%A0%87%E7%AD%BE%E7%B4%A2%E5%BC%95%EF%BC%8C-%E4%B9%9F%E5%85%B7%E6%9C%89%E5%BE%88%E5%A4%A7%E7%9A%84%E4%BE%BF%E5%88%A9%E6%80%A7%EF%BC%8C%E5%90%84%E6%9C%89%E7%89%B9%E7%82%B9"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">最常用的索引方法可能就是这三类，其中iloc表示位置索引，loc表示标签索引，[]也具有很大的便利性，各有特点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88a%EF%BC%89loc%E6%96%B9%E6%B3%95%EF%BC%88%E6%B3%A8%E6%84%8F%EF%BC%9A%E6%89%80%E6%9C%89%E5%9C%A8loc%E4%B8%AD%E4%BD%BF%E7%94%A8%E7%9A%84%E5%88%87%E7%89%87%E5%85%A8%E9%83%A8%E5%8C%85%E5%90%AB%E5%8F%B3%E7%AB%AF%E7%82%B9%EF%BC%81%EF%BC%89"><span class="toc-number">1.1.1.2.</span> <span class="toc-text">（a）loc方法（注意：所有在loc中使用的切片全部包含右端点！）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A0-%E5%8D%95%E8%A1%8C%E7%B4%A2%E5%BC%95%EF%BC%9A"><span class="toc-number">1.1.1.3.</span> <span class="toc-text">① 单行索引：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A1-%E5%A4%9A%E8%A1%8C%E7%B4%A2%E5%BC%95%EF%BC%9A"><span class="toc-number">1.1.1.4.</span> <span class="toc-text">② 多行索引：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A2-%E5%8D%95%E5%88%97%E7%B4%A2%E5%BC%95%EF%BC%9A"><span class="toc-number">1.1.1.5.</span> <span class="toc-text">③ 单列索引：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A3-%E5%A4%9A%E5%88%97%E7%B4%A2%E5%BC%95%EF%BC%9A"><span class="toc-number">1.1.1.6.</span> <span class="toc-text">④ 多列索引：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A4-%E8%81%94%E5%90%88%E7%B4%A2%E5%BC%95%EF%BC%9A"><span class="toc-number">1.1.1.7.</span> <span class="toc-text">⑤ 联合索引：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A5-%E5%87%BD%E6%95%B0%E5%BC%8F%E7%B4%A2%E5%BC%95%EF%BC%9A"><span class="toc-number">1.1.1.8.</span> <span class="toc-text">⑥ 函数式索引：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A6-%E5%B8%83%E5%B0%94%E7%B4%A2%E5%BC%95%EF%BC%88%E5%B0%86%E9%87%8D%E7%82%B9%E5%9C%A8%E7%AC%AC2%E8%8A%82%E4%BB%8B%E7%BB%8D%EF%BC%89"><span class="toc-number">1.1.1.9.</span> <span class="toc-text">⑦ 布尔索引（将重点在第2节介绍）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%8F%E8%8A%82%EF%BC%9A%E6%9C%AC%E8%B4%A8%E4%B8%8A%E8%AF%B4%EF%BC%8Cloc%E4%B8%AD%E8%83%BD%E4%BC%A0%E5%85%A5%E7%9A%84%E5%8F%AA%E6%9C%89%E5%B8%83%E5%B0%94%E5%88%97%E8%A1%A8%E5%92%8C%E7%B4%A2%E5%BC%95%E5%AD%90%E9%9B%86%E6%9E%84%E6%88%90%E7%9A%84%E5%88%97%E8%A1%A8%EF%BC%8C%E5%8F%AA%E8%A6%81%E6%8A%8A%E6%8F%A1%E8%BF%99%E4%B8%AA%E5%8E%9F%E5%88%99%E5%B0%B1%E5%BE%88%E5%AE%B9%E6%98%93%E7%90%86%E8%A7%A3%E4%B8%8A%E9%9D%A2%E9%82%A3%E4%BA%9B%E6%93%8D%E4%BD%9C"><span class="toc-number">1.1.1.10.</span> <span class="toc-text">小节：本质上说，loc中能传入的只有布尔列表和索引子集构成的列表，只要把握这个原则就很容易理解上面那些操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88b%EF%BC%89iloc%E6%96%B9%E6%B3%95%EF%BC%88%E6%B3%A8%E6%84%8F%E4%B8%8Eloc%E4%B8%8D%E5%90%8C%EF%BC%8C%E5%88%87%E7%89%87%E5%8F%B3%E7%AB%AF%E7%82%B9%E4%B8%8D%E5%8C%85%E5%90%AB%EF%BC%89"><span class="toc-number">1.1.1.11.</span> <span class="toc-text">（b）iloc方法（注意与loc不同，切片右端点不包含）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A0-%E5%8D%95%E8%A1%8C%E7%B4%A2%E5%BC%95%EF%BC%9A-1"><span class="toc-number">1.1.1.12.</span> <span class="toc-text">① 单行索引：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A1-%E5%A4%9A%E8%A1%8C%E7%B4%A2%E5%BC%95%EF%BC%9A-1"><span class="toc-number">1.1.1.13.</span> <span class="toc-text">② 多行索引：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A2-%E5%8D%95%E5%88%97%E7%B4%A2%E5%BC%95%EF%BC%9A-1"><span class="toc-number">1.1.1.14.</span> <span class="toc-text">③ 单列索引：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A3-%E5%A4%9A%E5%88%97%E7%B4%A2%E5%BC%95%EF%BC%9A-1"><span class="toc-number">1.1.1.15.</span> <span class="toc-text">④ 多列索引：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A4-%E6%B7%B7%E5%90%88%E7%B4%A2%E5%BC%95%EF%BC%9A"><span class="toc-number">1.1.1.16.</span> <span class="toc-text">⑤ 混合索引：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A5-%E5%87%BD%E6%95%B0%E5%BC%8F%E7%B4%A2%E5%BC%95%EF%BC%9A-1"><span class="toc-number">1.1.1.17.</span> <span class="toc-text">⑥ 函数式索引：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%8F%E8%8A%82%EF%BC%9A%E7%94%B1%E4%B8%8A%E6%89%80%E8%BF%B0%EF%BC%8Ciloc%E4%B8%AD%E6%8E%A5%E6%94%B6%E7%9A%84%E5%8F%82%E6%95%B0%E5%8F%AA%E8%83%BD%E4%B8%BA%E6%95%B4%E6%95%B0%E6%88%96%E6%95%B4%E6%95%B0%E5%88%97%E8%A1%A8%EF%BC%8C%E4%B8%8D%E8%83%BD%E4%BD%BF%E7%94%A8%E5%B8%83%E5%B0%94%E7%B4%A2%E5%BC%95"><span class="toc-number">1.1.1.18.</span> <span class="toc-text">小节：由上所述，iloc中接收的参数只能为整数或整数列表，不能使用布尔索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88c%EF%BC%89-%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-number">1.1.1.19.</span> <span class="toc-text">（c） []操作符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E6%9E%9C%E4%B8%8D%E6%83%B3%E9%99%B7%E5%85%A5%E5%9B%B0%E5%A2%83%EF%BC%8C%E8%AF%B7%E4%B8%8D%E8%A6%81%E5%9C%A8%E8%A1%8C%E7%B4%A2%E5%BC%95%E4%B8%BA%E6%B5%AE%E7%82%B9%E6%97%B6%E4%BD%BF%E7%94%A8-%E6%93%8D%E4%BD%9C%E7%AC%A6%EF%BC%8C%E5%9B%A0%E4%B8%BA%E5%9C%A8Series%E4%B8%AD%E7%9A%84%E6%B5%AE%E7%82%B9-%E5%B9%B6%E4%B8%8D%E6%98%AF%E8%BF%9B%E8%A1%8C%E4%BD%8D%E7%BD%AE%E6%AF%94%E8%BE%83%EF%BC%8C%E8%80%8C%E6%98%AF%E5%80%BC%E6%AF%94%E8%BE%83%EF%BC%8C%E9%9D%9E%E5%B8%B8%E7%89%B9%E6%AE%8A"><span class="toc-number">1.1.1.20.</span> <span class="toc-text">如果不想陷入困境，请不要在行索引为浮点时使用[]操作符，因为在Series中的浮点[]并不是进行位置比较，而是值比较，非常特殊</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88c-1%EF%BC%89Series%E7%9A%84-%E6%93%8D%E4%BD%9C"><span class="toc-number">1.1.1.21.</span> <span class="toc-text">（c.1）Series的[]操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A0-%E5%8D%95%E5%85%83%E7%B4%A0%E7%B4%A2%E5%BC%95%EF%BC%9A"><span class="toc-number">1.1.1.22.</span> <span class="toc-text">① 单元素索引：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A1-%E5%A4%9A%E8%A1%8C%E7%B4%A2%E5%BC%95%EF%BC%9A-2"><span class="toc-number">1.1.1.23.</span> <span class="toc-text">② 多行索引：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A2-%E5%87%BD%E6%95%B0%E5%BC%8F%E7%B4%A2%E5%BC%95%EF%BC%9A"><span class="toc-number">1.1.1.24.</span> <span class="toc-text">③ 函数式索引：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A3-%E5%B8%83%E5%B0%94%E7%B4%A2%E5%BC%95%EF%BC%9A"><span class="toc-number">1.1.1.25.</span> <span class="toc-text">④ 布尔索引：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88c-2%EF%BC%89DataFrame%E7%9A%84-%E6%93%8D%E4%BD%9C"><span class="toc-number">1.1.1.26.</span> <span class="toc-text">（c.2）DataFrame的[]操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A0-%E5%8D%95%E8%A1%8C%E7%B4%A2%E5%BC%95%EF%BC%9A-2"><span class="toc-number">1.1.1.27.</span> <span class="toc-text">① 单行索引：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A1-%E5%A4%9A%E8%A1%8C%E7%B4%A2%E5%BC%95%EF%BC%9A-3"><span class="toc-number">1.1.1.28.</span> <span class="toc-text">② 多行索引：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A2-%E5%8D%95%E5%88%97%E7%B4%A2%E5%BC%95%EF%BC%9A-2"><span class="toc-number">1.1.1.29.</span> <span class="toc-text">③ 单列索引：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A3-%E5%A4%9A%E5%88%97%E7%B4%A2%E5%BC%95%EF%BC%9A-2"><span class="toc-number">1.1.1.30.</span> <span class="toc-text">④ 多列索引：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A4%E5%87%BD%E6%95%B0%E5%BC%8F%E7%B4%A2%E5%BC%95%EF%BC%9A"><span class="toc-number">1.1.1.31.</span> <span class="toc-text">⑤函数式索引：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A5-%E5%B8%83%E5%B0%94%E7%B4%A2%E5%BC%95%EF%BC%9A"><span class="toc-number">1.1.1.32.</span> <span class="toc-text">⑥ 布尔索引：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%8F%E8%8A%82%EF%BC%9A%E4%B8%80%E8%88%AC%E6%9D%A5%E8%AF%B4%EF%BC%8C-%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%B8%B8%E7%94%A8%E4%BA%8E%E5%88%97%E9%80%89%E6%8B%A9%E6%88%96%E5%B8%83%E5%B0%94%E9%80%89%E6%8B%A9%EF%BC%8C%E5%B0%BD%E9%87%8F%E9%81%BF%E5%85%8D%E8%A1%8C%E7%9A%84%E9%80%89%E6%8B%A9"><span class="toc-number">1.1.1.33.</span> <span class="toc-text">小节：一般来说，[]操作符常用于列选择或布尔选择，尽量避免行的选择</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%B8%83%E5%B0%94%E7%B4%A2%E5%BC%95"><span class="toc-number">1.1.2.</span> <span class="toc-text">2. 布尔索引</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88a%EF%BC%89%E5%B8%83%E5%B0%94%E7%AC%A6%E5%8F%B7%EF%BC%9A%E2%80%99-amp-%E2%80%99-%E2%80%99-%E2%80%99-%E2%80%99-%E2%80%99%EF%BC%9A%E5%88%86%E5%88%AB%E4%BB%A3%E8%A1%A8%E5%92%8Cand%EF%BC%8C%E6%88%96or%EF%BC%8C%E5%8F%96%E5%8F%8Dnot"><span class="toc-number">1.1.2.1.</span> <span class="toc-text">（a）布尔符号：’&amp;’,’|’,’~’：分别代表和and，或or，取反not</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#loc%E5%92%8C-%E4%B8%AD%E7%9B%B8%E5%BA%94%E4%BD%8D%E7%BD%AE%E9%83%BD%E8%83%BD%E4%BD%BF%E7%94%A8%E5%B8%83%E5%B0%94%E5%88%97%E8%A1%A8%E9%80%89%E6%8B%A9%EF%BC%9A"><span class="toc-number">1.1.2.2.</span> <span class="toc-text">loc和[]中相应位置都能使用布尔列表选择：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88b%EF%BC%89-isin%E6%96%B9%E6%B3%95"><span class="toc-number">1.1.2.3.</span> <span class="toc-text">（b） isin方法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%BF%AB%E9%80%9F%E6%A0%87%E9%87%8F%E7%B4%A2%E5%BC%95"><span class="toc-number">1.1.3.</span> <span class="toc-text">3. 快速标量索引</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BD%93%E5%8F%AA%E9%9C%80%E8%A6%81%E5%8F%96%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%E6%97%B6%EF%BC%8Cat%E5%92%8Ciat%E6%96%B9%E6%B3%95%E8%83%BD%E5%A4%9F%E6%8F%90%E4%BE%9B%E6%9B%B4%E5%BF%AB%E7%9A%84%E5%AE%9E%E7%8E%B0%EF%BC%9A"><span class="toc-number">1.1.3.1.</span> <span class="toc-text">当只需要取一个元素时，at和iat方法能够提供更快的实现：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%8C%BA%E9%97%B4%E7%B4%A2%E5%BC%95"><span class="toc-number">1.1.4.</span> <span class="toc-text">4. 区间索引</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A4%E5%A4%84%E4%BB%8B%E7%BB%8D%E5%B9%B6%E4%B8%8D%E6%98%AF%E8%AF%B4%E5%8F%AA%E8%83%BD%E5%9C%A8%E5%8D%95%E7%BA%A7%E7%B4%A2%E5%BC%95%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%8C%BA%E9%97%B4%E7%B4%A2%E5%BC%95%EF%BC%8C%E5%8F%AA%E6%98%AF%E4%BD%9C%E4%B8%BA%E4%B8%80%E7%A7%8D%E7%89%B9%E6%AE%8A%E7%B1%BB%E5%9E%8B%E7%9A%84%E7%B4%A2%E5%BC%95%E6%96%B9%E5%BC%8F%EF%BC%8C%E5%9C%A8%E6%AD%A4%E5%A4%84%E5%85%88%E8%A1%8C%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.1.4.1.</span> <span class="toc-text">此处介绍并不是说只能在单级索引中使用区间索引，只是作为一种特殊类型的索引方式，在此处先行介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88a%EF%BC%89%E5%88%A9%E7%94%A8interval-range%E6%96%B9%E6%B3%95"><span class="toc-number">1.1.4.2.</span> <span class="toc-text">（a）利用interval_range方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88b%EF%BC%89%E5%88%A9%E7%94%A8cut%E5%B0%86%E6%95%B0%E5%80%BC%E5%88%97%E8%BD%AC%E4%B8%BA%E5%8C%BA%E9%97%B4%E4%B8%BA%E5%85%83%E7%B4%A0%E7%9A%84%E5%88%86%E7%B1%BB%E5%8F%98%E9%87%8F%EF%BC%8C%E4%BE%8B%E5%A6%82%E7%BB%9F%E8%AE%A1%E6%95%B0%E5%AD%A6%E6%88%90%E7%BB%A9%E7%9A%84%E5%8C%BA%E9%97%B4%E6%83%85%E5%86%B5%EF%BC%9A"><span class="toc-number">1.1.4.3.</span> <span class="toc-text">（b）利用cut将数值列转为区间为元素的分类变量，例如统计数学成绩的区间情况：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88c%EF%BC%89%E5%8C%BA%E9%97%B4%E7%B4%A2%E5%BC%95%E7%9A%84%E9%80%89%E5%8F%96"><span class="toc-number">1.1.4.4.</span> <span class="toc-text">（c）区间索引的选取</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E6%9E%9C%E6%83%B3%E8%A6%81%E9%80%89%E5%8F%96%E6%9F%90%E4%B8%AA%E5%8C%BA%E9%97%B4%EF%BC%8C%E5%85%88%E8%A6%81%E6%8A%8A%E5%88%86%E7%B1%BB%E5%8F%98%E9%87%8F%E8%BD%AC%E4%B8%BA%E5%8C%BA%E9%97%B4%E5%8F%98%E9%87%8F%EF%BC%8C%E5%86%8D%E4%BD%BF%E7%94%A8overlap%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="toc-number">1.1.4.5.</span> <span class="toc-text">如果想要选取某个区间，先要把分类变量转为区间变量，再使用overlap方法：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%A4%9A%E7%BA%A7%E7%B4%A2%E5%BC%95"><span class="toc-number">1.2.</span> <span class="toc-text">二、多级索引</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%88%9B%E5%BB%BA%E5%A4%9A%E7%BA%A7%E7%B4%A2%E5%BC%95"><span class="toc-number">1.2.1.</span> <span class="toc-text">1. 创建多级索引</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88a%EF%BC%89%E9%80%9A%E8%BF%87from-tuple%E6%88%96from-arrays"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">（a）通过from_tuple或from_arrays</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A0-%E7%9B%B4%E6%8E%A5%E5%88%9B%E5%BB%BA%E5%85%83%E7%BB%84"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">① 直接创建元组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A1-%E5%88%A9%E7%94%A8zip%E5%88%9B%E5%BB%BA%E5%85%83%E7%BB%84"><span class="toc-number">1.2.1.3.</span> <span class="toc-text">② 利用zip创建元组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A2-%E9%80%9A%E8%BF%87Array%E5%88%9B%E5%BB%BA"><span class="toc-number">1.2.1.4.</span> <span class="toc-text">③ 通过Array创建</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88b%EF%BC%89%E9%80%9A%E8%BF%87from-product"><span class="toc-number">1.2.1.5.</span> <span class="toc-text">（b）通过from_product</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88c%EF%BC%89%E6%8C%87%E5%AE%9Adf%E4%B8%AD%E7%9A%84%E5%88%97%E5%88%9B%E5%BB%BA%EF%BC%88set-index%E6%96%B9%E6%B3%95%EF%BC%89"><span class="toc-number">1.2.1.6.</span> <span class="toc-text">（c）指定df中的列创建（set_index方法）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%A4%9A%E5%B1%82%E7%B4%A2%E5%BC%95%E5%88%87%E7%89%87"><span class="toc-number">1.2.2.</span> <span class="toc-text">2. 多层索引切片</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88a%EF%BC%89%E4%B8%80%E8%88%AC%E5%88%87%E7%89%87"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">（a）一般切片</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88b%EF%BC%89%E7%AC%AC%E4%B8%80%E7%B1%BB%E7%89%B9%E6%AE%8A%E6%83%85%E5%86%B5%EF%BC%9A%E7%94%B1%E5%85%83%E7%BB%84%E6%9E%84%E6%88%90%E5%88%97%E8%A1%A8"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">（b）第一类特殊情况：由元组构成列表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88c%EF%BC%89%E7%AC%AC%E4%BA%8C%E7%B1%BB%E7%89%B9%E6%AE%8A%E6%83%85%E5%86%B5%EF%BC%9A%E7%94%B1%E5%88%97%E8%A1%A8%E6%9E%84%E6%88%90%E5%85%83%E7%BB%84"><span class="toc-number">1.2.2.3.</span> <span class="toc-text">（c）第二类特殊情况：由列表构成元组</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%A4%9A%E5%B1%82%E7%B4%A2%E5%BC%95%E4%B8%AD%E7%9A%84slice%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.2.3.</span> <span class="toc-text">3. 多层索引中的slice对象</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95Slice%E7%9A%84%E4%BD%BF%E7%94%A8%E9%9D%9E%E5%B8%B8%E7%81%B5%E6%B4%BB%EF%BC%9A"><span class="toc-number">1.2.3.1.</span> <span class="toc-text">索引Slice的使用非常灵活：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E7%B4%A2%E5%BC%95%E5%B1%82%E7%9A%84%E4%BA%A4%E6%8D%A2"><span class="toc-number">1.2.4.</span> <span class="toc-text">4. 索引层的交换</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88a%EF%BC%89swaplevel%E6%96%B9%E6%B3%95%EF%BC%88%E4%B8%A4%E5%B1%82%E4%BA%A4%E6%8D%A2%EF%BC%89"><span class="toc-number">1.2.4.1.</span> <span class="toc-text">（a）swaplevel方法（两层交换）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88b%EF%BC%89reorder-levels%E6%96%B9%E6%B3%95%EF%BC%88%E5%A4%9A%E5%B1%82%E4%BA%A4%E6%8D%A2%EF%BC%89"><span class="toc-number">1.2.4.2.</span> <span class="toc-text">（b）reorder_levels方法（多层交换）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E7%B4%A2%E5%BC%95%E8%AE%BE%E5%AE%9A"><span class="toc-number">1.3.</span> <span class="toc-text">三、索引设定</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-index-col%E5%8F%82%E6%95%B0"><span class="toc-number">1.3.1.</span> <span class="toc-text">1. index_col参数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#index-col%E6%98%AFread-csv%E4%B8%AD%E7%9A%84%E4%B8%80%E4%B8%AA%E5%8F%82%E6%95%B0%EF%BC%8C%E8%80%8C%E4%B8%8D%E6%98%AF%E6%9F%90%E4%B8%80%E4%B8%AA%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">index_col是read_csv中的一个参数，而不是某一个方法：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-reindex%E5%92%8Creindex-like"><span class="toc-number">1.3.2.</span> <span class="toc-text">2. reindex和reindex_like</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#reindex%E6%98%AF%E6%8C%87%E9%87%8D%E6%96%B0%E7%B4%A2%E5%BC%95%EF%BC%8C%E5%AE%83%E7%9A%84%E9%87%8D%E8%A6%81%E7%89%B9%E6%80%A7%E5%9C%A8%E4%BA%8E%E7%B4%A2%E5%BC%95%E5%AF%B9%E9%BD%90%EF%BC%8C%E5%BE%88%E5%A4%9A%E6%97%B6%E5%80%99%E7%94%A8%E4%BA%8E%E9%87%8D%E6%96%B0%E6%8E%92%E5%BA%8F"><span class="toc-number">1.3.2.1.</span> <span class="toc-text">reindex是指重新索引，它的重要特性在于索引对齐，很多时候用于重新排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%AF%E4%BB%A5%E9%80%89%E6%8B%A9%E7%BC%BA%E5%A4%B1%E5%80%BC%E7%9A%84%E5%A1%AB%E5%85%85%E6%96%B9%E6%B3%95%EF%BC%9Afill-value%E5%92%8Cmethod%EF%BC%88bfill-ffill-nearest%EF%BC%89%EF%BC%8C%E5%85%B6%E4%B8%ADmethod%E5%8F%82%E6%95%B0%E5%BF%85%E9%A1%BB%E7%B4%A2%E5%BC%95%E5%8D%95%E8%B0%83"><span class="toc-number">1.3.2.2.</span> <span class="toc-text">可以选择缺失值的填充方法：fill_value和method（bfill&#x2F;ffill&#x2F;nearest），其中method参数必须索引单调</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#reindex-like%E7%9A%84%E4%BD%9C%E7%94%A8%E4%B8%BA%E7%94%9F%E6%88%90%E4%B8%80%E4%B8%AA%E6%A8%AA%E7%BA%B5%E7%B4%A2%E5%BC%95%E5%AE%8C%E5%85%A8%E4%B8%8E%E5%8F%82%E6%95%B0%E5%88%97%E8%A1%A8%E4%B8%80%E8%87%B4%E7%9A%84DataFrame%EF%BC%8C%E6%95%B0%E6%8D%AE%E4%BD%BF%E7%94%A8%E8%A2%AB%E8%B0%83%E7%94%A8%E7%9A%84%E8%A1%A8"><span class="toc-number">1.3.2.3.</span> <span class="toc-text">reindex_like的作用为生成一个横纵索引完全与参数列表一致的DataFrame，数据使用被调用的表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E6%9E%9Cdf-temp%E5%8D%95%E8%B0%83%E8%BF%98%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8method%E5%8F%82%E6%95%B0%EF%BC%9A"><span class="toc-number">1.3.2.4.</span> <span class="toc-text">如果df_temp单调还可以使用method参数：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-set-index%E5%92%8Creset-index"><span class="toc-number">1.3.3.</span> <span class="toc-text">3. set_index和reset_index</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%88%E4%BB%8B%E7%BB%8Dset-index%EF%BC%9A%E4%BB%8E%E5%AD%97%E9%9D%A2%E6%84%8F%E6%80%9D%E7%9C%8B%EF%BC%8C%E5%B0%B1%E6%98%AF%E5%B0%86%E6%9F%90%E4%BA%9B%E5%88%97%E4%BD%9C%E4%B8%BA%E7%B4%A2%E5%BC%95"><span class="toc-number">1.3.3.1.</span> <span class="toc-text">先介绍set_index：从字面意思看，就是将某些列作为索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E8%A1%A8%E5%86%85%E5%88%97%E4%BD%9C%E4%B8%BA%E7%B4%A2%E5%BC%95%EF%BC%9A"><span class="toc-number">1.3.3.2.</span> <span class="toc-text">使用表内列作为索引：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8append%E5%8F%82%E6%95%B0%E5%8F%AF%E4%BB%A5%E5%B0%86%E5%BD%93%E5%89%8D%E7%B4%A2%E5%BC%95%E7%BB%B4%E6%8C%81%E4%B8%8D%E5%8F%98"><span class="toc-number">1.3.3.3.</span> <span class="toc-text">利用append参数可以将当前索引维持不变</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BD%93%E4%BD%BF%E7%94%A8%E4%B8%8E%E8%A1%A8%E9%95%BF%E7%9B%B8%E5%90%8C%E7%9A%84%E5%88%97%E4%BD%9C%E4%B8%BA%E7%B4%A2%E5%BC%95%EF%BC%88%E9%9C%80%E8%A6%81%E5%85%88%E8%BD%AC%E5%8C%96%E4%B8%BASeries%EF%BC%8C%E5%90%A6%E5%88%99%E6%8A%A5%E9%94%99%EF%BC%89%EF%BC%9A"><span class="toc-number">1.3.3.4.</span> <span class="toc-text">当使用与表长相同的列作为索引（需要先转化为Series，否则报错）：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%AF%E4%BB%A5%E7%9B%B4%E6%8E%A5%E6%B7%BB%E5%8A%A0%E5%A4%9A%E7%BA%A7%E7%B4%A2%E5%BC%95%EF%BC%9A"><span class="toc-number">1.3.3.5.</span> <span class="toc-text">可以直接添加多级索引：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8B%E9%9D%A2%E4%BB%8B%E7%BB%8Dreset-index%E6%96%B9%E6%B3%95%EF%BC%8C%E5%AE%83%E7%9A%84%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD%E6%98%AF%E5%B0%86%E7%B4%A2%E5%BC%95%E9%87%8D%E7%BD%AE"><span class="toc-number">1.3.3.6.</span> <span class="toc-text">下面介绍reset_index方法，它的主要功能是将索引重置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%BB%98%E8%AE%A4%E7%8A%B6%E6%80%81%E7%9B%B4%E6%8E%A5%E6%81%A2%E5%A4%8D%E5%88%B0%E8%87%AA%E7%84%B6%E6%95%B0%E7%B4%A2%E5%BC%95%EF%BC%9A"><span class="toc-number">1.3.3.7.</span> <span class="toc-text">默认状态直接恢复到自然数索引：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%A8level%E5%8F%82%E6%95%B0%E6%8C%87%E5%AE%9A%E5%93%AA%E4%B8%80%E5%B1%82%E8%A2%ABreset%EF%BC%8C%E7%94%A8col-level%E5%8F%82%E6%95%B0%E6%8C%87%E5%AE%9Aset%E5%88%B0%E5%93%AA%E4%B8%80%E5%B1%82%EF%BC%9A"><span class="toc-number">1.3.3.8.</span> <span class="toc-text">用level参数指定哪一层被reset，用col_level参数指定set到哪一层：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-rename-axis%E5%92%8Crename"><span class="toc-number">1.3.4.</span> <span class="toc-text">4. rename_axis和rename</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#rename-axis%E6%98%AF%E9%92%88%E5%AF%B9%E5%A4%9A%E7%BA%A7%E7%B4%A2%E5%BC%95%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%8C%E4%BD%9C%E7%94%A8%E6%98%AF%E4%BF%AE%E6%94%B9%E6%9F%90%E4%B8%80%E5%B1%82%E7%9A%84%E7%B4%A2%E5%BC%95%E5%90%8D%EF%BC%8C%E8%80%8C%E4%B8%8D%E6%98%AF%E7%B4%A2%E5%BC%95%E6%A0%87%E7%AD%BE"><span class="toc-number">1.3.4.1.</span> <span class="toc-text">rename_axis是针对多级索引的方法，作用是修改某一层的索引名，而不是索引标签</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#rename%E6%96%B9%E6%B3%95%E7%94%A8%E4%BA%8E%E4%BF%AE%E6%94%B9%E5%88%97%E6%88%96%E8%80%85%E8%A1%8C%E7%B4%A2%E5%BC%95%E6%A0%87%E7%AD%BE%EF%BC%8C%E8%80%8C%E4%B8%8D%E6%98%AF%E7%B4%A2%E5%BC%95%E5%90%8D%EF%BC%9A"><span class="toc-number">1.3.4.2.</span> <span class="toc-text">rename方法用于修改列或者行索引标签，而不是索引名：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%B8%B8%E7%94%A8%E7%B4%A2%E5%BC%95%E5%9E%8B%E5%87%BD%E6%95%B0"><span class="toc-number">1.4.</span> <span class="toc-text">四、常用索引型函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-where%E5%87%BD%E6%95%B0"><span class="toc-number">1.4.1.</span> <span class="toc-text">1. where函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BD%93%E5%AF%B9%E6%9D%A1%E4%BB%B6%E4%B8%BAFalse%E7%9A%84%E5%8D%95%E5%85%83%E8%BF%9B%E8%A1%8C%E5%A1%AB%E5%85%85%EF%BC%9A"><span class="toc-number">1.4.1.1.</span> <span class="toc-text">当对条件为False的单元进行填充：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E8%BF%99%E7%A7%8D%E6%96%B9%E6%B3%95%E7%AD%9B%E9%80%89%E7%BB%93%E6%9E%9C%E5%92%8C-%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E7%BB%93%E6%9E%9C%E5%AE%8C%E5%85%A8%E4%B8%80%E8%87%B4%EF%BC%9A"><span class="toc-number">1.4.1.2.</span> <span class="toc-text">通过这种方法筛选结果和[]操作符的结果完全一致：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8F%82%E6%95%B0%E4%B8%BA%E5%B8%83%E5%B0%94%E6%9D%A1%E4%BB%B6%EF%BC%8C%E7%AC%AC%E4%BA%8C%E4%B8%AA%E5%8F%82%E6%95%B0%E4%B8%BA%E5%A1%AB%E5%85%85%E5%80%BC%EF%BC%9A"><span class="toc-number">1.4.1.3.</span> <span class="toc-text">第一个参数为布尔条件，第二个参数为填充值：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-mask%E5%87%BD%E6%95%B0"><span class="toc-number">1.4.2.</span> <span class="toc-text">2. mask函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#mask%E5%87%BD%E6%95%B0%E4%B8%8Ewhere%E5%8A%9F%E8%83%BD%E4%B8%8A%E7%9B%B8%E5%8F%8D%EF%BC%8C%E5%85%B6%E4%BD%99%E5%AE%8C%E5%85%A8%E4%B8%80%E8%87%B4%EF%BC%8C%E5%8D%B3%E5%AF%B9%E6%9D%A1%E4%BB%B6%E4%B8%BATrue%E7%9A%84%E5%8D%95%E5%85%83%E8%BF%9B%E8%A1%8C%E5%A1%AB%E5%85%85"><span class="toc-number">1.4.2.1.</span> <span class="toc-text">mask函数与where功能上相反，其余完全一致，即对条件为True的单元进行填充</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-query%E5%87%BD%E6%95%B0"><span class="toc-number">1.4.3.</span> <span class="toc-text">3. query函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#query%E5%87%BD%E6%95%B0%E4%B8%AD%E7%9A%84%E5%B8%83%E5%B0%94%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%AD%EF%BC%8C%E4%B8%8B%E9%9D%A2%E7%9A%84%E7%AC%A6%E5%8F%B7%E9%83%BD%E6%98%AF%E5%90%88%E6%B3%95%E7%9A%84%EF%BC%9A%E8%A1%8C%E5%88%97%E7%B4%A2%E5%BC%95%E5%90%8D%E3%80%81%E5%AD%97%E7%AC%A6%E4%B8%B2%E3%80%81and-not-or-amp-not-in-in-%E3%80%81%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">1.4.3.1.</span> <span class="toc-text">query函数中的布尔表达式中，下面的符号都是合法的：行列索引名、字符串、and&#x2F;not&#x2F;or&#x2F;&amp;&#x2F;|&#x2F;~&#x2F;not in&#x2F;in&#x2F;&#x3D;&#x3D;&#x2F;!&#x3D;、四则运算符</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0%E5%A4%84%E7%90%86"><span class="toc-number">1.5.</span> <span class="toc-text">五、重复元素处理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-duplicated%E6%96%B9%E6%B3%95"><span class="toc-number">1.5.1.</span> <span class="toc-text">1. duplicated方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%A5%E6%96%B9%E6%B3%95%E8%BF%94%E5%9B%9E%E4%BA%86%E6%98%AF%E5%90%A6%E9%87%8D%E5%A4%8D%E7%9A%84%E5%B8%83%E5%B0%94%E5%88%97%E8%A1%A8"><span class="toc-number">1.5.1.1.</span> <span class="toc-text">该方法返回了是否重复的布尔列表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%AF%E9%80%89%E5%8F%82%E6%95%B0keep%E9%BB%98%E8%AE%A4%E4%B8%BAfirst%EF%BC%8C%E5%8D%B3%E9%A6%96%E6%AC%A1%E5%87%BA%E7%8E%B0%E8%AE%BE%E4%B8%BA%E4%B8%8D%E9%87%8D%E5%A4%8D%EF%BC%8C%E8%8B%A5%E4%B8%BAlast%EF%BC%8C%E5%88%99%E6%9C%80%E5%90%8E%E4%B8%80%E6%AC%A1%E8%AE%BE%E4%B8%BA%E4%B8%8D%E9%87%8D%E5%A4%8D%EF%BC%8C%E8%8B%A5%E4%B8%BAFalse%EF%BC%8C%E5%88%99%E6%89%80%E6%9C%89%E9%87%8D%E5%A4%8D%E9%A1%B9%E4%B8%BAFalse"><span class="toc-number">1.5.1.2.</span> <span class="toc-text">可选参数keep默认为first，即首次出现设为不重复，若为last，则最后一次设为不重复，若为False，则所有重复项为False</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-drop-duplicates%E6%96%B9%E6%B3%95"><span class="toc-number">1.5.2.</span> <span class="toc-text">2. drop_duplicates方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%8E%E5%90%8D%E5%AD%97%E4%B8%8A%E7%9C%8B%E5%87%BA%E4%B8%BA%E5%89%94%E9%99%A4%E9%87%8D%E5%A4%8D%E9%A1%B9%EF%BC%8C%E8%BF%99%E5%9C%A8%E5%90%8E%E9%9D%A2%E7%AB%A0%E8%8A%82%E4%B8%AD%E7%9A%84%E5%88%86%E7%BB%84%E6%93%8D%E4%BD%9C%E4%B8%AD%E5%8F%AF%E8%83%BD%E6%98%AF%E6%9C%89%E7%94%A8%E7%9A%84%EF%BC%8C%E4%BE%8B%E5%A6%82%E9%9C%80%E8%A6%81%E4%BF%9D%E7%95%99%E6%AF%8F%E7%BB%84%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%80%BC%EF%BC%9A"><span class="toc-number">1.5.2.1.</span> <span class="toc-text">从名字上看出为剔除重复项，这在后面章节中的分组操作中可能是有用的，例如需要保留每组的第一个值：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E4%B8%8Eduplicate%E5%87%BD%E6%95%B0%E7%B1%BB%E4%BC%BC%EF%BC%9A"><span class="toc-number">1.5.2.2.</span> <span class="toc-text">参数与duplicate函数类似：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%A8%E4%BC%A0%E5%85%A5%E5%A4%9A%E5%88%97%E6%97%B6%E7%AD%89%E4%BB%B7%E4%BA%8E%E5%B0%86%E5%A4%9A%E5%88%97%E5%85%B1%E5%90%8C%E8%A7%86%E4%BD%9C%E4%B8%80%E4%B8%AA%E5%A4%9A%E7%BA%A7%E7%B4%A2%E5%BC%95%EF%BC%8C%E6%AF%94%E8%BE%83%E9%87%8D%E5%A4%8D%E9%A1%B9%EF%BC%9A"><span class="toc-number">1.5.2.3.</span> <span class="toc-text">在传入多列时等价于将多列共同视作一个多级索引，比较重复项：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E6%8A%BD%E6%A0%B7%E5%87%BD%E6%95%B0"><span class="toc-number">1.6.</span> <span class="toc-text">六、抽样函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%99%E9%87%8C%E7%9A%84%E6%8A%BD%E6%A0%B7%E5%87%BD%E6%95%B0%E6%8C%87%E7%9A%84%E5%B0%B1%E6%98%AFsample%E5%87%BD%E6%95%B0"><span class="toc-number">1.6.0.1.</span> <span class="toc-text">这里的抽样函数指的就是sample函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88a%EF%BC%89n%E4%B8%BA%E6%A0%B7%E6%9C%AC%E9%87%8F"><span class="toc-number">1.6.0.2.</span> <span class="toc-text">（a）n为样本量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88b%EF%BC%89frac%E4%B8%BA%E6%8A%BD%E6%A0%B7%E6%AF%94"><span class="toc-number">1.6.0.3.</span> <span class="toc-text">（b）frac为抽样比</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88c%EF%BC%89replace%E4%B8%BA%E6%98%AF%E5%90%A6%E6%94%BE%E5%9B%9E"><span class="toc-number">1.6.0.4.</span> <span class="toc-text">（c）replace为是否放回</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88d%EF%BC%89axis%E4%B8%BA%E6%8A%BD%E6%A0%B7%E7%BB%B4%E5%BA%A6%EF%BC%8C%E9%BB%98%E8%AE%A4%E4%B8%BA0%EF%BC%8C%E5%8D%B3%E6%8A%BD%E8%A1%8C"><span class="toc-number">1.6.0.5.</span> <span class="toc-text">（d）axis为抽样维度，默认为0，即抽行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88e%EF%BC%89weights%E4%B8%BA%E6%A0%B7%E6%9C%AC%E6%9D%83%E9%87%8D%EF%BC%8C%E8%87%AA%E5%8A%A8%E5%BD%92%E4%B8%80%E5%8C%96"><span class="toc-number">1.6.0.6.</span> <span class="toc-text">（e）weights为样本权重，自动归一化</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E9%97%AE%E9%A2%98%E4%B8%8E%E7%BB%83%E4%B9%A0"><span class="toc-number">1.7.</span> <span class="toc-text">七、问题与练习</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E9%97%AE%E9%A2%98"><span class="toc-number">1.7.1.</span> <span class="toc-text">1. 问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E3%80%90%E9%97%AE%E9%A2%98%E4%B8%80%E3%80%91-%E5%A6%82%E4%BD%95%E6%9B%B4%E6%94%B9%E5%88%97%E6%88%96%E8%A1%8C%E7%9A%84%E9%A1%BA%E5%BA%8F%EF%BC%9F"><span class="toc-number">1.7.1.1.</span> <span class="toc-text">【问题一】 如何更改列或行的顺序？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E3%80%90%E9%97%AE%E9%A2%98%E4%BA%8C%E3%80%91-%E5%A6%82%E6%9E%9C%E8%A6%81%E9%80%89%E5%87%BADataFrame%E7%9A%84%E6%9F%90%E4%B8%AA%E5%AD%90%E9%9B%86%EF%BC%8C%E8%AF%B7%E7%BB%99%E5%87%BA%E5%B0%BD%E5%8F%AF%E8%83%BD%E5%A4%9A%E7%9A%84%E6%96%B9%E6%B3%95%E5%AE%9E%E7%8E%B0%E3%80%82"><span class="toc-number">1.7.1.2.</span> <span class="toc-text">【问题二】 如果要选出DataFrame的某个子集，请给出尽可能多的方法实现。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E3%80%90%E9%97%AE%E9%A2%98%E4%B8%89%E3%80%91-%E5%8D%95%E7%BA%A7%E7%B4%A2%E5%BC%95%E8%83%BD%E4%BD%BF%E7%94%A8Slice%E5%AF%B9%E8%B1%A1%E5%90%97%EF%BC%9F%E8%83%BD%E7%9A%84%E8%AF%9D%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8%EF%BC%8C%E8%AF%B7%E7%BB%99%E5%87%BA%E4%B8%80%E4%B8%AA%E4%BE%8B%E5%AD%90%E3%80%82"><span class="toc-number">1.7.1.3.</span> <span class="toc-text">【问题三】 单级索引能使用Slice对象吗？能的话怎么使用，请给出一个例子。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E3%80%90%E9%97%AE%E9%A2%98%E5%9B%9B%E3%80%91-%E7%B4%A2%E5%BC%95%E8%AE%BE%E5%AE%9A%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%E6%96%B9%E6%B3%95%E5%88%86%E5%88%AB%E9%80%82%E7%94%A8%E4%BA%8E%E5%93%AA%E4%BA%9B%E5%9C%BA%E5%90%88%EF%BC%9F"><span class="toc-number">1.7.1.4.</span> <span class="toc-text">【问题四】 索引设定中的所有方法分别适用于哪些场合？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E3%80%90%E9%97%AE%E9%A2%98%E4%BA%94%E3%80%91-%E5%A6%82%E4%BD%95%E5%BF%AB%E9%80%9F%E6%89%BE%E5%87%BA%E6%9F%90%E4%B8%80%E5%88%97%E7%9A%84%E7%BC%BA%E5%A4%B1%E5%80%BC%E6%89%80%E5%9C%A8%E7%B4%A2%E5%BC%95%EF%BC%9F"><span class="toc-number">1.7.1.5.</span> <span class="toc-text">【问题五】 如何快速找出某一列的缺失值所在索引？</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%BB%83%E4%B9%A0"><span class="toc-number">1.7.2.</span> <span class="toc-text">2. 练习</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E3%80%90%E7%BB%83%E4%B9%A0%E4%B8%80%E3%80%91-%E7%8E%B0%E6%9C%89%E4%B8%80%E4%BB%BD%E5%85%B3%E4%BA%8EUFO%E7%9A%84%E6%95%B0%E6%8D%AE%E9%9B%86%EF%BC%8C%E8%AF%B7%E8%A7%A3%E5%86%B3%E4%B8%8B%E5%88%97%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="toc-number">1.7.2.1.</span> <span class="toc-text">【练习一】 现有一份关于UFO的数据集，请解决下列问题：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88a%EF%BC%89%E5%9C%A8%E6%89%80%E6%9C%89%E8%A2%AB%E8%A7%82%E6%B5%8B%E6%97%B6%E9%97%B4%E8%B6%85%E8%BF%8760s%E7%9A%84%E6%97%B6%E9%97%B4%E4%B8%AD%EF%BC%8C%E5%93%AA%E4%B8%AA%E5%BD%A2%E7%8A%B6%E6%9C%80%E5%A4%9A%EF%BC%9F"><span class="toc-number">1.7.2.2.</span> <span class="toc-text">（a）在所有被观测时间超过60s的时间中，哪个形状最多？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88b%EF%BC%89%E5%AF%B9%E7%BB%8F%E7%BA%AC%E5%BA%A6%E8%BF%9B%E8%A1%8C%E5%88%92%E5%88%86%EF%BC%9A-180%C2%B0%E8%87%B3180%C2%B0%E4%BB%A530%C2%B0%E4%B8%BA%E4%B8%80%E4%B8%AA%E5%88%92%E5%88%86%EF%BC%8C-90%C2%B0%E8%87%B390%C2%B0%E4%BB%A518%C2%B0%E4%B8%BA%E4%B8%80%E4%B8%AA%E5%88%92%E5%88%86%EF%BC%8C%E8%AF%B7%E9%97%AE%E5%93%AA%E4%B8%AA%E5%8C%BA%E5%9F%9F%E4%B8%AD%E6%8A%A5%E5%91%8A%E7%9A%84UFO%E4%BA%8B%E4%BB%B6%E6%95%B0%E9%87%8F%E6%9C%80%E5%A4%9A%EF%BC%9F"><span class="toc-number">1.7.2.3.</span> <span class="toc-text">（b）对经纬度进行划分：-180°至180°以30°为一个划分，-90°至90°以18°为一个划分，请问哪个区域中报告的UFO事件数量最多？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E3%80%90%E7%BB%83%E4%B9%A0%E4%BA%8C%E3%80%91-%E7%8E%B0%E6%9C%89%E4%B8%80%E4%BB%BD%E5%85%B3%E4%BA%8E%E5%8F%A3%E8%A2%8B%E5%A6%96%E6%80%AA%E7%9A%84%E6%95%B0%E6%8D%AE%E9%9B%86%EF%BC%8C%E8%AF%B7%E8%A7%A3%E5%86%B3%E4%B8%8B%E5%88%97%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="toc-number">1.7.2.4.</span> <span class="toc-text">【练习二】 现有一份关于口袋妖怪的数据集，请解决下列问题：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88a%EF%BC%89%E5%8F%8C%E5%B1%9E%E6%80%A7%E7%9A%84Pokemon%E5%8D%A0%E6%80%BB%E4%BD%93%E6%AF%94%E4%BE%8B%E7%9A%84%E5%A4%9A%E5%B0%91%EF%BC%9F"><span class="toc-number">1.7.2.5.</span> <span class="toc-text">（a）双属性的Pokemon占总体比例的多少？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88b%EF%BC%89%E5%9C%A8%E6%89%80%E6%9C%89%E7%A7%8D%E6%97%8F%E5%80%BC%EF%BC%88Total%EF%BC%89%E4%B8%8D%E5%B0%8F%E4%BA%8E580%E7%9A%84Pokemon%E4%B8%AD%EF%BC%8C%E9%9D%9E%E7%A5%9E%E5%85%BD%EF%BC%88Legendary-False%EF%BC%89%E7%9A%84%E6%AF%94%E4%BE%8B%E4%B8%BA%E5%A4%9A%E5%B0%91%EF%BC%9F"><span class="toc-number">1.7.2.6.</span> <span class="toc-text">（b）在所有种族值（Total）不小于580的Pokemon中，非神兽（Legendary&#x3D;False）的比例为多少？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88c%EF%BC%89%E5%9C%A8%E7%AC%AC%E4%B8%80%E5%B1%9E%E6%80%A7%E4%B8%BA%E6%A0%BC%E6%96%97%E7%B3%BB%EF%BC%88Fighting%EF%BC%89%E7%9A%84Pokemon%E4%B8%AD%EF%BC%8C%E7%89%A9%E6%94%BB%E6%8E%92%E5%90%8D%E5%89%8D%E4%B8%89%E9%AB%98%E7%9A%84%E6%98%AF%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="toc-number">1.7.2.7.</span> <span class="toc-text">（c）在第一属性为格斗系（Fighting）的Pokemon中，物攻排名前三高的是哪些？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88d%EF%BC%89%E8%AF%B7%E9%97%AE%E5%85%AD%E9%A1%B9%E7%A7%8D%E6%97%8F%E6%8C%87%E6%A0%87%EF%BC%88HP%E3%80%81%E7%89%A9%E6%94%BB%E3%80%81%E7%89%B9%E6%94%BB%E3%80%81%E7%89%A9%E9%98%B2%E3%80%81%E7%89%B9%E9%98%B2%E3%80%81%E9%80%9F%E5%BA%A6%EF%BC%89%E6%9E%81%E5%B7%AE%E7%9A%84%E5%9D%87%E5%80%BC%E6%9C%80%E5%A4%A7%E7%9A%84%E6%98%AF%E5%93%AA%E4%B8%AA%E5%B1%9E%E6%80%A7%EF%BC%88%E5%8F%AA%E8%80%83%E8%99%91%E7%AC%AC%E4%B8%80%E5%B1%9E%E6%80%A7%EF%BC%8C%E4%B8%94%E5%9D%87%E5%80%BC%E6%98%AF%E5%AF%B9%E5%B1%9E%E6%80%A7%E8%80%8C%E8%A8%80%EF%BC%89%EF%BC%9F"><span class="toc-number">1.7.2.8.</span> <span class="toc-text">（d）请问六项种族指标（HP、物攻、特攻、物防、特防、速度）极差的均值最大的是哪个属性（只考虑第一属性，且均值是对属性而言）？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88e%EF%BC%89%E5%93%AA%E4%B8%AA%E5%B1%9E%E6%80%A7%EF%BC%88%E5%8F%AA%E8%80%83%E8%99%91%E7%AC%AC%E4%B8%80%E5%B1%9E%E6%80%A7%EF%BC%89%E7%9A%84%E7%A5%9E%E5%85%BD%E6%AF%94%E4%BE%8B%E6%9C%80%E9%AB%98%EF%BC%9F%E8%AF%A5%E5%B1%9E%E6%80%A7%E7%A5%9E%E5%85%BD%E7%9A%84%E7%A7%8D%E6%97%8F%E5%80%BC%E4%B9%9F%E6%98%AF%E6%9C%80%E9%AB%98%E7%9A%84%E5%90%97%EF%BC%9F"><span class="toc-number">1.7.2.9.</span> <span class="toc-text">（e）哪个属性（只考虑第一属性）的神兽比例最高？该属性神兽的种族值也是最高的吗？</span></a></li></ol></li></ol></li></ol></li></ol></div></div></div><header class="post-bg" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg3.png)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">codemk</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">2- pandas索引</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-04-20T08:31:33.187Z" title="发表于 2020-04-20 16:31:33">2020-04-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-04-20T10:16:38.784Z" title="更新于 2020-04-20 18:16:38">2020-04-20</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/pandas/">pandas</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h1 id="第2章-索引"><a href="#第2章-索引" class="headerlink" title="第2章 索引"></a>第2章 索引</h1><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">df = pd.read_csv(<span class="string">'data/table.csv'</span>,index_col=<span class="string">'ID'</span>)</span><br><span class="line">df.head()</span><br></pre></td></tr></tbody></table></figure>
 <a id="more"></a>
 <div>
 <style scoped="">
@@ -942,7 +820,7 @@ Name: Height, dtype: int64
 
 
 
-<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> [<span class="number">1101</span>,<span class="number">1103</span>]</span><br><span class="line">df.loc[f]</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span>(<span class="params">x</span>):</span></span><br><span class="line">    <span class="keyword">return</span> [<span class="number">1101</span>,<span class="number">1103</span>]</span><br><span class="line">df.loc[f]</span><br></pre></td></tr></tbody></table></figure>
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -7980,423 +7858,81 @@ dtype: bool
             });
             document.body.appendChild(img);
           });
-      </script>
-    </div>
-
-    
-    
-    
-    <!--
-    <div>
-      
-        <div>
-    
-        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束 <i class="fa fa-paw"></i>感谢您的阅读-------------</div>
-    
-</div>
-      
-    </div>  -->
-        <div class="reward-container">
-  <div>Donate comment here. 坚持原创技术分享，您的支持将鼓励我继续创作！</div>
-  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
-    打赏
-  </button>
-  <div id="qr" style="display: none;">
-      
-      <div style="display: inline-block;">
-        <img src="/images/wechat.png" alt="zhouzhm 微信支付">
-        <p>微信支付</p>
-      </div>
-      
-      <div style="display: inline-block;">
-        <img src="/images/alipay.jpg" alt="zhouzhm 支付宝">
-        <p>支付宝</p>
-      </div>
-
-  </div>
-</div>
-
-        
-
-<div>
-<ul class="post-copyright">
-  <li class="post-copyright-author">
-    <strong>本文作者： </strong>zhouzhm
-  </li>
-  <li class="post-copyright-link">
-    <strong>本文链接：</strong>
-    <a href="https://www.whocareslearning.org.cn/2020/04/20/2-pandas-suo-yin/" title="2- pandas索引">https://www.whocareslearning.org.cn/2020/04/20/2-pandas-suo-yin/</a>
-  </li>
-  <li class="post-copyright-license">
-    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
-  </li>
-</ul>
-</div>
-
-
-      <footer class="post-footer">
-          
-          <div class="post-tags">
-              <a href="/tags/pandas/" rel="tag">
-              <i class="fa fa-tag"> pandas</i>
-              </a>
-          </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2020/04/17/1-pandas-ji-chu/" rel="prev" title="1 - pandas基础">
-      <i class="fa fa-chevron-left"></i> 1 - pandas基础
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/04/20/youdao-oral-english-0/" rel="next" title="Youdao-Oral-English-0">
-      Youdao-Oral-English-0 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
-          </div>
-          
-    <div class="comments" id="valine-comments"></div>
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
+      </script></div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">zhouzhm</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.whocareslearning.org.cn/2020/04/20/2-pandas-suo-yin/">https://www.whocareslearning.org.cn/2020/04/20/2-pandas-suo-yin/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.whocareslearning.org.cn" target="_blank">codemk</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/pandas/">pandas</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg3.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/04/20/youdao-oral-english-0/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Youdao-Oral-English-0</div></div></a></div><div class="next-post pull-right"><a href="/2020/04/17/1-pandas-ji-chu/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">1 - pandas基础</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2020/04/17/1-pandas-ji-chu/" title="1 - pandas基础"><img class="cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-04-17</div><div class="title">1 - pandas基础</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 By zhouzhm</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, welcome to my blog</div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
       }
     }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
   }
-</script>
-
-        </div>
-          
   
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第2章-索引"><span class="nav-number">1.</span> <span class="nav-text">第2章 索引</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、单级索引"><span class="nav-number">1.1.</span> <span class="nav-text">一、单级索引</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-loc方法、iloc方法、-操作符"><span class="nav-number">1.1.1.</span> <span class="nav-text">1. loc方法、iloc方法、[]操作符</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#最常用的索引方法可能就是这三类，其中iloc表示位置索引，loc表示标签索引，-也具有很大的便利性，各有特点"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">最常用的索引方法可能就是这三类，其中iloc表示位置索引，loc表示标签索引，[]也具有很大的便利性，各有特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（a）loc方法（注意：所有在loc中使用的切片全部包含右端点！）"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">（a）loc方法（注意：所有在loc中使用的切片全部包含右端点！）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#①-单行索引："><span class="nav-number">1.1.1.3.</span> <span class="nav-text">① 单行索引：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#②-多行索引："><span class="nav-number">1.1.1.4.</span> <span class="nav-text">② 多行索引：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#③-单列索引："><span class="nav-number">1.1.1.5.</span> <span class="nav-text">③ 单列索引：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#④-多列索引："><span class="nav-number">1.1.1.6.</span> <span class="nav-text">④ 多列索引：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#⑤-联合索引："><span class="nav-number">1.1.1.7.</span> <span class="nav-text">⑤ 联合索引：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#⑥-函数式索引："><span class="nav-number">1.1.1.8.</span> <span class="nav-text">⑥ 函数式索引：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#⑦-布尔索引（将重点在第2节介绍）"><span class="nav-number">1.1.1.9.</span> <span class="nav-text">⑦ 布尔索引（将重点在第2节介绍）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小节：本质上说，loc中能传入的只有布尔列表和索引子集构成的列表，只要把握这个原则就很容易理解上面那些操作"><span class="nav-number">1.1.1.10.</span> <span class="nav-text">小节：本质上说，loc中能传入的只有布尔列表和索引子集构成的列表，只要把握这个原则就很容易理解上面那些操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（b）iloc方法（注意与loc不同，切片右端点不包含）"><span class="nav-number">1.1.1.11.</span> <span class="nav-text">（b）iloc方法（注意与loc不同，切片右端点不包含）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#①-单行索引：-1"><span class="nav-number">1.1.1.12.</span> <span class="nav-text">① 单行索引：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#②-多行索引：-1"><span class="nav-number">1.1.1.13.</span> <span class="nav-text">② 多行索引：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#③-单列索引：-1"><span class="nav-number">1.1.1.14.</span> <span class="nav-text">③ 单列索引：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#④-多列索引：-1"><span class="nav-number">1.1.1.15.</span> <span class="nav-text">④ 多列索引：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#⑤-混合索引："><span class="nav-number">1.1.1.16.</span> <span class="nav-text">⑤ 混合索引：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#⑥-函数式索引：-1"><span class="nav-number">1.1.1.17.</span> <span class="nav-text">⑥ 函数式索引：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小节：由上所述，iloc中接收的参数只能为整数或整数列表，不能使用布尔索引"><span class="nav-number">1.1.1.18.</span> <span class="nav-text">小节：由上所述，iloc中接收的参数只能为整数或整数列表，不能使用布尔索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（c）-操作符"><span class="nav-number">1.1.1.19.</span> <span class="nav-text">（c） []操作符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如果不想陷入困境，请不要在行索引为浮点时使用-操作符，因为在Series中的浮点-并不是进行位置比较，而是值比较，非常特殊"><span class="nav-number">1.1.1.20.</span> <span class="nav-text">如果不想陷入困境，请不要在行索引为浮点时使用[]操作符，因为在Series中的浮点[]并不是进行位置比较，而是值比较，非常特殊</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（c-1）Series的-操作"><span class="nav-number">1.1.1.21.</span> <span class="nav-text">（c.1）Series的[]操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#①-单元素索引："><span class="nav-number">1.1.1.22.</span> <span class="nav-text">① 单元素索引：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#②-多行索引：-2"><span class="nav-number">1.1.1.23.</span> <span class="nav-text">② 多行索引：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#③-函数式索引："><span class="nav-number">1.1.1.24.</span> <span class="nav-text">③ 函数式索引：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#④-布尔索引："><span class="nav-number">1.1.1.25.</span> <span class="nav-text">④ 布尔索引：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（c-2）DataFrame的-操作"><span class="nav-number">1.1.1.26.</span> <span class="nav-text">（c.2）DataFrame的[]操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#①-单行索引：-2"><span class="nav-number">1.1.1.27.</span> <span class="nav-text">① 单行索引：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#②-多行索引：-3"><span class="nav-number">1.1.1.28.</span> <span class="nav-text">② 多行索引：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#③-单列索引：-2"><span class="nav-number">1.1.1.29.</span> <span class="nav-text">③ 单列索引：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#④-多列索引：-2"><span class="nav-number">1.1.1.30.</span> <span class="nav-text">④ 多列索引：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#⑤函数式索引："><span class="nav-number">1.1.1.31.</span> <span class="nav-text">⑤函数式索引：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#⑥-布尔索引："><span class="nav-number">1.1.1.32.</span> <span class="nav-text">⑥ 布尔索引：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小节：一般来说，-操作符常用于列选择或布尔选择，尽量避免行的选择"><span class="nav-number">1.1.1.33.</span> <span class="nav-text">小节：一般来说，[]操作符常用于列选择或布尔选择，尽量避免行的选择</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-布尔索引"><span class="nav-number">1.1.2.</span> <span class="nav-text">2. 布尔索引</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（a）布尔符号：’-amp-’-’-’-’-’：分别代表和and，或or，取反not"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">（a）布尔符号：’&amp;’,’|’,’~’：分别代表和and，或or，取反not</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#loc和-中相应位置都能使用布尔列表选择："><span class="nav-number">1.1.2.2.</span> <span class="nav-text">loc和[]中相应位置都能使用布尔列表选择：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（b）-isin方法"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">（b） isin方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-快速标量索引"><span class="nav-number">1.1.3.</span> <span class="nav-text">3. 快速标量索引</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#当只需要取一个元素时，at和iat方法能够提供更快的实现："><span class="nav-number">1.1.3.1.</span> <span class="nav-text">当只需要取一个元素时，at和iat方法能够提供更快的实现：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-区间索引"><span class="nav-number">1.1.4.</span> <span class="nav-text">4. 区间索引</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#此处介绍并不是说只能在单级索引中使用区间索引，只是作为一种特殊类型的索引方式，在此处先行介绍"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">此处介绍并不是说只能在单级索引中使用区间索引，只是作为一种特殊类型的索引方式，在此处先行介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（a）利用interval-range方法"><span class="nav-number">1.1.4.2.</span> <span class="nav-text">（a）利用interval_range方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（b）利用cut将数值列转为区间为元素的分类变量，例如统计数学成绩的区间情况："><span class="nav-number">1.1.4.3.</span> <span class="nav-text">（b）利用cut将数值列转为区间为元素的分类变量，例如统计数学成绩的区间情况：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（c）区间索引的选取"><span class="nav-number">1.1.4.4.</span> <span class="nav-text">（c）区间索引的选取</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如果想要选取某个区间，先要把分类变量转为区间变量，再使用overlap方法："><span class="nav-number">1.1.4.5.</span> <span class="nav-text">如果想要选取某个区间，先要把分类变量转为区间变量，再使用overlap方法：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、多级索引"><span class="nav-number">1.2.</span> <span class="nav-text">二、多级索引</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-创建多级索引"><span class="nav-number">1.2.1.</span> <span class="nav-text">1. 创建多级索引</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（a）通过from-tuple或from-arrays"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">（a）通过from_tuple或from_arrays</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#①-直接创建元组"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">① 直接创建元组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#②-利用zip创建元组"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">② 利用zip创建元组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#③-通过Array创建"><span class="nav-number">1.2.1.4.</span> <span class="nav-text">③ 通过Array创建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（b）通过from-product"><span class="nav-number">1.2.1.5.</span> <span class="nav-text">（b）通过from_product</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（c）指定df中的列创建（set-index方法）"><span class="nav-number">1.2.1.6.</span> <span class="nav-text">（c）指定df中的列创建（set_index方法）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-多层索引切片"><span class="nav-number">1.2.2.</span> <span class="nav-text">2. 多层索引切片</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（a）一般切片"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">（a）一般切片</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（b）第一类特殊情况：由元组构成列表"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">（b）第一类特殊情况：由元组构成列表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（c）第二类特殊情况：由列表构成元组"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">（c）第二类特殊情况：由列表构成元组</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-多层索引中的slice对象"><span class="nav-number">1.2.3.</span> <span class="nav-text">3. 多层索引中的slice对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#索引Slice的使用非常灵活："><span class="nav-number">1.2.3.1.</span> <span class="nav-text">索引Slice的使用非常灵活：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-索引层的交换"><span class="nav-number">1.2.4.</span> <span class="nav-text">4. 索引层的交换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（a）swaplevel方法（两层交换）"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">（a）swaplevel方法（两层交换）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（b）reorder-levels方法（多层交换）"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">（b）reorder_levels方法（多层交换）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、索引设定"><span class="nav-number">1.3.</span> <span class="nav-text">三、索引设定</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-index-col参数"><span class="nav-number">1.3.1.</span> <span class="nav-text">1. index_col参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#index-col是read-csv中的一个参数，而不是某一个方法："><span class="nav-number">1.3.1.1.</span> <span class="nav-text">index_col是read_csv中的一个参数，而不是某一个方法：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-reindex和reindex-like"><span class="nav-number">1.3.2.</span> <span class="nav-text">2. reindex和reindex_like</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#reindex是指重新索引，它的重要特性在于索引对齐，很多时候用于重新排序"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">reindex是指重新索引，它的重要特性在于索引对齐，很多时候用于重新排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可以选择缺失值的填充方法：fill-value和method（bfill-ffill-nearest），其中method参数必须索引单调"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">可以选择缺失值的填充方法：fill_value和method（bfill&#x2F;ffill&#x2F;nearest），其中method参数必须索引单调</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#reindex-like的作用为生成一个横纵索引完全与参数列表一致的DataFrame，数据使用被调用的表"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">reindex_like的作用为生成一个横纵索引完全与参数列表一致的DataFrame，数据使用被调用的表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如果df-temp单调还可以使用method参数："><span class="nav-number">1.3.2.4.</span> <span class="nav-text">如果df_temp单调还可以使用method参数：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-set-index和reset-index"><span class="nav-number">1.3.3.</span> <span class="nav-text">3. set_index和reset_index</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#先介绍set-index：从字面意思看，就是将某些列作为索引"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">先介绍set_index：从字面意思看，就是将某些列作为索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用表内列作为索引："><span class="nav-number">1.3.3.2.</span> <span class="nav-text">使用表内列作为索引：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#利用append参数可以将当前索引维持不变"><span class="nav-number">1.3.3.3.</span> <span class="nav-text">利用append参数可以将当前索引维持不变</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#当使用与表长相同的列作为索引（需要先转化为Series，否则报错）："><span class="nav-number">1.3.3.4.</span> <span class="nav-text">当使用与表长相同的列作为索引（需要先转化为Series，否则报错）：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可以直接添加多级索引："><span class="nav-number">1.3.3.5.</span> <span class="nav-text">可以直接添加多级索引：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下面介绍reset-index方法，它的主要功能是将索引重置"><span class="nav-number">1.3.3.6.</span> <span class="nav-text">下面介绍reset_index方法，它的主要功能是将索引重置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#默认状态直接恢复到自然数索引："><span class="nav-number">1.3.3.7.</span> <span class="nav-text">默认状态直接恢复到自然数索引：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#用level参数指定哪一层被reset，用col-level参数指定set到哪一层："><span class="nav-number">1.3.3.8.</span> <span class="nav-text">用level参数指定哪一层被reset，用col_level参数指定set到哪一层：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-rename-axis和rename"><span class="nav-number">1.3.4.</span> <span class="nav-text">4. rename_axis和rename</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#rename-axis是针对多级索引的方法，作用是修改某一层的索引名，而不是索引标签"><span class="nav-number">1.3.4.1.</span> <span class="nav-text">rename_axis是针对多级索引的方法，作用是修改某一层的索引名，而不是索引标签</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rename方法用于修改列或者行索引标签，而不是索引名："><span class="nav-number">1.3.4.2.</span> <span class="nav-text">rename方法用于修改列或者行索引标签，而不是索引名：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、常用索引型函数"><span class="nav-number">1.4.</span> <span class="nav-text">四、常用索引型函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-where函数"><span class="nav-number">1.4.1.</span> <span class="nav-text">1. where函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#当对条件为False的单元进行填充："><span class="nav-number">1.4.1.1.</span> <span class="nav-text">当对条件为False的单元进行填充：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过这种方法筛选结果和-操作符的结果完全一致："><span class="nav-number">1.4.1.2.</span> <span class="nav-text">通过这种方法筛选结果和[]操作符的结果完全一致：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第一个参数为布尔条件，第二个参数为填充值："><span class="nav-number">1.4.1.3.</span> <span class="nav-text">第一个参数为布尔条件，第二个参数为填充值：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-mask函数"><span class="nav-number">1.4.2.</span> <span class="nav-text">2. mask函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#mask函数与where功能上相反，其余完全一致，即对条件为True的单元进行填充"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">mask函数与where功能上相反，其余完全一致，即对条件为True的单元进行填充</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-query函数"><span class="nav-number">1.4.3.</span> <span class="nav-text">3. query函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#query函数中的布尔表达式中，下面的符号都是合法的：行列索引名、字符串、and-not-or-amp-not-in-in-、四则运算符"><span class="nav-number">1.4.3.1.</span> <span class="nav-text">query函数中的布尔表达式中，下面的符号都是合法的：行列索引名、字符串、and&#x2F;not&#x2F;or&#x2F;&amp;&#x2F;|&#x2F;~&#x2F;not in&#x2F;in&#x2F;&#x3D;&#x3D;&#x2F;!&#x3D;、四则运算符</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、重复元素处理"><span class="nav-number">1.5.</span> <span class="nav-text">五、重复元素处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-duplicated方法"><span class="nav-number">1.5.1.</span> <span class="nav-text">1. duplicated方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#该方法返回了是否重复的布尔列表"><span class="nav-number">1.5.1.1.</span> <span class="nav-text">该方法返回了是否重复的布尔列表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可选参数keep默认为first，即首次出现设为不重复，若为last，则最后一次设为不重复，若为False，则所有重复项为False"><span class="nav-number">1.5.1.2.</span> <span class="nav-text">可选参数keep默认为first，即首次出现设为不重复，若为last，则最后一次设为不重复，若为False，则所有重复项为False</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-drop-duplicates方法"><span class="nav-number">1.5.2.</span> <span class="nav-text">2. drop_duplicates方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#从名字上看出为剔除重复项，这在后面章节中的分组操作中可能是有用的，例如需要保留每组的第一个值："><span class="nav-number">1.5.2.1.</span> <span class="nav-text">从名字上看出为剔除重复项，这在后面章节中的分组操作中可能是有用的，例如需要保留每组的第一个值：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参数与duplicate函数类似："><span class="nav-number">1.5.2.2.</span> <span class="nav-text">参数与duplicate函数类似：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在传入多列时等价于将多列共同视作一个多级索引，比较重复项："><span class="nav-number">1.5.2.3.</span> <span class="nav-text">在传入多列时等价于将多列共同视作一个多级索引，比较重复项：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、抽样函数"><span class="nav-number">1.6.</span> <span class="nav-text">六、抽样函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#这里的抽样函数指的就是sample函数"><span class="nav-number">1.6.0.1.</span> <span class="nav-text">这里的抽样函数指的就是sample函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（a）n为样本量"><span class="nav-number">1.6.0.2.</span> <span class="nav-text">（a）n为样本量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（b）frac为抽样比"><span class="nav-number">1.6.0.3.</span> <span class="nav-text">（b）frac为抽样比</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（c）replace为是否放回"><span class="nav-number">1.6.0.4.</span> <span class="nav-text">（c）replace为是否放回</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（d）axis为抽样维度，默认为0，即抽行"><span class="nav-number">1.6.0.5.</span> <span class="nav-text">（d）axis为抽样维度，默认为0，即抽行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（e）weights为样本权重，自动归一化"><span class="nav-number">1.6.0.6.</span> <span class="nav-text">（e）weights为样本权重，自动归一化</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七、问题与练习"><span class="nav-number">1.7.</span> <span class="nav-text">七、问题与练习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-问题"><span class="nav-number">1.7.1.</span> <span class="nav-text">1. 问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#【问题一】-如何更改列或行的顺序？"><span class="nav-number">1.7.1.1.</span> <span class="nav-text">【问题一】 如何更改列或行的顺序？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#【问题二】-如果要选出DataFrame的某个子集，请给出尽可能多的方法实现。"><span class="nav-number">1.7.1.2.</span> <span class="nav-text">【问题二】 如果要选出DataFrame的某个子集，请给出尽可能多的方法实现。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#【问题三】-单级索引能使用Slice对象吗？能的话怎么使用，请给出一个例子。"><span class="nav-number">1.7.1.3.</span> <span class="nav-text">【问题三】 单级索引能使用Slice对象吗？能的话怎么使用，请给出一个例子。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#【问题四】-索引设定中的所有方法分别适用于哪些场合？"><span class="nav-number">1.7.1.4.</span> <span class="nav-text">【问题四】 索引设定中的所有方法分别适用于哪些场合？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#【问题五】-如何快速找出某一列的缺失值所在索引？"><span class="nav-number">1.7.1.5.</span> <span class="nav-text">【问题五】 如何快速找出某一列的缺失值所在索引？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-练习"><span class="nav-number">1.7.2.</span> <span class="nav-text">2. 练习</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#【练习一】-现有一份关于UFO的数据集，请解决下列问题："><span class="nav-number">1.7.2.1.</span> <span class="nav-text">【练习一】 现有一份关于UFO的数据集，请解决下列问题：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（a）在所有被观测时间超过60s的时间中，哪个形状最多？"><span class="nav-number">1.7.2.2.</span> <span class="nav-text">（a）在所有被观测时间超过60s的时间中，哪个形状最多？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（b）对经纬度进行划分：-180°至180°以30°为一个划分，-90°至90°以18°为一个划分，请问哪个区域中报告的UFO事件数量最多？"><span class="nav-number">1.7.2.3.</span> <span class="nav-text">（b）对经纬度进行划分：-180°至180°以30°为一个划分，-90°至90°以18°为一个划分，请问哪个区域中报告的UFO事件数量最多？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#【练习二】-现有一份关于口袋妖怪的数据集，请解决下列问题："><span class="nav-number">1.7.2.4.</span> <span class="nav-text">【练习二】 现有一份关于口袋妖怪的数据集，请解决下列问题：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（a）双属性的Pokemon占总体比例的多少？"><span class="nav-number">1.7.2.5.</span> <span class="nav-text">（a）双属性的Pokemon占总体比例的多少？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（b）在所有种族值（Total）不小于580的Pokemon中，非神兽（Legendary-False）的比例为多少？"><span class="nav-number">1.7.2.6.</span> <span class="nav-text">（b）在所有种族值（Total）不小于580的Pokemon中，非神兽（Legendary&#x3D;False）的比例为多少？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（c）在第一属性为格斗系（Fighting）的Pokemon中，物攻排名前三高的是哪些？"><span class="nav-number">1.7.2.7.</span> <span class="nav-text">（c）在第一属性为格斗系（Fighting）的Pokemon中，物攻排名前三高的是哪些？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（d）请问六项种族指标（HP、物攻、特攻、物防、特防、速度）极差的均值最大的是哪个属性（只考虑第一属性，且均值是对属性而言）？"><span class="nav-number">1.7.2.8.</span> <span class="nav-text">（d）请问六项种族指标（HP、物攻、特攻、物防、特防、速度）极差的均值最大的是哪个属性（只考虑第一属性，且均值是对属性而言）？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（e）哪个属性（只考虑第一属性）的神兽比例最高？该属性神兽的种族值也是最高的吗？"><span class="nav-number">1.7.2.9.</span> <span class="nav-text">（e）哪个属性（只考虑第一属性）的神兽比例最高？该属性神兽的种族值也是最高的吗？</span></a></li></ol></li></ol></li></ol></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="zhouzhm"
-      src="/images/ava1.png">
-  <p class="site-author-name" itemprop="name">zhouzhm</p>
-  <div class="site-description" itemprop="description">吾生也有涯，知也无涯</div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">71</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">12</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">29</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
-</div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/sarizzm" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;sarizzm" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://i.csdn.net/#/uc/profile" title="CSDN → https:&#x2F;&#x2F;i.csdn.net&#x2F;#&#x2F;uc&#x2F;profile" rel="noopener" target="_blank"><i class="fa fa-crosshairs fa-fw"></i>CSDN</a>
-      </span>
-  </div>
-  <div class="cc-license motion-element" itemprop="license">
-    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
-  </div>
-
-
-
-      </div>
-        <div class="back-to-top motion-element">
-          <i class="fa fa-arrow-up"></i>
-          <span>0%</span>
-        </div>
-  
-      
-        <script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
-        <script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
-        <div class="widget-wrap">
-          <h3 class="widget-title">Tag Cloud</h3>
-          <div id="myCanvasContainer" class="widget tagcloud">
-              <canvas width="250" height="250" id="resCanvas" style="width=100%">
-                <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/awk/" rel="tag">awk</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash/" rel="tag">bash</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash-vasp/" rel="tag">bash_vasp</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog%E7%BE%8E%E5%8C%96/" rel="tag">blog美化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/excel/" rel="tag">excel</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/idpp-neb/" rel="tag">idpp_neb</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leecode/" rel="tag">leecode</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lunix/" rel="tag">lunix</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/multi-task/" rel="tag">multi-task</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/multiprocessing/" rel="tag">multiprocessing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/multiprocessing-pool/" rel="tag">multiprocessing.pool</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oral-english/" rel="tag">oral_english</a><span class="tag-list-count">26</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pandas/" rel="tag">pandas</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pycharm/" rel="tag">pycharm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/re/" rel="tag">re</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/threading/" rel="tag">threading</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/threading-Lock/" rel="tag">threading.Lock</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typora/" rel="tag">typora</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zip-map-enumerate/" rel="tag">zip-map-enumerate</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/" rel="tag">动态规划-背包问题</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95/" rel="tag">哈希算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE%E7%81%B5%E6%9C%BA-turing-machine-%E6%A8%A1%E5%9E%8B/" rel="tag">图灵机(turing machine)模型</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%88-Stack/" rel="tag">栈(Stack)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%92%E5%BD%92/" rel="tag">递归</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%92%E5%BD%92%E4%B8%8E%E5%88%86%E6%B2%BB%E7%AD%96%E7%95%A5/" rel="tag">递归与分治策略</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%9F%E5%88%97%EF%BC%88queue%EF%BC%89/" rel="tag">队列（queue）</a><span class="tag-list-count">1</span></li></ul>
-              </canvas>
-          </div>
-        </div>
-      
-    
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">zhouzhm</span>
- <!--  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>  -->
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-chart-area"></i>
-    </span>
-      <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">278k</span>
-</div>
-<!--
-  <div class="powered-by">
-  <i class="fa fa-user-md"></i>
-    <span id="busuanzi_container_site_uv">
-        本站访客量: <span id="busuanzi_value_site_uv"></span>位
-    </span>
-  </div>
-
-  <div class="powered-by">
-  <i class="fa fa-user-md"></i>
-    <span id="busuanzi_container_site_pv">
-        本站访问量: <span id="busuanzi_value_site_pv"></span>次
-    </span>
-  </div>
-     
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
-  </div>
--->
-<!--
-
--->
-
-        
-<div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
-      <span class="post-meta-item-icon">
-        <i class="user"></i>
-      </span>
-      <span class="site-uv" title="总访客量">
-        <span id="busuanzi_value_site_uv"></span>
-      </span>
-    </span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
-      <span class="post-meta-item-icon">
-        <i class="eye"></i>
-      </span>
-      <span class="site-pv" title="总访问量">
-        <span id="busuanzi_value_site_pv"></span>
-      </span>
-    </span>
-</div>
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
-
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/pisces.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
-      
-
-<script>
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      loader: {
-        source: {
-          '[tex]/amsCd': '[tex]/amscd',
-          '[tex]/AMScd': '[tex]/amscd'
-        }
-      },
-      tex: {
-        inlineMath: {'[+]': [['$', '$']]},
-        tags: 'ams'
-      },
-      options: {
-        renderActions: {
-          findScript: [10, doc => {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-              const display = !!node.type.match(/; *mode=display/);
-              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-              const text = document.createTextNode('');
-              node.parentNode.replaceChild(text, node);
-              math.start = {node: text, delim: '', n: 0};
-              math.end = {node: text, delim: '', n: 0};
-              doc.math.push(math);
-            });
-          }, '', false],
-          insertedScript: [200, () => {
-            document.querySelectorAll('mjx-container').forEach(node => {
-              let target = node.parentNode;
-              if (target.nodeName.toLowerCase() === 'li') {
-                target.parentNode.classList.add('has-jax');
-              }
-            });
-          }, '', false]
-        }
-      }
-    };
-    (function () {
-      var script = document.createElement('script');
-      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  } else {
-    MathJax.startup.document.state(0);
-    MathJax.texReset();
-    MathJax.typeset();
+  var script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>function loadValine () {
+  function initValine () {
+    window.valine = new Valine({
+      el: '#vcomment',
+      appId: 'ouQRqhHS28VSig7Qdha07YFS-gzGzoHsz',
+      appKey: 'sOIyts0asrItui9JkJn2qCoH',
+      placeholder: '有问题，请留言......',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'en',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    });
+    if ('nick,mail') { valine.config.requiredFields= 'nick,mail'.split(',') }
   }
-</script>
 
-    
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
 
-  
-
-
-<script>
-NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
-  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
-    var GUEST = ['nick', 'mail', 'link'];
-    var guest = 'nick,mail,link';
-    guest = guest.split(',').filter(item => {
-      return GUEST.includes(item);
-    });
-    new Valine({
-      el         : '#valine-comments',
-      verify     : false,
-      notify     : false,
-      appId      : 'ouQRqhHS28VSig7Qdha07YFS-gzGzoHsz',
-      appKey     : 'sOIyts0asrItui9JkJn2qCoH',
-      placeholder: "评论区",
-      avatar     : 'monsterid',
-      meta       : guest,
-      pageSize   : '10' || 10,
-      visitor    : false,
-      lang       : '' || 'zh-cn',
-      path       : location.pathname,
-      recordIP   : false,
-      serverURLs : ''
-    });
-  }, window.Valine);
-});
-</script>
-
-
- <!-- fireworks失败  -->
-  
-   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
-   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
-   <script type="text/javascript" src="/js/src/fireworks.js"></script>
-  
-</body>
-</html>
-
-
-<!-- 页面点击小红心 -->
-<!-- <script type="text/javascript" src="/js/src/clicklove.js"></script> -->
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>

@@ -1,1338 +1,223 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
-
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.whocareslearning.org.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true,"onmobile":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
-
-  <meta name="description" content="吾生也有涯，知也无涯">
-<meta property="og:type" content="website">
-<meta property="og:title" content="codemk">
-<meta property="og:url" content="https://www.whocareslearning.org.cn/page/6/index.html">
-<meta property="og:site_name" content="codemk">
-<meta property="og:description" content="吾生也有涯，知也无涯">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:author" content="zhouzhm">
-<meta name="twitter:card" content="summary">
-
-<link rel="canonical" href="https://www.whocareslearning.org.cn/page/6/">
-
-
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : true,
-    isPost : false,
-    lang   : 'zh-CN'
-  };
-</script>
-
-  <title>codemk</title>
-  
-
-
-
-
-
-
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
-
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
-
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">codemk</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-      <p class="site-subtitle" itemprop="description">学习笔记，人生感悟</p>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-  </ul>
-</nav>
-
-
-
-
-</div>
-    </header>
-
-    
-
-  <a href="https://github.com/sarizzm" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content index posts-expand">
-            
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.whocareslearning.org.cn/2020/06/04/learning-lunix/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ava1.png">
-      <meta itemprop="name" content="zhouzhm">
-      <meta itemprop="description" content="吾生也有涯，知也无涯">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="codemk">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/04/learning-lunix/" class="post-title-link" itemprop="url">learning_lunix-常见bash操作</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-06-04 15:35:00 / 修改时间：20:13:05" itemprop="dateCreated datePublished" datetime="2020-06-04T15:35:00+08:00">2020-06-04</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/lunix/" itemprop="url" rel="index"><span itemprop="name">lunix</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/06/04/learning-lunix/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/06/04/learning-lunix/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>960</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <a id="more"></a>
-<p>[TOC]</p>
-<h2 id="Linux-命令行快捷键"><a href="#Linux-命令行快捷键" class="headerlink" title="Linux 命令行快捷键"></a><strong>Linux 命令行快捷键</strong></h2><h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">ctrl+左右键:在单词之间跳转</span><br><span class="line">ctrl+a:跳到本行的行首</span><br><span class="line">ctrl+e:跳到页尾</span><br><span class="line">Ctrl+u：删除当前光标前面的文字 （还有剪切功能）</span><br><span class="line">ctrl+k：删除当前光标后面的文字(还有剪切功能)</span><br><span class="line">Ctrl+L：进行清屏操作</span><br><span class="line">Ctrl+y:粘贴Ctrl+u或ctrl+k剪切的内容</span><br><span class="line">Ctrl+w:删除光标前面的单词的字符</span><br><span class="line">Ctrl – h ：删除光标左方位置的字符</span><br><span class="line">Ctrl – d ：删除光标右方位置的字符（注意：当前命令行没有任何字符时，会注销系统或结束终</span><br><span class="line">Ctrl – b ：往回(左)移动一个字符</span><br><span class="line">Ctrl – f ：往后(右)移动一个字符</span><br><span class="line">Ctrl – _ ：回复之前的状态。撤销操作。</span><br><span class="line"></span><br><span class="line">Alt – d ：由光标位置开始，往右删除单词。往行尾删</span><br><span class="line">Alt – b ：往回(左)移动一个单词</span><br><span class="line">Alt – f ：往后(右)移动一个单词</span><br><span class="line">Alt + . ：使用上一条命令的最后一个参数。</span><br></pre></td></tr></tbody></table></figure>
-<h3 id="Bang-命令"><a href="#Bang-命令" class="headerlink" title="Bang(!)命令"></a>Bang(!)命令</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">!! ：执行上一条命令。</span><br><span class="line">^foo^bar ：把上一条命令里的foo替换为bar，并执行。</span><br><span class="line">!wget ：执行最近的以wget开头的命令。</span><br><span class="line">!wget:p ：仅打印最近的以wget开头的命令，不执行。</span><br><span class="line">!$ ：上一条命令的最后一个参数， 与 `Alt - .` 和 `<span class="variable">$_</span>` 相同。</span><br><span class="line">!* ：上一条命令的所有参数</span><br><span class="line">!*:p ：打印上一条命令是所有参数，也即 `!*`的内容。</span><br><span class="line">^abc ：删除上一条命令中的abc。</span><br><span class="line">^foo^bar ：将上一条命令中的 foo 替换为 bar</span><br><span class="line">^foo^bar^ ：将上一条命令中的 foo 替换为 bar</span><br><span class="line">!-n ：执行前n条命令，执行上一条命令： `!-1`， 执行前5条命令的格式是： `!-5`</span><br></pre></td></tr></tbody></table></figure>
-<h3 id="查找历史命令"><a href="#查找历史命令" class="headerlink" title="查找历史命令"></a>查找历史命令</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Ctrl – p ：显示当前命令的上一条历史命令</span><br><span class="line">Ctrl – n ：显示当前命令的下一条历史命令</span><br><span class="line">Ctrl – r ：搜索历史命令，随着输入会显示历史命令中的一条匹配命令，Enter键执行匹配命令；ESC键在命令行显示而不执行匹配命令。</span><br><span class="line">Ctrl – g ：从历史搜索模式（Ctrl – r）退出。</span><br></pre></td></tr></tbody></table></figure>
-<h3 id="控制命令"><a href="#控制命令" class="headerlink" title="控制命令"></a>控制命令</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Ctrl – l ：清除屏幕，然后，在最上面重新显示目前光标所在的这一行的内容。</span><br><span class="line">Ctrl – o ：执行当前命令，并选择上一条命令。</span><br><span class="line">Ctrl – s ：阻止屏幕输出</span><br><span class="line">Ctrl – q ：允许屏幕输出</span><br><span class="line">Ctrl – c ：终止命令</span><br><span class="line">Ctrl – z ：挂起命令</span><br></pre></td></tr></tbody></table></figure>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
-      
-    </div>
-
-    
-    
-    
-    <!--
-    <div>
-      
-    </div>  -->
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.whocareslearning.org.cn/2020/05/28/learning-bash-3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ava1.png">
-      <meta itemprop="name" content="zhouzhm">
-      <meta itemprop="description" content="吾生也有涯，知也无涯">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="codemk">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/05/28/learning-bash-3/" class="post-title-link" itemprop="url">learning-bash-3</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-05-28 10:02:17" itemprop="dateCreated datePublished" datetime="2020-05-28T10:02:17+08:00">2020-05-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-08 12:19:44" itemprop="dateModified" datetime="2020-06-08T12:19:44+08:00">2020-06-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/bash/" itemprop="url" rel="index"><span itemprop="name">bash</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/05/28/learning-bash-3/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/05/28/learning-bash-3/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.4k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <a id="more"></a>
-<p>[TOC]</p>
-<h2 id="常用输出命令："><a href="#常用输出命令：" class="headerlink" title="常用输出命令："></a>常用输出命令：</h2><h3 id="cut命令使用"><a href="#cut命令使用" class="headerlink" title="cut命令使用"></a>cut命令使用</h3><p><strong>抽取数据列</strong></p>
-<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#选项与参数：</span></span><br><span class="line">-d  ：后面接分隔字符。与 -f 一起使用；</span><br><span class="line">-f  ：依据 -d 的分隔字符将一段信息分割成为数段，用 -f 取出第几段的意思；</span><br><span class="line">-c  ：以字符 (characters) 的单位取出固定字符区间；</span><br><span class="line"></span><br><span class="line">cut -c 1,3,5 file   抽取数据的第1，3，5 列</span><br><span class="line">cut -c 1-5 file  抽取数据1-5列</span><br><span class="line">cut -c 1,3-5 file 抽取数据第一列以及3-5列</span><br><span class="line">cut -c 3-5 file &gt; new 抽取数据3-5列并保存到new</span><br></pre></td></tr></tbody></table></figure>
-<p><strong>抽取数据字段</strong></p>
-<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cut -f 1 -d <span class="string">':'</span> file  抽取第一个字段，字段用使用 <span class="string">':'</span>隔开的</span><br><span class="line">cut -f 1,3-5 -d <span class="string">' '</span> file 抽取第一个以及第3-5个字段，字段使用空格隔开的</span><br><span class="line">cut -sf 3-5 -d <span class="string">':'</span> file 抽取第3-5个字段，并抑制没有定界符‘:‘ 的行的输出</span><br></pre></td></tr></tbody></table></figure>
-<h3 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h3><p><strong>以下两句等价：</strong></p>
-<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> “hello!” </span><br><span class="line"><span class="built_in">echo</span> hello!</span><br></pre></td></tr></tbody></table></figure>
-<h4 id="显示转义字符"><a href="#显示转义字符" class="headerlink" title="显示转义字符"></a><strong>显示转义字符</strong></h4><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> “\”hello!\”” </span><br><span class="line"><span class="built_in">echo</span> \”hello!\” </span><br><span class="line"><span class="comment">#打印 “hello!”</span></span><br></pre></td></tr></tbody></table></figure>
-<h4 id="显示变量"><a href="#显示变量" class="headerlink" title="显示变量"></a><strong>显示变量</strong></h4><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">read</span> name  <span class="comment"># 读取用户输入</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$name</span>"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$name</span></span><br></pre></td></tr></tbody></table></figure>
-<h4 id="反斜杠"><a href="#反斜杠" class="headerlink" title="反斜杠"></a><strong>反斜杠</strong></h4><p> <strong><code>\a</code>   警报，响铃</strong> </p>
-<p> <strong><code>\b</code>   退格（删除键）</strong><br><strong><code>\f</code>   换页(FF)，将当前位置移到下页开头</strong><br><strong><code>\n</code>   换行</strong><br><strong><code>\r</code>   回车</strong><br><strong><code>\t</code>   水平制表符（tab键）  </strong></p>
-<p><strong><code>\v</code>   垂直制表符</strong></p>
-<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> “hello\n”      <span class="comment">#输出 hello\n </span></span><br><span class="line"><span class="built_in">echo</span> -e “hello\n”   <span class="comment">#输出 hello 与 换行</span></span><br></pre></td></tr></tbody></table></figure>
-<h4 id="显示结果定向至文件"><a href="#显示结果定向至文件" class="headerlink" title="显示结果定向至文件"></a>显示结果定向至文件</h4><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> “hello” &gt; hello.txt    <span class="comment">#覆盖 </span></span><br><span class="line"><span class="built_in">echo</span> “hello” &gt;&gt; hello.txt   <span class="comment">#文未添加，不覆盖</span></span><br></pre></td></tr></tbody></table></figure>
-<h4 id="原样输出字符-单引号"><a href="#原样输出字符-单引号" class="headerlink" title="原样输出字符(单引号)"></a>原样输出字符(单引号)</h4><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">'$name\'</span> <span class="comment">#输出$name\</span></span><br></pre></td></tr></tbody></table></figure>
-<h4 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h4><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> `date` <span class="comment">#这里可不是单引号哦</span></span><br></pre></td></tr></tbody></table></figure>
-<h3 id="printf-详解"><a href="#printf-详解" class="headerlink" title="printf 详解"></a>printf 详解</h3><p> <strong>printf 命令模仿 C 程序库（library）里的 printf() 程序。 标准所定义，因此使用printf的脚本比使用echo移植性好。  printf 使用引用文本或空格分隔的参数，外面可以在printf中使用格式化字符串， 还可以制定字符串的宽度、左右对齐方式等。默认printf不会像 echo 自动添加换行符，我们可以手动添加 \n。</strong></p>
-<h4 id="printf-format-string-arguments…"><a href="#printf-format-string-arguments…" class="headerlink" title="printf  format-string  [arguments…]"></a>printf  format-string  [arguments…]</h4><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">参数说明： </span><br><span class="line">     format-string: 为格式控制字符串 </span><br><span class="line">     arguments: 为参数列表。</span><br><span class="line"> 用法与c中的差不多</span><br><span class="line"><span class="built_in">printf</span> “Hello, Shell\n”</span><br><span class="line"><span class="built_in">printf</span> “%s %d %f\n” hello 10 3.14 <span class="comment"># format-string为双引号</span></span><br><span class="line"><span class="built_in">printf</span> <span class="string">"%d %s\n"</span> 1 <span class="string">"abc"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 单引号与双引号效果一样 </span></span><br><span class="line"><span class="built_in">printf</span> <span class="string">'%d %s\n'</span> 1 <span class="string">"abc"</span> </span><br><span class="line"></span><br><span class="line"><span class="comment"># 没有引号也可以输出</span></span><br><span class="line"><span class="built_in">printf</span> %s abcdef</span><br><span class="line"> <span class="comment"># format-string为双引号</span></span><br><span class="line"><span class="built_in">printf</span> <span class="string">"%d %s\n"</span> 1 <span class="string">"abc"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 单引号与双引号效果一样 </span></span><br><span class="line"><span class="built_in">printf</span> <span class="string">'%d %s\n'</span> 1 <span class="string">"abc"</span> </span><br><span class="line"></span><br><span class="line"><span class="comment"># 没有引号也可以输出</span></span><br><span class="line"><span class="built_in">printf</span> %s abcdef</span><br><span class="line"><span class="comment"># 格式只指定了一个参数，但多出的参数仍然会按照该格式输出，format-string 被重用</span></span><br><span class="line"><span class="built_in">printf</span> %s abc def</span><br><span class="line"></span><br><span class="line"><span class="built_in">printf</span> <span class="string">"%s\n"</span> abc def</span><br><span class="line"></span><br><span class="line"><span class="built_in">printf</span> <span class="string">"%s %s %s\n"</span> a b c d e f g h i j</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果没有 arguments，那么 %s 用NULL代替，%d 用 0 代替</span></span><br><span class="line"><span class="built_in">printf</span> <span class="string">"%s and %d \n"</span></span><br></pre></td></tr></tbody></table></figure>
-<p>​    </p>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
-      
-    </div>
-
-    
-    
-    
-    <!--
-    <div>
-      
-    </div>  -->
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.whocareslearning.org.cn/2020/05/25/youdao-oral-english-25/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ava1.png">
-      <meta itemprop="name" content="zhouzhm">
-      <meta itemprop="description" content="吾生也有涯，知也无涯">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="codemk">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/05/25/youdao-oral-english-25/" class="post-title-link" itemprop="url">Youdao-Oral-English-26</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-05-25 22:26:25 / 修改时间：22:41:09" itemprop="dateCreated datePublished" datetime="2020-05-25T22:26:25+08:00">2020-05-25</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/English/" itemprop="url" rel="index"><span itemprop="name">English</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/05/25/youdao-oral-english-25/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/05/25/youdao-oral-english-25/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>23</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="打卡第二十六天"><a href="#打卡第二十六天" class="headerlink" title="打卡第二十六天"></a>打卡第二十六天</h3><p><code>swing by</code>，顺道拜访，路过。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/05/25/youdao-oral-english-25/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-    <!--
-    <div>
-      
-    </div>  -->
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.whocareslearning.org.cn/2020/05/23/learning-bash-2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ava1.png">
-      <meta itemprop="name" content="zhouzhm">
-      <meta itemprop="description" content="吾生也有涯，知也无涯">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="codemk">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/05/23/learning-bash-2/" class="post-title-link" itemprop="url">learning-bash-2</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-05-23 10:02:17" itemprop="dateCreated datePublished" datetime="2020-05-23T10:02:17+08:00">2020-05-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-04 19:27:06" itemprop="dateModified" datetime="2020-06-04T19:27:06+08:00">2020-06-04</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/bash/" itemprop="url" rel="index"><span itemprop="name">bash</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/05/23/learning-bash-2/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/05/23/learning-bash-2/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <a id="more"></a>
-<p>[TOC]</p>
-<h3 id="目录获取"><a href="#目录获取" class="headerlink" title="目录获取"></a>目录获取</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取bash运行所在目录</span></span><br><span class="line">rundir=$(<span class="built_in">pwd</span>)</span><br><span class="line"><span class="comment"># 获取bash脚本所在目录</span></span><br><span class="line">bash_dir=$(dirname <span class="variable">$0</span>),dirname <span class="variable">$0</span> <span class="comment">#取得当前执行的脚本文件的父目录</span></span><br></pre></td></tr></tbody></table></figure>
-<h5 id="补充："><a href="#补充：" class="headerlink" title="补充："></a>补充：</h5><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$()</span><br><span class="line"><span class="comment"># 如果需要把一个或一串命令的返回值赋给一个变量，可以用$()，然后把命令放入括号中。例如：</span></span><br><span class="line">LINES = $(cat filename | wc -l)</span><br></pre></td></tr></tbody></table></figure>
-<h3 id="bash特殊变量-0-​-​-​-​-和命令行参数"><a href="#bash特殊变量-0-​-​-​-​-和命令行参数" class="headerlink" title="bash特殊变量:\$0, ​\$#, ​\$*, ​\$@, \$?, ​\$\$和命令行参数"></a>bash特殊变量:\$0, ​\$#, ​\$*, ​\$@, \$?, ​\$\$和命令行参数</h3><div class="table-container">
-<table>
-<thead>
-<tr>
-<th>变量</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>$0</td>
-<td>当前脚本的文件名。</td>
-</tr>
-<tr>
-<td>$n</td>
-<td>传递给脚本或函数的参数。n 是一个数字，表示第几个参数。例如，第一个参数是\$1，第二个参数是\$2。</td>
-</tr>
-<tr>
-<td>$#</td>
-<td>传递给脚本或函数的参数个数。</td>
-</tr>
-<tr>
-<td>$*</td>
-<td>传递给脚本或函数的所有参数。</td>
-</tr>
-<tr>
-<td>$@</td>
-<td>传递给脚本或函数的所有参数。被双引号(“ “)包含时，与 \$* 稍有不同，下面将会讲到。</td>
-</tr>
-<tr>
-<td>$?</td>
-<td>上个命令的退出状态，或函数的返回值。</td>
-</tr>
-<tr>
-<td>$$</td>
-<td>当前Shell进程ID。对于 Shell 脚本，就是这些脚本所在的进程ID。</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h5 id="和-的区别"><a href="#和-的区别" class="headerlink" title="\$* 和 \$@ 的区别"></a>\$* 和 \$@ 的区别</h5><p>$<em> 和 $@ 都表示传递给函数或脚本的所有参数，不被双引号(“ “)包含时，都以”\$1” “​\$2” … “​\$n” 的形式输出所有参数。<br> 但是当它们被双引号(“ “)包含时，”​\$\</em>“ 会将所有的参数作为一个整体，以”​\$1 ​\$2 … \$n”的形式输出所有参数；”\$@” 会将各个参数分开，以”\$1” “\$2” … “\$n” 的形式输出所有参数。 </p>
-<h5 id="退出状态"><a href="#退出状态" class="headerlink" title="退出状态"></a>退出状态</h5><p>\$? 可以获取上一个命令的退出状态。所谓退出状态，就是上一个命令执行后的返回结果。 退出状态是一个数字，一般情况下，大部分命令执行成功会返回 0，失败返回 1。  不过，也有一些命令返回其他值，表示不同类型的错误。 </p>
-<h3 id="read命令"><a href="#read命令" class="headerlink" title="read命令"></a>read命令</h3><p><strong>read命令接收标准输入（键盘）的输入，或者其他文件描述符的输入。得到输入后，read命令将数据放入一个标准变量中。</strong></p>
-<h5 id="1-基本读取"><a href="#1-基本读取" class="headerlink" title="1.基本读取"></a>1.基本读取</h5><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash </span></span><br><span class="line"><span class="built_in">echo</span> -n <span class="string">"Enter your name:"</span>           <span class="comment">#参数-n的作用是不换行，echo默认是换行 </span></span><br><span class="line"><span class="built_in">read</span>  name                           <span class="comment">#从键盘输入 </span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"hello <span class="variable">$name</span>, welcome to my program"</span>   </span><br><span class="line"><span class="built_in">exit</span> 0                               <span class="comment">#退出shell程序。</span></span><br></pre></td></tr></tbody></table></figure>
-<p>其等效于以下：</p>
-<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">read</span> -p <span class="string">"Enter your name:"</span> name       <span class="comment">#-p参数，允许在read命令行中直接指定一个提示</span></span><br></pre></td></tr></tbody></table></figure>
-<p>在上面read后面的变量只有name一个，也可以有多个，这时如果输入多个数据，则第一个数据给第一个变量，第二个数据给第二个变量。如果输入数据个数过多，则最后剩下的所有值都给最后一个变量，如果太少输入不会结束。</p>
-<h5 id="2-在read命令行中也可以不指定变量"><a href="#2-在read命令行中也可以不指定变量" class="headerlink" title="2.在read命令行中也可以不指定变量"></a>2.在read命令行中也可以不指定变量</h5><p>如果不指定变量，那么read命令会将接收到的数据放置在环境变量REPLY中</p>
-<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">read</span> -p <span class="string">"Enter a number"</span> </span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$REPLY</span></span><br></pre></td></tr></tbody></table></figure>
-<h5 id="3-计时输入"><a href="#3-计时输入" class="headerlink" title="3.计时输入"></a>3.计时输入</h5><p>使用read命令存在着潜在危险。脚本很可能会停下来一直等待用户的输入。如果无论是否输入数据脚本都必须继续执行，那么可以使用 <em>-t</em> 选项指定一个计时器，指定read命令等待输入的秒数。当计时满时，read命令返回非零值（0为正常退出状态）; </p>
-<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash </span></span><br><span class="line"><span class="keyword">if</span> <span class="built_in">read</span> -t 5 -p <span class="string">"please enter your name:"</span> name </span><br><span class="line"><span class="keyword">then</span> </span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"hello <span class="variable">$name</span>, welcome to my script"</span> </span><br><span class="line"><span class="keyword">else</span> </span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"sorry,too slow"</span> </span><br><span class="line"><span class="keyword">fi</span> </span><br><span class="line"><span class="built_in">exit</span> 0</span><br></pre></td></tr></tbody></table></figure>
-<h5 id="4-设置计数输入的字符"><a href="#4-设置计数输入的字符" class="headerlink" title="4.设置计数输入的字符"></a>4.设置计数输入的字符</h5><p>当输入的字符数目达到预定数目时，自动退出，并将输入的数据赋值给变量。 </p>
-<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash </span></span><br><span class="line"><span class="built_in">read</span> -n1 -p <span class="string">"Do you want to continue [Y/N]? "</span> answer </span><br><span class="line"><span class="keyword">case</span> <span class="variable">$answer</span> <span class="keyword">in</span> </span><br><span class="line">Y|y) </span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"fine ,continue"</span>;; </span><br><span class="line">N|n) </span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"ok,good bye"</span>;; </span><br><span class="line">*) </span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"error choice"</span>;; </span><br><span class="line"><span class="keyword">esac</span></span><br><span class="line"><span class="built_in">exit</span> 0</span><br></pre></td></tr></tbody></table></figure>
-<p>该例子使用了-n选项，后接数值1，指示read命令只要接受到一个字符就退出。只要按下一个字符进行回答，read命令立即接受输入并将其传给变量。无需按回车键。 </p>
-<h5 id="5-默读（输入不显示在监视器上）"><a href="#5-默读（输入不显示在监视器上）" class="headerlink" title="5.默读（输入不显示在监视器上）"></a>5.默读（输入不显示在监视器上）</h5><p>有时不希望输入的数据显示在监视器上。典型的例子就是输入密码，当然还有很多其他需要隐藏的数据。<em>-s</em> 选项能够使read命令中输入的数据不显示在监视器上（实际上，数据是显示的，只是read命令将文本颜色设置成与背景相同的颜色）。</p>
-<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash </span></span><br><span class="line"><span class="built_in">read</span>  -s  -p <span class="string">"Enter your password: "</span> pass </span><br><span class="line"><span class="built_in">echo</span> <span class="string">"your password is <span class="variable">$pass</span>"</span> </span><br><span class="line"><span class="built_in">exit</span> 0</span><br></pre></td></tr></tbody></table></figure>
-<h5 id="6-读文件"><a href="#6-读文件" class="headerlink" title="6.读文件"></a>6.读文件</h5><p>每次调用read命令都会读取文件中的”一行”文本。当文件没有可读的行时，read命令将以非零状态退出。读取文件的关键是如何将文本中的数据传送给read命令。最常用的方法是对文件使用cat命令并通过管道将结果直接传送给包含read命令的while命令 。</p>
-<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">!/bin/bash </span><br><span class="line">count=1</span><br><span class="line">cat dat| <span class="keyword">while</span> <span class="built_in">read</span> line        <span class="comment">#cat 命令的输出作为read命令的输入,read读到的值放在line中 </span></span><br><span class="line"><span class="keyword">do</span> </span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$count</span>:<span class="variable">$line</span>"</span> </span><br><span class="line">   count=$((<span class="variable">$count</span> + 1))</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="built_in">exit</span> 0</span><br></pre></td></tr></tbody></table></figure>
-<h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><p><a href="https://blog.csdn.net/chinabestchina/article/details/78713505" target="_blank" rel="noopener">https://blog.csdn.net/chinabestchina/article/details/78713505</a></p>
-<p><a href="https://blog.csdn.net/worldchinalee/article/details/82706426" target="_blank" rel="noopener">https://blog.csdn.net/worldchinalee/article/details/82706426</a></p>
-<p><a href="https://www.cnblogs.com/xiangzi888/archive/2012/03/27/2420084.html" target="_blank" rel="noopener">https://www.cnblogs.com/xiangzi888/archive/2012/03/27/2420084.html</a></p>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
-      
-    </div>
-
-    
-    
-    
-    <!--
-    <div>
-      
-    </div>  -->
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.whocareslearning.org.cn/2020/05/22/leecode-04-median-of-two-sorted-arrays/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ava1.png">
-      <meta itemprop="name" content="zhouzhm">
-      <meta itemprop="description" content="吾生也有涯，知也无涯">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="codemk">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/05/22/leecode-04-median-of-two-sorted-arrays/" class="post-title-link" itemprop="url">leecode-04-median-of-two-sorted-arrays</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-05-22 23:41:26 / 修改时间：23:46:25" itemprop="dateCreated datePublished" datetime="2020-05-22T23:41:26+08:00">2020-05-22</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/leecode/" itemprop="url" rel="index"><span itemprop="name">leecode</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/05/22/leecode-04-median-of-two-sorted-arrays/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/05/22/leecode-04-median-of-two-sorted-arrays/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="04-median-of-two-sorted-arrays-寻找两个正序数组的中位数"><a href="#04-median-of-two-sorted-arrays-寻找两个正序数组的中位数" class="headerlink" title="04-median-of-two-sorted-arrays-寻找两个正序数组的中位数"></a>04-median-of-two-sorted-arrays-寻找两个正序数组的中位数</h3><h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><p><strong>给定两个大小为 m 和 n 的正序（从小到大）数组 <code>nums1</code> 和 <code>nums2</code>。</strong></p>
-<p><strong>请你找出这两个正序数组的中位数，并且要求算法的时间复杂度为 O(log(m + n))。你可以假设 <code>nums1</code> 和 <code>nums2</code> 不会同时为空。</strong></p>
-<p><strong>示例 1:</strong></p>
-<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">nums1 = [<span class="number">1</span>, <span class="number">3</span>]</span><br><span class="line">nums2 = [<span class="number">2</span>]</span><br><span class="line"></span><br><span class="line">则中位数是 <span class="number">2.0</span></span><br></pre></td></tr></tbody></table></figure>
-<p><strong>示例 2:</strong></p>
-<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">nums1 = [<span class="number">1</span>, <span class="number">2</span>]</span><br><span class="line">nums2 = [<span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line"></span><br><span class="line">则中位数是 (<span class="number">2</span> + <span class="number">3</span>)/<span class="number">2</span> = <span class="number">2.5</span></span><br></pre></td></tr></tbody></table></figure>
-<h4 id="代码题解："><a href="#代码题解：" class="headerlink" title="代码题解："></a>代码题解：</h4><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findMedianSortedArrays</span><span class="params">(self, nums1, nums2)</span> -&gt; float:</span></span><br><span class="line">        <span class="comment"># 1. 下面这些情况进行处理</span></span><br><span class="line">        len1 = len(nums1)</span><br><span class="line">        len2 = len(nums2)</span><br><span class="line">        <span class="comment"># 一个数组为空，补上另一个数组，中值/2后还是原来的结果(类似于: 3 * 2 / 2还是原来的结果)</span></span><br><span class="line">        <span class="keyword">if</span> len1 == <span class="number">0</span>: nums1 = nums2</span><br><span class="line">        <span class="keyword">elif</span> len2 == <span class="number">0</span>: nums2 = nums1</span><br><span class="line">        <span class="keyword">if</span> len1 == <span class="number">1</span> <span class="keyword">and</span> len2 == <span class="number">1</span>: <span class="keyword">return</span> (nums1[<span class="number">0</span>] + nums2[<span class="number">0</span>]) / <span class="number">2</span> <span class="comment"># 这个情况直接返回</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 2. 获取基本变量信息</span></span><br><span class="line">        lenAll = len1 + len2</span><br><span class="line">        mid = int(lenAll / <span class="number">2</span> + <span class="number">1</span>) <span class="comment"># 使运行到这里长度总&gt;=3，mid中值的位置(3/2+1=2、4/2+1=3)</span></span><br><span class="line">        i = j = <span class="number">0</span> <span class="comment"># 便利索引</span></span><br><span class="line">        ary = [<span class="number">0</span>, <span class="number">0</span>] <span class="comment"># 存储中值的列表</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 3. 核心代码</span></span><br><span class="line">        <span class="keyword">while</span> i &lt; len1 <span class="keyword">and</span> j &lt; len2:</span><br><span class="line">            <span class="comment"># 假定两个数字长度相同，和一个数组遍历到临界点的时候，刚好i + j == mid</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> nums1[i] &lt; nums2[j]:</span><br><span class="line">                ary[(i + j) % <span class="number">2</span>] = nums1[i]</span><br><span class="line">                i += <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                ary[(i + j) % <span class="number">2</span>] = nums2[j]</span><br><span class="line">                j += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> i + j == mid: <span class="keyword">break</span> <span class="comment"># 达到中值 退出循环</span></span><br><span class="line">        <span class="comment"># 对两个数组长度不一，以及一个数组下标i或j先行达临界点(nums1.length = i或nums2.length == j)进行补充</span></span><br><span class="line">        <span class="keyword">while</span> i + j &lt; mid <span class="keyword">and</span> i == len1:</span><br><span class="line">            ary[(i + j) % <span class="number">2</span>] = nums2[j]</span><br><span class="line">            j += <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> i + j &lt; mid <span class="keyword">and</span> j == len2:</span><br><span class="line">            ary[(i + j) % <span class="number">2</span>] = nums1[i]</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 4. 判断后返回对应的运行结果</span></span><br><span class="line">        <span class="keyword">if</span> lenAll % <span class="number">2</span> != <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> ary[(i + j - <span class="number">1</span>) % <span class="number">2</span>] <span class="comment"># 总长度为奇数，最后一个赋值就是中值。</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> (ary[<span class="number">0</span>] + ary[<span class="number">1</span>]) / <span class="number">2</span> <span class="comment"># 总长度为偶数，直接返回他们相加的平均值。</span></span><br></pre></td></tr></tbody></table></figure>
-<p><strong>执行用时 :64 ms, 在所有 Python3 提交中击败了46.57%的用户</strong></p>
-<p><strong>内存消耗 :13.8 MB, 在所有 Python3 提交中击败了6.15%的用户</strong></p>
-<h4 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h4><p><a href="https://leetcode-cn.com/problems/median-of-two-sorted-arrays/solution/shu-zu-cun-chu-fa-jian-dan-yi-li-jie-on-by-guai-ma/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/median-of-two-sorted-arrays/solution/shu-zu-cun-chu-fa-jian-dan-yi-li-jie-on-by-guai-ma/</a></p>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
-      
-    </div>
-
-    
-    
-    
-    <!--
-    <div>
-      
-    </div>  -->
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.whocareslearning.org.cn/2020/05/22/vasp-bach-bash/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ava1.png">
-      <meta itemprop="name" content="zhouzhm">
-      <meta itemprop="description" content="吾生也有涯，知也无涯">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="codemk">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/05/22/vasp-bach-bash/" class="post-title-link" itemprop="url">vasp_batch_bash-使用方法</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-05-22 15:35:00" itemprop="dateCreated datePublished" datetime="2020-05-22T15:35:00+08:00">2020-05-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-24 09:52:42" itemprop="dateModified" datetime="2020-06-24T09:52:42+08:00">2020-06-24</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/bash/" itemprop="url" rel="index"><span itemprop="name">bash</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/05/22/vasp-bach-bash/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/05/22/vasp-bach-bash/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>3.3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <a id="more"></a>
-<p>[TOC]</p>
-<h3 id="系统设置："><a href="#系统设置：" class="headerlink" title="系统设置："></a>系统设置：</h3><ol>
-<li>修改 <code>~/.bashrc</code>,末尾添加，每次登陆会自动运行：</li>
-</ol>
-<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> /home/apps/script/vasp.sh</span><br><span class="line"><span class="built_in">source</span> /home/apps/script/ase.sh</span><br></pre></td></tr></tbody></table></figure>
-<ol>
-<li>修改 <code>~/.bash_profile</code>,末尾添加，把脚本文件添加到路径</li>
-</ol>
-<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:/home/zhouzm/mysh</span><br></pre></td></tr></tbody></table></figure>
-<ol>
-<li><code>mysh</code>目录下脚本：</li>
-</ol>
-<figure class="highlight mipsasm"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">batch_vasp_normal </span> cl_vaspfile        _runvasp_mynpar   test.<span class="keyword">sh</span></span><br><span class="line"><span class="keyword">batch_vasp_npar </span>   getmypbe           _runvasp_mysmall  getmyenergy  <span class="keyword">batch_vasp_small </span>  _runvasp_mynormal  test2.<span class="keyword">sh </span>getmyfrenquency</span><br></pre></td></tr></tbody></table></figure>
-<h3 id="各个脚本简介："><a href="#各个脚本简介：" class="headerlink" title="各个脚本简介："></a>各个脚本简介：</h3><h4 id="getmypbe"><a href="#getmypbe" class="headerlink" title="getmypbe"></a>getmypbe</h4><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">自动获取POSCAR第一行，添加POTCAR</span><br><span class="line"><span class="comment"># 必须是ase保存的，VESTA保存的POSCAR第一行不是元素符号</span></span><br></pre></td></tr></tbody></table></figure>
-<h4 id="runvasp-mynormal"><a href="#runvasp-mynormal" class="headerlink" title="_runvasp_mynormal"></a>_runvasp_mynormal</h4><figure class="highlight mipsasm"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">使用方法：</span><br><span class="line">_runvasp_mynormal <span class="keyword">jobname(自己随便写)</span></span><br><span class="line"><span class="keyword">默认参数设置：</span></span><br><span class="line"><span class="keyword">0 </span><span class="string">"IBRION != 777"</span></span><br><span class="line">Enter VASP <span class="keyword">build </span><span class="number">0</span> for standard</span><br><span class="line"><span class="keyword">normal </span>节点</span><br></pre></td></tr></tbody></table></figure>
-<h4 id="runvasp-mysmall"><a href="#runvasp-mysmall" class="headerlink" title="_runvasp_mysmall"></a>_runvasp_mysmall</h4><figure class="highlight properties"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">使用方法：</span></span><br><span class="line"><span class="attr">_runvasp_mynormal</span> <span class="string">jobname(自己随便写)</span></span><br><span class="line"><span class="attr">默认参数设置：</span></span><br><span class="line"><span class="attr">0</span> <span class="string">"IBRION != 777"</span></span><br><span class="line"><span class="attr">Enter</span> <span class="string">VASP build 0 for standard</span></span><br><span class="line"><span class="attr">small</span> <span class="string">节点</span></span><br></pre></td></tr></tbody></table></figure>
-<h4 id="runvasp-mynpar"><a href="#runvasp-mynpar" class="headerlink" title="_runvasp_mynpar"></a>_runvasp_mynpar</h4><figure class="highlight routeros"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">_runvasp_mynpar jobname(自己随便写)</span><br><span class="line">默认参数设置：</span><br><span class="line">0 <span class="keyword">for</span> default</span><br><span class="line">Enter VASP build 0 <span class="keyword">for</span> standard</span><br><span class="line">small 节点</span><br></pre></td></tr></tbody></table></figure>
-<h4 id="批量提交：batch-vasp-normal-batch-vasp-small-batch-vasp-npar"><a href="#批量提交：batch-vasp-normal-batch-vasp-small-batch-vasp-npar" class="headerlink" title="批量提交：batch_vasp_normal,batch_vasp_small,batch_vasp_npar"></a>批量提交：batch_vasp_normal,batch_vasp_small,batch_vasp_npar</h4><figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">batch_vasp_normal采用_runvasp_mynormal提交，其他类似</span><br><span class="line">使用方法： </span><br><span class="line">	batch_vasp_normal opt-c111-ts2-h2coo  opt-c111-ts4-h-h2co ...</span><br><span class="line">    # 任务名称使用文件夹名字</span><br><span class="line">opt-c111-ts2-h2coo:目录下面可以没有POTCAR,会使用getmypbe自动获取。</span><br><span class="line">normal:提交到normal节点</span><br><span class="line">small:是提交到small节点</span><br><span class="line">npar: 计算频率</span><br></pre></td></tr></tbody></table></figure>
-<h4 id="cl-vaspfile"><a href="#cl-vaspfile" class="headerlink" title="cl_vaspfile"></a>cl_vaspfile</h4><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除当前目录下文件，保留输入文件POSCAR INCAR KPOINTS POTCAR</span></span><br></pre></td></tr></tbody></table></figure>
-<h4 id="getmyenergy"><a href="#getmyenergy" class="headerlink" title="getmyenergy"></a>getmyenergy</h4><figure class="highlight armasm"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">使用方法：</span><br><span class="line">	getmyenergy  <span class="meta">opt</span>-c111-ts2-h2coo  <span class="meta">opt</span>-c111-ts4-h-h2co ...</span><br><span class="line">	# 没有添加检测相关OUTCAR是否正确结束在获取能量，没有输出正常结束信息为异常结束</span><br><span class="line">获取OUTCAR 的能量，并保存到 ENERGYFILE 文件中</span><br></pre></td></tr></tbody></table></figure>
-<h4 id="getmyfrenquency"><a href="#getmyfrenquency" class="headerlink" title="getmyfrenquency"></a>getmyfrenquency</h4><figure class="highlight jboss-cli"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">使用方法：</span><br><span class="line">	getmyfrenquency  opt-c111-ts2-h2coo  opt-c111-ts4-h-h2co <span class="string">...</span></span><br><span class="line">	<span class="comment"># 读取OUTCAR的频率信息，并保存到 FREQUENCYFILE 文件中,终端输出虚频和零点能</span></span><br><span class="line">	<span class="comment"># FREQUENCYFILE 不保存虚频，频率按行输出，以逗号隔开</span></span><br></pre></td></tr></tbody></table></figure>
-<h3 id="ase-gui"><a href="#ase-gui" class="headerlink" title="ase-gui"></a>ase-gui</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ase-gui CU.cif -o Cu.poscar</span><br><span class="line">ase convert Cu.cif  Cu.poscar</span><br></pre></td></tr></tbody></table></figure>
-<h4 id="批量获取POTCAR-POSCAR，cif"><a href="#批量获取POTCAR-POSCAR，cif" class="headerlink" title="批量获取POTCAR, POSCAR，cif"></a>批量获取POTCAR, POSCAR，cif</h4><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/env bash</span></span><br><span class="line">FILENAMELIST=<span class="variable">$@</span></span><br><span class="line"><span class="keyword">for</span> file <span class="keyword">in</span> <span class="variable">$FILENAMELIST</span></span><br><span class="line">    <span class="keyword">do</span></span><br><span class="line">        <span class="built_in">cd</span> <span class="variable">$file</span></span><br><span class="line">			getmypbe </span><br><span class="line">			<span class="comment"># ase convert Cu.cif  Cu.poscar #ase-gui POSCAR/CONTCAR -o Cu.cif</span></span><br><span class="line">		<span class="built_in">cd</span> ../</span><br><span class="line">    <span class="keyword">done</span></span><br></pre></td></tr></tbody></table></figure>
-<h3 id="直接修改源文件"><a href="#直接修改源文件" class="headerlink" title="直接修改源文件"></a>直接修改源文件</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/env bash</span></span><br><span class="line">FILENAMELIST=<span class="variable">$@</span></span><br><span class="line"><span class="keyword">for</span> file <span class="keyword">in</span> <span class="variable">$FILENAMELIST</span></span><br><span class="line">    <span class="keyword">do</span></span><br><span class="line">       <span class="built_in">cd</span> <span class="variable">$file</span></span><br><span class="line">            cp POSCAR old_POSCAR</span><br><span class="line">            sed -i <span class="string">'$a    6.8920794341203466  8.2498237913018961 10.6854462174986473'</span> POSCAR   </span><br><span class="line">            <span class="comment"># POSCAR 最后一行后添加新行‘6.8920794341203466  8.2498237913018961 10.6854462174986473’</span></span><br><span class="line">            <span class="comment"># sed -i 's/\.$/\!/g'  #.结尾的，换成！结尾 </span></span><br><span class="line">            sed -i <span class="string">'/In/s/$/  H/'</span> POSCAR  <span class="comment"># 行中有 In的 末尾插入 H</span></span><br><span class="line">        <span class="comment">#	sed -i '/32/s/$/ 1/' POSCAR # 行中有 32的 末尾插入 1</span></span><br><span class="line">            sed -i <span class="string">'6s/$/ 1/'</span> POSCAR       <span class="comment"># 第六行末尾插入 1</span></span><br><span class="line">            sed -i <span class="string">'/NPAR/d'</span> INCAR   <span class="comment"># 行中有NPAR 则删除 该行</span></span><br><span class="line">		<span class="built_in">cd</span> ../</span><br><span class="line">    <span class="keyword">done</span></span><br></pre></td></tr></tbody></table></figure>
-<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/env python3.7</span></span><br><span class="line"><span class="comment"># Perceptron algorithm</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>  <span class="title">perceptron</span><span class="params">(X, y, eta=<span class="number">1</span>, max_step=<span class="number">100000</span>)</span>:</span></span><br><span class="line">	<span class="string">"""</span></span><br><span class="line"><span class="string">	X :   feature array contain intercept</span></span><br><span class="line"><span class="string">	y:    lables  0 or 1</span></span><br><span class="line"><span class="string">    eta:   step length</span></span><br><span class="line"><span class="string">	max_step: maximum iterations</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">	"""</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	n, d = X.shape  <span class="comment"># array shape , n rows d columns</span></span><br><span class="line">	w = np.zeros(d)  <span class="comment"># initial weights assigned to the features</span></span><br><span class="line">	step = <span class="number">0</span> <span class="comment"># initial iteration step</span></span><br><span class="line">	row = <span class="number">0</span> <span class="comment"># initial from first row of X</span></span><br><span class="line">	<span class="keyword">while</span> step &lt; max_step:  <span class="comment"># 判断是否到达最大迭代次数</span></span><br><span class="line">		<span class="keyword">if</span> np.sign(X[row, :].dot(w) * (y[row]<span class="number">-0.5</span>)) &lt;=<span class="number">0</span>:  <span class="comment"># 判断第i行是否分类正确</span></span><br><span class="line">            step += <span class="number">1</span>  <span class="comment"># step+1</span></span><br><span class="line">            w += eta * y[row] * X[row, :]  <span class="comment"># 更新weights</span></span><br><span class="line">		<span class="keyword">if</span> row == n: <span class="comment"># 检测是否到最后一行，是的话从第一行开始</span></span><br><span class="line">            row = <span class="number">0</span></span><br><span class="line">		<span class="keyword">if</span> np.sum((X.dot(w) == y)) == n: <span class="comment"># 判断是否全部分类正确，是则终止循环</span></span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line">	<span class="keyword">return</span> w <span class="comment"># 返回 weights</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># decision tree</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> tree</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">data = pd.read_csv(<span class="string">'classfication-regression.csv'</span>)</span><br><span class="line">data_coloums_name = data.columns.tolist()</span><br><span class="line"></span><br><span class="line"><span class="comment">#!/bin/env python3.7</span></span><br><span class="line"><span class="comment"># DecisionTreeClassifier</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Tree_test</span><span class="params">()</span>:</span></span><br><span class="line"></span><br><span class="line">    data_x = data[[<span class="string">'H-In'</span>, <span class="string">'coord'</span>, <span class="string">'O_v'</span>, <span class="string">'bi-HCOO'</span>, <span class="string">'H_2COO'</span>, <span class="string">'CH_2O'</span>]]</span><br><span class="line">    data_y = data[<span class="string">'ts2-c'</span>]</span><br><span class="line">    clf = tree.DecisionTreeClassifier(max_depth=<span class="number">1</span>)</span><br><span class="line">    clf = clf.fit(data_x, data_y)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">import</span> graphviz</span><br><span class="line">    dot_data = tree.export_graphviz(clf, out_file=<span class="literal">None</span>,</span><br><span class="line">                                    feature_names=[<span class="string">'H-In'</span>, <span class="string">'coord'</span>, <span class="string">'O_v'</span>, <span class="string">'bi-HCOO'</span>, <span class="string">'H_2COO'</span>, <span class="string">'CH_2O'</span>],</span><br><span class="line">                                    class_names=[<span class="string">'TS3'</span>, <span class="string">'TS2'</span>],</span><br><span class="line">                                    filled=<span class="literal">True</span>, rounded=<span class="literal">True</span>,</span><br><span class="line">                                    special_characters=<span class="literal">True</span>)</span><br><span class="line">    graph = graphviz.Source(dot_data)</span><br><span class="line">    graph.render(<span class="string">"ts2-c"</span>)</span><br><span class="line">    graph.view()</span><br></pre></td></tr></tbody></table></figure>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
-      
-    </div>
-
-    
-    
-    
-    <!--
-    <div>
-      
-    </div>  -->
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
-  </nav>
-
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>codemk - 学习笔记，人生感悟</title><meta name="description" content="吾生也有涯，知也无涯"><meta name="author" content="zhouzhm"><meta name="copyright" content="zhouzhm"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.whocareslearning.org.cn/page/6/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="yandex-verification" content="{&quot;theme_color&quot;:{&quot;enable&quot;:true,&quot;main&quot;:&quot;#49B1F5&quot;,&quot;paginator&quot;:&quot;#00c4b6&quot;,&quot;button_hover&quot;:&quot;#FF7242&quot;,&quot;text_selection&quot;:&quot;#00c4b6&quot;,&quot;link_color&quot;:&quot;#99a9bf&quot;,&quot;meta_color&quot;:&quot;#858585&quot;,&quot;hr_color&quot;:&quot;#A4D8FA&quot;,&quot;code_foreground&quot;:&quot;#F47466&quot;,&quot;code_background&quot;:&quot;rgba(27, 31, 35, .05)&quot;,&quot;toc_color&quot;:&quot;#00c4b6&quot;,&quot;blockquote_padding_color&quot;:&quot;#49b1f5&quot;,&quot;blockquote_background_color&quot;:&quot;#49b1f5&quot;}}"/><meta property="og:type" content="website"><meta property="og:title" content="codemk"><meta property="og:url" content="https://www.whocareslearning.org.cn/page/6/"><meta property="og:site_name" content="codemk"><meta property="og:description" content="吾生也有涯，知也无涯"><meta property="og:image" content="https://www.whocareslearning.org.cn/images/ava1.png"><meta property="article:published_time" content="2020-09-06T14:09:40.563Z"><meta property="article:modified_time" content="2020-09-06T14:09:40.563Z"><meta name="twitter:card" content="summary"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?dbfd5dc029096b5047ace83699a50000";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '5.1.1',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime: '',
+  date_suffix: {"one_hour":"刚刚","hours":"小时前","day":"天前"},
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+      const now = new Date()
+      const expiryDay = ttl * 86400000
+      const item = {
+        value: value,
+        expiry: now.getTime() + expiryDay,
       }
+      localStorage.setItem(key, JSON.stringify(item))
+    },
+  
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
     }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
   }
-</script>
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isSidebar: false,
+  postUpdate: '2020-09-06 22:09:40'
+}</script><noscript><style type="text/css">
+#nav {
+  opacity: 1
+}
+.justified-gallery img {
+  opacity: 1
+}
+</style></noscript><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+  }
+}
 
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
+var autoChangeMode = 'false'
+var t = saveToLocal.get('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
 
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="zhouzhm"
-      src="/images/ava1.png">
-  <p class="site-author-name" itemprop="name">zhouzhm</p>
-  <div class="site-description" itemprop="description">吾生也有涯，知也无涯</div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">71</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">12</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">29</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
-</div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/sarizzm" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;sarizzm" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://i.csdn.net/#/uc/profile" title="CSDN → https:&#x2F;&#x2F;i.csdn.net&#x2F;#&#x2F;uc&#x2F;profile" rel="noopener" target="_blank"><i class="fa fa-crosshairs fa-fw"></i>CSDN</a>
-      </span>
-  </div>
-  <div class="cc-license motion-element" itemprop="license">
-    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
-  </div>
-
-
-
-      </div>
-        <div class="back-to-top motion-element">
-          <i class="fa fa-arrow-up"></i>
-          <span>0%</span>
-        </div>
-  
-      
-        <script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
-        <script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
-        <div class="widget-wrap">
-          <h3 class="widget-title">Tag Cloud</h3>
-          <div id="myCanvasContainer" class="widget tagcloud">
-              <canvas width="250" height="250" id="resCanvas" style="width=100%">
-                <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/awk/" rel="tag">awk</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash/" rel="tag">bash</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash-vasp/" rel="tag">bash_vasp</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog%E7%BE%8E%E5%8C%96/" rel="tag">blog美化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/excel/" rel="tag">excel</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/idpp-neb/" rel="tag">idpp_neb</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leecode/" rel="tag">leecode</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lunix/" rel="tag">lunix</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/multi-task/" rel="tag">multi-task</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/multiprocessing/" rel="tag">multiprocessing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/multiprocessing-pool/" rel="tag">multiprocessing.pool</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oral-english/" rel="tag">oral_english</a><span class="tag-list-count">26</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pandas/" rel="tag">pandas</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pycharm/" rel="tag">pycharm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/re/" rel="tag">re</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/threading/" rel="tag">threading</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/threading-Lock/" rel="tag">threading.Lock</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typora/" rel="tag">typora</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zip-map-enumerate/" rel="tag">zip-map-enumerate</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/" rel="tag">动态规划-背包问题</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95/" rel="tag">哈希算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE%E7%81%B5%E6%9C%BA-turing-machine-%E6%A8%A1%E5%9E%8B/" rel="tag">图灵机(turing machine)模型</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%88-Stack/" rel="tag">栈(Stack)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%92%E5%BD%92/" rel="tag">递归</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%92%E5%BD%92%E4%B8%8E%E5%88%86%E6%B2%BB%E7%AD%96%E7%95%A5/" rel="tag">递归与分治策略</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%9F%E5%88%97%EF%BC%88queue%EF%BC%89/" rel="tag">队列（queue）</a><span class="tag-list-count">1</span></li></ul>
-              </canvas>
-          </div>
-        </div>
-      
-    
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">zhouzhm</span>
- <!--  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>  -->
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-chart-area"></i>
-    </span>
-      <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">278k</span>
-</div>
-<!--
-  <div class="powered-by">
-  <i class="fa fa-user-md"></i>
-    <span id="busuanzi_container_site_uv">
-        本站访客量: <span id="busuanzi_value_site_uv"></span>位
-    </span>
-  </div>
-
-  <div class="powered-by">
-  <i class="fa fa-user-md"></i>
-    <span id="busuanzi_container_site_pv">
-        本站访问量: <span id="busuanzi_value_site_pv"></span>次
-    </span>
-  </div>
-     
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
-  </div>
--->
-<!--
-
--->
-
-        
-<div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
-      <span class="post-meta-item-icon">
-        <i class="user"></i>
-      </span>
-      <span class="site-uv" title="总访客量">
-        <span id="busuanzi_value_site_uv"></span>
-      </span>
-    </span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
-      <span class="post-meta-item-icon">
-        <i class="eye"></i>
-      </span>
-      <span class="site-pv" title="总访问量">
-        <span id="busuanzi_value_site_pv"></span>
-      </span>
-    </span>
-</div>
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
-
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/pisces.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
-      
-
-<script>
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      loader: {
-        source: {
-          '[tex]/amsCd': '[tex]/amscd',
-          '[tex]/AMScd': '[tex]/amscd'
-        }
-      },
-      tex: {
-        inlineMath: {'[+]': [['$', '$']]},
-        tags: 'ams'
-      },
-      options: {
-        renderActions: {
-          findScript: [10, doc => {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-              const display = !!node.type.match(/; *mode=display/);
-              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-              const text = document.createTextNode('');
-              node.parentNode.replaceChild(text, node);
-              math.start = {node: text, delim: '', n: 0};
-              math.end = {node: text, delim: '', n: 0};
-              doc.math.push(math);
-            });
-          }, '', false],
-          insertedScript: [200, () => {
-            document.querySelectorAll('mjx-container').forEach(node => {
-              let target = node.parentNode;
-              if (target.nodeName.toLowerCase() === 'li') {
-                target.parentNode.classList.add('has-jax');
-              }
-            });
-          }, '', false]
-        }
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (saveToLocal.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
       }
-    };
-    (function () {
-      var script = document.createElement('script');
-      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  } else {
-    MathJax.startup.document.state(0);
-    MathJax.texReset();
-    MathJax.typeset();
-  }
-</script>
-
-    
-
-  
-
-
-<script>
-NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
-  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
-    var GUEST = ['nick', 'mail', 'link'];
-    var guest = 'nick,mail,link';
-    guest = guest.split(',').filter(item => {
-      return GUEST.includes(item);
-    });
-    new Valine({
-      el         : '#valine-comments',
-      verify     : false,
-      notify     : false,
-      appId      : 'ouQRqhHS28VSig7Qdha07YFS-gzGzoHsz',
-      appKey     : 'sOIyts0asrItui9JkJn2qCoH',
-      placeholder: "评论区",
-      avatar     : 'monsterid',
-      meta       : guest,
-      pageSize   : '10' || 10,
-      visitor    : false,
-      lang       : '' || 'zh-cn',
-      path       : location.pathname,
-      recordIP   : false,
-      serverURLs : ''
-    });
-  }, window.Valine);
-});
-</script>
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><meta name="generator" content="Hexo 5.1.1"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/images/ava1.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">71</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">29</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">12</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><header class="full_page" id="page-header" style="background-image: url(/images/sai3.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">codemk</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="site-info"><h1 id="site_title">codemk</h1><div id="site_subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="https://github.com/sarizzm" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/zhouzhimin2018@sari.ac.cn" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div id="scroll_down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout_page" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2020/06/04/learning-lunix/" title="learning_lunix-常见bash操作">     <img class="post_bg" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="learning_lunix-常见bash操作"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/06/04/learning-lunix/" title="learning_lunix-常见bash操作">learning_lunix-常见bash操作</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-06-04T07:35:00.000Z" title="发表于 2020-06-04 15:35:00">2020-06-04</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/lunix/">lunix</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag article-meta__icon"></i><a class="article-meta__tags" href="/tags/lunix/">lunix</a></span></div><div class="content">
+[TOC]
+Linux 命令行快捷键常用命令123456789101112131415161718ctrl+左右键:在单词之间跳转ctrl+a:跳到本行的行首ctrl+e:跳到页尾Ctrl+u：删除当前光标前面的文字 （还有剪切功能）ctrl+k：删除当前光标后面的文字(还有剪切功能)Ctrl+L：进行清屏操作Ctrl+y:粘贴Ctrl+u或ctrl+k剪切的内容Ctrl+w:删除光标前面的单词的字符Ctrl – h ：删除光标左方位置的字符Ctrl – d ：删除光标右方位置的字符（注意：当前命令行没有任何字符时，会注销系统或结束终Ctrl – b ：往回(左)移动一个字符Ctrl – f ：往后(右)移动一个字符Ctrl – _ ：回复之前的状态。撤销操作。Alt – d ：由光标位置开始，往右删除单词。往行尾删Alt – b ：往回(左)移动一个单词Alt – f ：往后(右)移动一个单词Alt + . ：使用上一条命令的最后一个参数。
+Bang(!)命令1234567891011!! ：执行上一条命令。^foo^bar ：把上一条命令里的foo替换为bar，并执行。!wget ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2020/05/28/learning-bash-3/" title="learning-bash-3">     <img class="post_bg" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="learning-bash-3"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/05/28/learning-bash-3/" title="learning-bash-3">learning-bash-3</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-05-28T02:02:17.000Z" title="发表于 2020-05-28 10:02:17">2020-05-28</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/bash/">bash</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag article-meta__icon"></i><a class="article-meta__tags" href="/tags/bash/">bash</a></span></div><div class="content">
+[TOC]
+常用输出命令：cut命令使用抽取数据列
+123456789#选项与参数：-d  ：后面接分隔字符。与 -f 一起使用；-f  ：依据 -d 的分隔字符将一段信息分割成为数段，用 -f 取出第几段的意思；-c  ：以字符 (characters) 的单位取出固定字符区间；cut -c 1,3,5 file   抽取数据的第1，3，5 列cut -c 1-5 file  抽取数据1-5列cut -c 1,3-5 file 抽取数据第一列以及3-5列cut -c 3-5 file &gt; new 抽取数据3-5列并保存到new
+抽取数据字段
+123cut -f 1 -d ':' file  抽取第一个字段，字段用使用 ':'隔开的cut -f 1,3-5 -d ' ' file 抽取第一个以及第3-5个字段，字段使用空格隔开的cut -sf 3-5 -d ':' file 抽取第3-5个字段，并抑制没有定界符‘:‘ 的行的输出
+echo以下两句等价：
+12echo “hello!” echo hello!
+显示转义字符123echo “\”hello!\”” echo \”h ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2020/05/25/youdao-oral-english-25/" title="Youdao-Oral-English-26">     <img class="post_bg" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Youdao-Oral-English-26"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/05/25/youdao-oral-english-25/" title="Youdao-Oral-English-26">Youdao-Oral-English-26</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-05-25T14:26:25.000Z" title="发表于 2020-05-25 22:26:25">2020-05-25</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/English/">English</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag article-meta__icon"></i><a class="article-meta__tags" href="/tags/oral-english/">oral_english</a></span></div><div class="content">打卡第二十六天swing by，顺道拜访，路过。
 
 
- <!-- fireworks失败  -->
-  
-   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
-   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
-   <script type="text/javascript" src="/js/src/fireworks.js"></script>
-  
-</body>
-</html>
+
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2020/05/23/learning-bash-2/" title="learning-bash-2">     <img class="post_bg" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="learning-bash-2"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/05/23/learning-bash-2/" title="learning-bash-2">learning-bash-2</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-05-23T02:02:17.000Z" title="发表于 2020-05-23 10:02:17">2020-05-23</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/bash/">bash</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag article-meta__icon"></i><a class="article-meta__tags" href="/tags/bash/">bash</a></span></div><div class="content">
+[TOC]
+目录获取1234# 获取bash运行所在目录rundir=$(pwd)# 获取bash脚本所在目录bash_dir=$(dirname $0),dirname $0 #取得当前执行的脚本文件的父目录
+补充：123$()# 如果需要把一个或一串命令的返回值赋给一个变量，可以用$()，然后把命令放入括号中。例如：LINES = $(cat filename | wc -l)
+bash特殊变量:\$0, ​\$#, ​\$*, ​\$@, \$?, ​\$\$和命令行参数
 
 
-<!-- 页面点击小红心 -->
-<!-- <script type="text/javascript" src="/js/src/clicklove.js"></script> -->
+
+变量
+含义
+
+
+
+
+$0
+当前脚本的文件名。
+
+
+$n
+传递给脚本或函数的参数。n 是一个数字，表示第几个参数。例如，第一个参数是\$1，第二个参数是\$2。
+
+
+$#
+传递给脚本或函数的参数个数。
+
+
+$*
+传递给脚本或函数的所有参数。
+
+
+$@
+传递给脚本或函数的所有参数。被双引号(“ “)包含时，与 \$* 稍有不同，下面将会讲到。
+
+
+$?
+上个命令的退出状态，或函数的返回值。
+
+
+$$
+当前Shell进程ID。对于 Shell 脚本，就是这些脚本所在的进程ID。
+
+
+
+
+\$* 和 \$@ 的 ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2020/05/22/leecode-04-median-of-two-sorted-arrays/" title="leecode-04-median-of-two-sorted-arrays">     <img class="post_bg" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg3.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="leecode-04-median-of-two-sorted-arrays"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/05/22/leecode-04-median-of-two-sorted-arrays/" title="leecode-04-median-of-two-sorted-arrays">leecode-04-median-of-two-sorted-arrays</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-05-22T15:41:26.000Z" title="发表于 2020-05-22 23:41:26">2020-05-22</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/leecode/">leecode</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag article-meta__icon"></i><a class="article-meta__tags" href="/tags/leecode/">leecode</a></span></div><div class="content">04-median-of-two-sorted-arrays-寻找两个正序数组的中位数问题给定两个大小为 m 和 n 的正序（从小到大）数组 nums1 和 nums2。
+请你找出这两个正序数组的中位数，并且要求算法的时间复杂度为 O(log(m + n))。你可以假设 nums1 和 nums2 不会同时为空。
+示例 1:
+1234nums1 = [1, 3]nums2 = [2]则中位数是 2.0
+示例 2:
+1234nums1 = [1, 2]nums2 = [3, 4]则中位数是 (2 + 3)/2 = 2.5
+代码题解：12345678910111213141516171819202122232425262728293031323334353637383940class Solution:    def findMedianSortedArrays(self, nums1, nums2) -&gt; float:        # 1. 下面这些情况进行处理        len1 = len(nums1)        len2 = len(nums2)        #  ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2020/05/22/vasp-bach-bash/" title="vasp_batch_bash-使用方法">     <img class="post_bg" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="vasp_batch_bash-使用方法"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/05/22/vasp-bach-bash/" title="vasp_batch_bash-使用方法">vasp_batch_bash-使用方法</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-05-22T07:35:00.000Z" title="发表于 2020-05-22 15:35:00">2020-05-22</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/bash/">bash</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag article-meta__icon"></i><a class="article-meta__tags" href="/tags/bash-vasp/">bash_vasp</a></span></div><div class="content">
+[TOC]
+系统设置：
+修改 ~/.bashrc,末尾添加，每次登陆会自动运行：
+
+12source /home/apps/script/vasp.shsource /home/apps/script/ase.sh
+
+修改 ~/.bash_profile,末尾添加，把脚本文件添加到路径
+
+1export PATH=$PATH:/home/zhouzm/mysh
+
+mysh目录下脚本：
+
+12batch_vasp_normal  cl_vaspfile        _runvasp_mynpar   test.shbatch_vasp_npar    getmypbe           _runvasp_mysmall  getmyenergy  batch_vasp_small   _runvasp_mynormal  test2.sh getmyfrenquency
+各个脚本简介：getmypbe12自动获取POSCAR第一行，添加POTCAR# 必须是ase保存的，VESTA保存的POSCAR第一行不是元素符号
+_runvasp_mynormal123456使用方法：_run ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/5/"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/7/"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="/images/ava1.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">zhouzhm</div><div class="author-info__description">吾生也有涯，知也无涯</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length_num">71</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length_num">29</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length_num">12</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/sarizzm" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/zhouzhimin2018@sari.ac.cn" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div></div><div class="sticky_layout"><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2020/08/31/3-pandas-excel/" title="3- pandas excel 操作"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="3- pandas excel 操作"/></a><div class="content"><a class="title" href="/2020/08/31/3-pandas-excel/" title="3- pandas excel 操作">3- pandas excel 操作</a><time datetime="2020-08-31T13:59:15.799Z" title="发表于 2020-08-31 21:59:15">2020-08-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/08/09/shu-ju-jie-gou-yu-suan-fa-dong-tai-gui-hua-bei-bao-wen-ti/" title="数据结构与算法-动态规划-背包问题"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数据结构与算法-动态规划-背包问题"/></a><div class="content"><a class="title" href="/2020/08/09/shu-ju-jie-gou-yu-suan-fa-dong-tai-gui-hua-bei-bao-wen-ti/" title="数据结构与算法-动态规划-背包问题">数据结构与算法-动态规划-背包问题</a><time datetime="2020-08-09T02:46:33.000Z" title="发表于 2020-08-09 10:46:33">2020-08-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/08/08/shu-ju-jie-gou-yu-suan-fa-fen-zhi-ce-lue-yu-di-gui/" title="数据结构与算法-递归与分治策略"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg3.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数据结构与算法-递归与分治策略"/></a><div class="content"><a class="title" href="/2020/08/08/shu-ju-jie-gou-yu-suan-fa-fen-zhi-ce-lue-yu-di-gui/" title="数据结构与算法-递归与分治策略">数据结构与算法-递归与分治策略</a><time datetime="2020-08-08T02:36:33.000Z" title="发表于 2020-08-08 10:36:33">2020-08-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/08/07/shu-ju-jie-gou-yu-suan-fa-wu-xu-lian-biao/" title="数据结构与算法-有序-无序链表定义与实例"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg3.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数据结构与算法-有序-无序链表定义与实例"/></a><div class="content"><a class="title" href="/2020/08/07/shu-ju-jie-gou-yu-suan-fa-wu-xu-lian-biao/" title="数据结构与算法-有序-无序链表定义与实例">数据结构与算法-有序-无序链表定义与实例</a><time datetime="2020-08-07T09:34:33.000Z" title="发表于 2020-08-07 17:34:33">2020-08-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/08/07/shu-ju-jie-gou-yu-suan-fa-di-gui/" title="数据结构与算法-递归-定义与实例"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数据结构与算法-递归-定义与实例"/></a><div class="content"><a class="title" href="/2020/08/07/shu-ju-jie-gou-yu-suan-fa-di-gui/" title="数据结构与算法-递归-定义与实例">数据结构与算法-递归-定义与实例</a><time datetime="2020-08-07T02:34:33.000Z" title="发表于 2020-08-07 10:34:33">2020-08-07</time></div></div></div></div></div><div class="card-widget card-categories"><div class="card-content"><div class="item-headline"><i class="fas fa-folder-open"></i><span>分类</span></div><ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/English/"><span class="card-category-list-name">English</span><span class="card-category-list-count">26</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"><span class="card-category-list-name">Hexo博客搭建</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/awk/"><span class="card-category-list-name">awk</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/bash/"><span class="card-category-list-name">bash</span><span class="card-category-list-count">7</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/excel/"><span class="card-category-list-name">excel</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/leecode/"><span class="card-category-list-name">leecode</span><span class="card-category-list-count">4</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/lunix/"><span class="card-category-list-name">lunix</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/neb/"><span class="card-category-list-name">neb</span><span class="card-category-list-count">1</span></a></li>
+            <li class="card-category-list-item more is-center"><a class="card-category-list-link-more" href="/categories/">
+                <span>查看更多</span><i class="fas fa-angle-right"></i></a></li>
+            </ul></div></div><div class="card-widget card-tags"><div class="card-content"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href='/tags/Hexo/' style='font-size:1.14em; color:rgb(171, 3, 143)'>Hexo</a><a href='/tags/awk/' style='font-size:1.22em; color:rgb(69, 163, 128)'>awk</a><a href='/tags/bash/' style='font-size:1.39em; color:rgb(38, 176, 153)'>bash</a><a href='/tags/bash-vasp/' style='font-size:1.25em; color:rgb(175, 134, 59)'>bash_vasp</a><a href='/tags/blog%E7%BE%8E%E5%8C%96/' style='font-size:1.23em; color:rgb(28, 55, 49)'>blog美化</a><a href='/tags/excel/' style='font-size:1.17em; color:rgb(183, 70, 24)'>excel</a><a href='/tags/idpp-neb/' style='font-size:1.49em; color:rgb(175, 95, 12)'>idpp_neb</a><a href='/tags/leecode/' style='font-size:1.19em; color:rgb(63, 27, 144)'>leecode</a><a href='/tags/lunix/' style='font-size:1.22em; color:rgb(77, 28, 130)'>lunix</a><a href='/tags/multi-task/' style='font-size:1.25em; color:rgb(53, 31, 176)'>multi-task</a><a href='/tags/multiprocessing/' style='font-size:1.18em; color:rgb(84, 25, 176)'>multiprocessing</a><a href='/tags/multiprocessing-pool/' style='font-size:1.49em; color:rgb(66, 72, 105)'>multiprocessing.pool</a><a href='/tags/oral-english/' style='font-size:1.18em; color:rgb(102, 183, 112)'>oral_english</a><a href='/tags/pandas/' style='font-size:1.38em; color:rgb(134, 125, 172)'>pandas</a><a href='/tags/pycharm/' style='font-size:1.16em; color:rgb(181, 191, 187)'>pycharm</a><a href='/tags/python/' style='font-size:1.30em; color:rgb(47, 113, 28)'>python</a><a href='/tags/re/' style='font-size:1.48em; color:rgb(36, 139, 166)'>re</a><a href='/tags/threading/' style='font-size:1.22em; color:rgb(6, 101, 186)'>threading</a><a href='/tags/threading-Lock/' style='font-size:1.15em; color:rgb(181, 166, 153)'>threading.Lock</a><a href='/tags/typora/' style='font-size:1.41em; color:rgb(69, 80, 75)'>typora</a><a href='/tags/zip-map-enumerate/' style='font-size:1.24em; color:rgb(116, 150, 11)'>zip-map-enumerate</a><a href='/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/' style='font-size:1.12em; color:rgb(183, 160, 142)'>动态规划-背包问题</a><a href='/tags/%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95/' style='font-size:1.30em; color:rgb(86, 135, 43)'>哈希算法</a><a href='/tags/%E5%9B%BE%E7%81%B5%E6%9C%BA-turing-machine-%E6%A8%A1%E5%9E%8B/' style='font-size:1.42em; color:rgb(64, 102, 137)'>图灵机(turing machine)模型</a><a href='/tags/%E6%A0%88-Stack/' style='font-size:1.37em; color:rgb(122, 8, 138)'>栈(Stack)</a><a href='/tags/%E9%80%92%E5%BD%92/' style='font-size:1.41em; color:rgb(63, 33, 158)'>递归</a><a href='/tags/%E9%80%92%E5%BD%92%E4%B8%8E%E5%88%86%E6%B2%BB%E7%AD%96%E7%95%A5/' style='font-size:1.31em; color:rgb(180, 22, 53)'>递归与分治策略</a><a href='/tags/%E9%93%BE%E8%A1%A8/' style='font-size:1.36em; color:rgb(139, 12, 74)'>链表</a><a href='/tags/%E9%98%9F%E5%88%97%EF%BC%88queue%EF%BC%89/' style='font-size:1.44em; color:rgb(65, 119, 175)'>队列（queue）</a></div></div></div><div class="card-widget card-archives"><div class="card-content"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/08/"><span class="card-archive-list-date">八月 2020</span><span class="card-archive-list-count">6</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/07/"><span class="card-archive-list-date">七月 2020</span><span class="card-archive-list-count">19</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/06/"><span class="card-archive-list-date">六月 2020</span><span class="card-archive-list-count">6</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/05/"><span class="card-archive-list-date">五月 2020</span><span class="card-archive-list-count">26</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/04/"><span class="card-archive-list-date">四月 2020</span><span class="card-archive-list-count">14</span></a></li></ul></div></div><div class="card-widget card-webinfo"><div class="card-content"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">71</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2020-09-06T14:09:38.685Z"></div></div></div></div></div></div></div></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 By zhouzhm</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, welcome to my blog</div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>
