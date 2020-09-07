@@ -1,0 +1,363 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>数据结构与算法-排序与查找-查找 | codemk</title><meta name="description" content="排序与查找-查找[TOC] 顺序查找Sequential Search无序表 如果数据项保存在如列表这样的集合中，我们会称这些数据项具有线性或者顺序关系。 在Python List中， 这些数据项的存储位置称为下标（index） ， 这些下标都是有序的整数。 通过下标， 我们就可以按照顺序来访问和查找数据项， 这种技术称为“顺序查找   要确定列表中是否存在需要查找的数据项  首先从列表的第1个数"><meta name="keywords" content="数据结构与算法,查找(search)"><meta name="author" content="zhouzhm"><meta name="copyright" content="zhouzhm"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.whocareslearning.org.cn/2020/08/19/shu-ju-jie-gou-yu-suan-fa-pai-xu-yu-cha-zhao-cha-zhao/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="yandex-verification" content="{&quot;theme_color&quot;:{&quot;enable&quot;:true,&quot;main&quot;:&quot;#49B1F5&quot;,&quot;paginator&quot;:&quot;#00c4b6&quot;,&quot;button_hover&quot;:&quot;#FF7242&quot;,&quot;text_selection&quot;:&quot;#00c4b6&quot;,&quot;link_color&quot;:&quot;#99a9bf&quot;,&quot;meta_color&quot;:&quot;#858585&quot;,&quot;hr_color&quot;:&quot;#A4D8FA&quot;,&quot;code_foreground&quot;:&quot;#F47466&quot;,&quot;code_background&quot;:&quot;rgba(27, 31, 35, .05)&quot;,&quot;toc_color&quot;:&quot;#00c4b6&quot;,&quot;blockquote_padding_color&quot;:&quot;#49b1f5&quot;,&quot;blockquote_background_color&quot;:&quot;#49b1f5&quot;}}"/><meta property="og:type" content="article"><meta property="og:title" content="数据结构与算法-排序与查找-查找"><meta property="og:url" content="https://www.whocareslearning.org.cn/2020/08/19/shu-ju-jie-gou-yu-suan-fa-pai-xu-yu-cha-zhao-cha-zhao/"><meta property="og:site_name" content="codemk"><meta property="og:description" content="排序与查找-查找[TOC] 顺序查找Sequential Search无序表 如果数据项保存在如列表这样的集合中，我们会称这些数据项具有线性或者顺序关系。 在Python List中， 这些数据项的存储位置称为下标（index） ， 这些下标都是有序的整数。 通过下标， 我们就可以按照顺序来访问和查找数据项， 这种技术称为“顺序查找   要确定列表中是否存在需要查找的数据项  首先从列表的第1个数"><meta property="og:image" content="https://www.whocareslearning.org.cn/images/default.png"><meta property="article:published_time" content="2020-08-19T06:46:33.000Z"><meta property="article:modified_time" content="2020-09-07T15:40:37.174Z"><meta name="twitter:card" content="summary"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?dbfd5dc029096b5047ace83699a50000";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '5.1.1',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime: '',
+  date_suffix: {"one_hour":"刚刚","hours":"小时前","day":"天前"},
+  copyright: undefined,
+  ClickShowText: {"text":"富强,自由,爱国,文明,和谐","fontSize":"15px"},
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+      const now = new Date()
+      const expiryDay = ttl * 86400000
+      const item = {
+        value: value,
+        expiry: now.getTime() + expiryDay,
+      }
+      localStorage.setItem(key, JSON.stringify(item))
+    },
+  
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true,
+  postUpdate: '2020-09-07 23:40:37'
+}</script><noscript><style type="text/css">
+#nav {
+  opacity: 1
+}
+.justified-gallery img {
+  opacity: 1
+}
+</style></noscript><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+  }
+}
+
+var autoChangeMode = 'false'
+var t = saveToLocal.get('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (saveToLocal.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><meta name="generator" content="Hexo 5.1.1"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/images/ava1.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">77</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">33</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">13</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><div id="web_bg" data-type="photo"></div><div id="sidebar"><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F%E4%B8%8E%E6%9F%A5%E6%89%BE-%E6%9F%A5%E6%89%BE"><span class="toc-number">1.</span> <span class="toc-text">排序与查找-查找</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%BA%E5%BA%8F%E6%9F%A5%E6%89%BESequential-Search"><span class="toc-number">1.1.</span> <span class="toc-text">顺序查找Sequential Search</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%A0%E5%BA%8F%E8%A1%A8"><span class="toc-number">1.1.1.</span> <span class="toc-text">无序表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%BA%E5%BA%8F%E6%9F%A5%E6%89%BE%E7%9A%84%E7%AE%97%E6%B3%95%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%98%AFO-n"><span class="toc-number">1.1.2.</span> <span class="toc-text">顺序查找的算法复杂度是O(n)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%BA%E5%BA%8F%E6%9F%A5%E6%89%BE%EF%BC%9A%E6%9C%89%E5%BA%8F%E8%A1%A8"><span class="toc-number">1.1.3.</span> <span class="toc-text">顺序查找：有序表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%BA%E5%BA%8F%E6%9F%A5%E6%89%BE%E6%9C%89%E5%BA%8F%E8%A1%A8%E7%9A%84%E5%90%84%E7%A7%8D%E6%83%85%E5%86%B5%E5%88%86%E6%9E%90"><span class="toc-number">1.1.4.</span> <span class="toc-text">顺序查找有序表的各种情况分析</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE"><span class="toc-number">2.</span> <span class="toc-text">二分查找</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E8%80%8C%E6%B2%BB%E4%B9%8B"><span class="toc-number">2.0.1.</span> <span class="toc-text">分而治之</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE-%E9%80%92%E5%BD%92"><span class="toc-number">2.0.2.</span> <span class="toc-text">二分查找  - 递归</span></a></li></ol></li></ol></li></ol></div></div></div><header class="post-bg" id="page-header" style="background-image: url(/images/default.png)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">codemk</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">数据结构与算法-排序与查找-查找</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-08-19T06:46:33.000Z" title="发表于 2020-08-19 14:46:33">2020-08-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-09-07T15:40:37.174Z" title="更新于 2020-09-07 23:40:37">2020-09-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h2 id="排序与查找-查找"><a href="#排序与查找-查找" class="headerlink" title="排序与查找-查找"></a>排序与查找-查找</h2><p>[TOC]</p>
+<h3 id="顺序查找Sequential-Search"><a href="#顺序查找Sequential-Search" class="headerlink" title="顺序查找Sequential Search"></a>顺序查找Sequential Search</h3><h4 id="无序表"><a href="#无序表" class="headerlink" title="无序表"></a>无序表</h4><ul>
+<li>如果数据项保存在如列表这样的集合中，我们会称这些数据项具有线性或者顺序关系。</li>
+<li>在Python List中， 这些数据项的存储位置称为下标（index） ， 这些下标都是有序的整数。</li>
+<li><p>通过下标， 我们就可以按照顺序来访问和查找数据项， 这种技术称为“顺序查找 </p>
+</li>
+<li><p>要确定列表中是否存在需要查找的数据项</p>
+<ul>
+<li>首先从列表的第1个数据项开始，</li>
+<li>按照下标增长的顺序，逐个比对数据项，如果到最后一个都未发现要查找的项，那么查找失败 </li>
+</ul>
+</li>
+</ul>
+<p><img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3384933869,1643931641&amp;fm=26&amp;gp=0.jpg" alt=""></p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sequentialSearch</span>(<span class="params">alist, item</span>):</span></span><br><span class="line">    pos = <span class="number">0</span></span><br><span class="line">    found = <span class="literal">False</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span> pos &lt; len(alist) <span class="keyword">and</span> <span class="keyword">not</span> found:</span><br><span class="line">        <span class="keyword">if</span> alist[pos] == item:</span><br><span class="line">            found = <span class="literal">True</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            pos = pos+<span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> found</span><br><span class="line"></span><br><span class="line">testlist = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">32</span>, <span class="number">8</span>, <span class="number">17</span>, <span class="number">19</span>, <span class="number">42</span>, <span class="number">13</span>, <span class="number">0</span>]</span><br><span class="line">print(sequentialSearch(testlist, <span class="number">3</span>))</span><br><span class="line">print(sequentialSearch(testlist, <span class="number">13</span>))</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="顺序查找的算法复杂度是O-n"><a href="#顺序查找的算法复杂度是O-n" class="headerlink" title="顺序查找的算法复杂度是O(n)"></a>顺序查找的算法复杂度是O(n)</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Case</th>
+<th>Best Case</th>
+<th>Worst Case</th>
+<th>Average Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>item is present</td>
+<td>1</td>
+<td>n</td>
+<td>n/2</td>
+</tr>
+<tr>
+<td>item is not present</td>
+<td>n</td>
+<td>n</td>
+<td>n</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="顺序查找：有序表"><a href="#顺序查找：有序表" class="headerlink" title="顺序查找：有序表"></a>顺序查找：有序表</h4><p><strong>当数据项存在时，比对过程与无序表完全相同不同之处在于，如果数据项不存在，比对可以提前结束</strong> </p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">orderedSequentialSearch</span>(<span class="params">alist, item</span>):</span></span><br><span class="line">    pos = <span class="number">0</span></span><br><span class="line">    found = <span class="literal">False</span></span><br><span class="line">    stop = <span class="literal">False</span></span><br><span class="line">    <span class="keyword">while</span> pos &lt; len(alist) <span class="keyword">and</span> <span class="keyword">not</span> found <span class="keyword">and</span> <span class="keyword">not</span> stop:</span><br><span class="line">        <span class="keyword">if</span> alist[pos] == item:</span><br><span class="line">            found = <span class="literal">True</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">if</span> alist[pos] &gt; item: </span><br><span class="line">                stop = <span class="literal">True</span> <span class="comment"># 可以提前终止，因为是有序的</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                pos = pos+<span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> found</span><br><span class="line"></span><br><span class="line">testlist = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">8</span>, <span class="number">13</span>, <span class="number">17</span>, <span class="number">19</span>, <span class="number">32</span>, <span class="number">42</span>,]</span><br><span class="line">print(orderedSequentialSearch(testlist, <span class="number">3</span>))</span><br><span class="line">print(orderedSequentialSearch(testlist, <span class="number">13</span>))</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="顺序查找有序表的各种情况分析"><a href="#顺序查找有序表的各种情况分析" class="headerlink" title="顺序查找有序表的各种情况分析"></a>顺序查找有序表的各种情况分析</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Case</th>
+<th>Best Case</th>
+<th>Worst Case</th>
+<th>Average Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>item is present</td>
+<td>1</td>
+<td>n</td>
+<td>n/2</td>
+</tr>
+<tr>
+<td>item is not present</td>
+<td>1</td>
+<td>n</td>
+<td>n/2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>实际上， 就算法复杂度而言， 仍然是O(n)</li>
+<li>只是在数据项不存在的时候， 有序表的查找能节省一些比对次数， 但并不改变其数量级 </li>
+</ul>
+<h2 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h2><p>从列表中间开始比对<br><strong>如果列表中间的项匹配查找项，则查找结束</strong><br>如果不匹配，那么就有两种情况：</p>
+<ul>
+<li>列表中间项比查找项大，那么查找项只可能出现在前半部分</li>
+<li>列表中间项比查找项小，那么查找项只可能出现在后半部分<ul>
+<li>无论如何，我们都会将比对范围缩小到原来的一半： n/2</li>
+<li>继续采用上面的方法查找，每次都会将比对范围缩小一半 </li>
+</ul>
+</li>
+</ul>
+<p><img src="http://5b0988e595225.cdn.sohucs.com/images/20190518/908be567c6064b39a651c7fde5a8eb6b.gif" alt=""></p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">binarySearch</span>(<span class="params">alist, item</span>):</span></span><br><span class="line">    first = <span class="number">0</span></span><br><span class="line">    last = len(alist)<span class="number">-1</span></span><br><span class="line">    found = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> first&lt;=last <span class="keyword">and</span> <span class="keyword">not</span> found:</span><br><span class="line">        midpoint = (first + last)//<span class="number">2</span></span><br><span class="line">        <span class="keyword">if</span> alist[midpoint] == item:</span><br><span class="line">            found = <span class="literal">True</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">if</span> item &lt; alist[midpoint]:</span><br><span class="line">                last = midpoint<span class="number">-1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                first = midpoint+<span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> found</span><br><span class="line"></span><br><span class="line">testlist = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">8</span>, <span class="number">13</span>, <span class="number">17</span>, <span class="number">19</span>, <span class="number">32</span>, <span class="number">42</span>,]</span><br><span class="line">print(binarySearch(testlist, <span class="number">3</span>))</span><br><span class="line">print(binarySearch(testlist, <span class="number">13</span>))</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="分而治之"><a href="#分而治之" class="headerlink" title="分而治之"></a>分而治之</h4><p>二分查找算法实际上体现了解决问题的典型策略： 分而治之，将问题分为若干更小规模的部分，通过解决每一个小规模部分问题，并将结果汇总，得到原问题的解  </p>
+<h4 id="二分查找-递归"><a href="#二分查找-递归" class="headerlink" title="二分查找  - 递归"></a>二分查找  - 递归</h4><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">binarySearch</span>(<span class="params">alist, item</span>):</span></span><br><span class="line">    <span class="keyword">if</span> len(alist) == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        midpoint = len(alist)//<span class="number">2</span></span><br><span class="line">        <span class="keyword">if</span> alist[midpoint]==item:</span><br><span class="line">          <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">          <span class="keyword">if</span> item&lt;alist[midpoint]:</span><br><span class="line">            <span class="keyword">return</span> binarySearch(alist[:midpoint],item)</span><br><span class="line">          <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> binarySearch(alist[midpoint+<span class="number">1</span>:],item)</span><br><span class="line"></span><br><span class="line">testlist = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">8</span>, <span class="number">13</span>, <span class="number">17</span>, <span class="number">19</span>, <span class="number">32</span>, <span class="number">42</span>,]</span><br><span class="line">print(binarySearch(testlist, <span class="number">3</span>))</span><br><span class="line">print(binarySearch(testlist, <span class="number">13</span>))</span><br></pre></td></tr></tbody></table></figure>
+<p>由于二分查找， 每次比对都将下一步的比对范围缩小一半，每次比对后剩余数据项如下表所示：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Comparisons</th>
+<th>Approximate Number of Items Left</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>n/2</td>
+</tr>
+<tr>
+<td>2</td>
+<td>n/4</td>
+</tr>
+<tr>
+<td>3</td>
+<td>n/8</td>
+</tr>
+<tr>
+<td>…</td>
+<td></td>
+</tr>
+<tr>
+<td>i</td>
+<td>$n/2^i$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>当比对次数足够多以后， 比对范围内就会仅剩余1个数据项,二分法查找的算法复杂度是O(log n)</p>
+<ul>
+<li>虽然我们根据比对的次数， 得出二分查找的复杂度O(log n)</li>
+<li><p>但本算法中除了比对， 还有一个因素需要<br>注意到：</p>
+<ul>
+<li>binarySearch(alist[:midpoint],item)这个递归调用使用了列表切片，而切片操作的复<br>杂度是O(k)，这样会使整个算法的时间复杂度稍有增加；</li>
+<li>当然，我们采用切片是为了程序可读性更好，实际上也可以不切片，<strong>而只是传入起始和结束的索引值即可，这样就不会有切片的时间开销了。</strong>  </li>
+</ul>
+</li>
+<li><p>另外， 虽然二分查找在时间复杂度上优于顺序查找</p>
+</li>
+<li><p>但也要考虑到对数据项进行排序的开销</p>
+<ul>
+<li>如果一次排序后可以进行多次查找，那么排序的开销就可以摊薄</li>
+<li>但如果数据集经常变动，查找次数相对较少，那么可能还是直接用无序表加上顺序查找来得经济</li>
+</ul>
+</li>
+<li><p>所以， 在算法选择的问题上， 光看时间复杂度的优劣是不够的， 还需要考虑到实际应用的情况。  </p>
+</li>
+</ul>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script></div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">zhouzhm</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.whocareslearning.org.cn/2020/08/19/shu-ju-jie-gou-yu-suan-fa-pai-xu-yu-cha-zhao-cha-zhao/">https://www.whocareslearning.org.cn/2020/08/19/shu-ju-jie-gou-yu-suan-fa-pai-xu-yu-cha-zhao-cha-zhao/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.whocareslearning.org.cn" target="_blank">codemk</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a><a class="post-meta__tags" href="/tags/%E6%9F%A5%E6%89%BE-search/">查找(search)</a></div><div class="post_share"><div class="social-share" data-image="/images/default.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/08/19/shu-ju-jie-gou-yu-suan-fa-pai-xu-yu-cha-zhao-mou-pao-he-xuan-ze-pai-xu/"><img class="prev-cover" src="/images/default.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">数据结构与算法-排序与查找-冒泡和选择</div></div></a></div><div class="next-post pull-right"><a href="/2020/08/19/python-scipy-yang-tiao-chai-zhi/"><img class="next-cover" src="/images/default.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">scipy-样条插值interpolate</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2020/08/19/shu-ju-jie-gou-yu-suan-fa-pai-xu-yu-cha-zhao-mou-pao-he-xuan-ze-pai-xu/" title="数据结构与算法-排序与查找-冒泡和选择"><img class="cover" src="/images/default.png"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-19</div><div class="title">数据结构与算法-排序与查找-冒泡和选择</div></div></a></div><div><a href="/2020/08/21/shu-ju-jie-gou-yu-suan-fa-pai-xu-yu-cha-zhao-gui-bing-he-kuai-pai/" title="数据结构与算法-排序与查找-归并与快排"><img class="cover" src="/images/default.png"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-21</div><div class="title">数据结构与算法-排序与查找-归并与快排</div></div></a></div><div><a href="/2020/08/22/shu-ju-jie-gou-yu-suan-fa-pai-xu-yu-cha-zhao-ying-she-chou-xiang-shu-ju-lei-xing/" title="数据结构与算法-排序与查找-映射抽象数据类型"><img class="cover" src="/images/default3.png"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-22</div><div class="title">数据结构与算法-排序与查找-映射抽象数据类型</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></article></main><footer id="footer" style="background-image: url(/images/default.png)" data-type="photo"><div id="footer-wrap"><div class="copyright">&copy;2020 By zhouzhm</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, welcome to my blog</div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  var script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>function loadValine () {
+  function initValine () {
+    window.valine = new Valine({
+      el: '#vcomment',
+      appId: 'ouQRqhHS28VSig7Qdha07YFS-gzGzoHsz',
+      appKey: 'sOIyts0asrItui9JkJn2qCoH',
+      placeholder: '有问题，请留言......',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'en',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    });
+    if ('nick,mail') { valine.config.requiredFields= 'nick,mail'.split(',') }
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/js/third-party/ClickShowText.js" async="async"></script></div></body></html>
